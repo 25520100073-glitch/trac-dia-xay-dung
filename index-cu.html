@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Học Tuyến Tính 100% - Trắc Địa Xây Dựng (TS. Nguyễn Anh Tài)</title>
+<style>
+  :root {
+    --primary: #1e3a8a;
+    --primary-light: #2563eb;
+    --accent: #d97706;
+    --success: #15803d;
+    --danger: #b91c1c;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --border: #cbd5e1;
+    --font: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.65;
+    padding-bottom: 80px;
+  }
+
+  /* TOP STICKY BAR */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0f172a;
+    color: #fff;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .top-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #38bdf8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .top-zz-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1e293b;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+  }
+  .top-zz-box label {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+  .top-zz-box input {
+    width: 65px;
+    padding: 4px 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    border: 2px solid #38bdf8;
+    background: #0f172a;
+    color: #38bdf8;
+    border-radius: 6px;
+    outline: none;
+  }
+
+  /* PROGRESS TRACKER */
+  .progress-nav {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    position: sticky;
+    top: 53px;
+    z-index: 90;
+  }
+  .p-step {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: #f1f5f9;
+    color: var(--text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .p-step:hover {
+    background: #e2e8f0;
+    color: var(--text);
+  }
+  .p-step.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+
+  /* CONTAINER */
+  .container {
+    max-width: 960px;
+    margin: 24px auto;
+    padding: 0 16px;
+  }
+
+  /* HERO BANNER */
+  .hero-banner {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+    color: white;
+    padding: 26px 30px;
+    border-radius: 14px;
+    margin-bottom: 28px;
+    border-left: 6px solid #38bdf8;
+  }
+  .hero-banner h1 {
+    font-size: 1.55rem;
+    margin-bottom: 8px;
+    color: #ffffff;
+  }
+  .hero-banner p {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 14px;
+  }
+  .hero-callout {
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    color: #e0f2fe;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* STEP SECTION */
+  .step-section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 26px 28px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #f1f5f9;
+  }
+  .step-num {
+    width: 42px;
+    height: 42px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .step-title h2 {
+    font-size: 1.25rem;
+    color: var(--primary);
+  }
+  .step-title p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .step-badge {
+    margin-left: auto;
+    background: #e0e7ff;
+    color: #3730a3;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+
+  /* MATH TYPOGRAPHY (CHUẨN 100% KHÔNG LỖI FONT) */
+  .math {
+    font-family: 'Cambria Math', 'Cambria', 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 1.05em;
+  }
+  .math-num {
+    font-family: var(--font);
+    font-style: normal;
+    font-weight: 600;
+  }
+  .math-unit {
+    font-family: var(--font);
+    font-style: normal;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .math-block {
+    font-family: 'Cambria Math', 'Cambria', 'Times New Roman', serif;
+    background: #f8fafc;
+    border-left: 4px solid var(--primary-light);
+    padding: 10px 16px;
+    margin: 10px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 1.05rem;
+    color: #0f172a;
+    display: block;
+    line-height: 1.7;
+  }
+
+  
+  /* PROBLEM BOXES */
+  .problem-box {
+    background: #f8fafc;
+    border: 2px solid #3b82f6;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 18px 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+  .problem-box-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1.5px dashed #cbd5e1;
+  }
+  .problem-box-desc {
+    font-size: 0.94rem;
+    color: #1e293b;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .problem-box-questions {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.92rem;
+  }
+  .problem-box-questions ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .problem-box-questions li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .problem-box-questions li:last-child {
+    margin-bottom: 0;
+  }
+  .q-badge {
+    background: #dbeafe;
+    color: #1e40af;
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* BOXES */
+  .rule-box {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 0.95rem;
+  }
+  .rule-box h4 {
+    color: var(--primary);
+    margin-bottom: 6px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .trap-box {
+    background: #fef2f2;
+    border-left: 4px solid var(--danger);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 0.95rem;
+    color: #991b1b;
+  }
+  .trap-box h4 {
+    color: var(--danger);
+    margin-bottom: 6px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .casio-box {
+    background: #f0fdf4;
+    border-left: 4px solid var(--success);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 0.95rem;
+  }
+  .casio-box h4 {
+    color: var(--success);
+    margin-bottom: 6px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* DUAL SOLUTIONS */
+  .dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  @media(max-width: 768px) {
+    .dual-grid { grid-template-columns: 1fr; }
+  }
+  .sol-card {
+    border-radius: 8px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    font-size: 0.92rem;
+  }
+  .sol-card.teacher {
+    background: #f8fafc;
+    border-top: 3px solid #64748b;
+  }
+  .sol-card.student {
+    background: #fffbeb;
+    border: 1.5px solid #fde68a;
+    border-top: 3px solid var(--accent);
+  }
+  .sol-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sol-tag {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .sol-card.teacher .sol-tag { background: #e2e8f0; color: #475569; }
+  .sol-card.student .sol-tag { background: #fef3c7; color: #b45309; }
+
+  /* SVG DIAGRAMS */
+  .diagram-wrap {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+    margin: 16px 0;
+  }
+  .diagram-wrap svg {
+    max-width: 100%;
+    height: auto;
+  }
+  .diagram-cap {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* TABLES */
+  .table-responsive {
+    overflow-x: auto;
+    margin: 16px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  table.calc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    text-align: center;
+    background: white;
+  }
+  table.calc-table th {
+    background: #1e293b;
+    color: #fff;
+    padding: 10px 8px;
+    font-weight: 600;
+    border: 1px solid #334155;
+    white-space: nowrap;
+  }
+  table.calc-table td {
+    padding: 9px 8px;
+    border: 1px solid #e2e8f0;
+    white-space: nowrap;
+  }
+  table.calc-table tr:hover td {
+    background: #f8fafc;
+  }
+  .row-total {
+    background: #f1f5f9;
+    font-weight: 700;
+  }
+  .td-highlight {
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .math-code {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #0f172a;
+    font-size: 0.9em;
+  }
+
+  /* BUTTON ACTION */
+  .btn-print {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-print:hover { background: #1d4ed8; }
+
+  /* COLLAPSIBLE EXERCISE CARDS */
+  details.ex-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 14px 0;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  details.ex-card summary {
+    padding: 12px 18px;
+    font-weight: 700;
+    cursor: pointer;
+    background: #f1f5f9;
+    color: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    font-size: 0.95rem;
+    border-bottom: 1px solid transparent;
+    transition: background 0.2s;
+  }
+  details.ex-card summary:hover {
+    background: #e2e8f0;
+  }
+  details.ex-card[open] summary {
+    background: #e0f2fe;
+    color: #0369a1;
+    border-bottom: 1px solid #bae6fd;
+  }
+  details.ex-card .ex-body {
+    padding: 16px 20px;
+    background: #ffffff;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  .ex-tag {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: #dbeafe;
+    color: #1e40af;
+    font-weight: 600;
+  }
+
+  @media print {
+    .top-bar, .progress-nav, .btn-print { display: none; }
+    body { background: white; padding: 0; }
+    .step-section { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+    details.ex-card[open] { border: 1px solid #aaa; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY TOP CONTROLLER -->
+<div class="top-bar">
+  <div class="top-title">
+    <span>🧭 TRẮC ĐỊA XD-T: LỘ TRÌNH ÔN THI TUYẾN TÍNH 100%</span>
+  </div>
+  <div class="top-zz-box">
+    <label for="studentZZ">SỐ THỨ TỰ ZZ CỦA BẠN:</label>
+    <input type="number" id="studentZZ" value="10" min="1" max="99" oninput="updateAllCalculations()">
+  </div>
+</div>
+
+<!-- LINEAR NAV TRACKER -->
+<div class="progress-nav">
+  <a href="#step1" class="p-step active">Bước 1: Nạp vũ khí & Casio</a>
+  <a href="#step2" class="p-step">Bước 2: Thủy chuẩn & Sai số (3đ)</a>
+  <a href="#step3" class="p-step">Bước 3: Đo cao lượng giác (2đ)</a>
+  <a href="#step4" class="p-step">Bước 4: Mia 3 chỉ & Mốc cốt 0 (3đ)</a>
+  <a href="#step5" class="p-step">Bước 5: Bình sai tuyến theo Di (4đ)</a>
+  <a href="#step6" class="p-step">Bước 6: Bình sai theo số trạm (2đ)</a>
+  <a href="#step7" class="p-step" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-weight:700;">Bước 7: Lý Thuyết Ch 3 & 4</a>
+  <a href="#step8" class="p-step" style="background:#e0e7ff; color:#3730a3; border-color:#818cf8; font-weight:700;">Bước 8: 15 Bài Tập Tự Luyện</a>
+  <a href="#step9" class="p-step" style="background:#fce7f3; color:#9d174d; border-color:#f472b6; font-weight:700;">Bước 9: Đề Thi Thử 10đ (Động ZZ)</a>
+  <a href="#step10" class="p-step" style="background:#fee2e2; color:#991b1b; border-color:#f87171; font-weight:700;">Bước 10: Sổ Lỗi & Tờ Công Thức</a>
+</div>
+
+<div class="container">
+
+  <!-- HERO BANNER -->
+  <div class="hero-banner">
+    <h1>HƯỚNG DẪN HỌC TUYẾN TÍNH CẦM TAY CHỈ VIỆC</h1>
+    <p>Toàn bộ tài liệu, công thức toán và bài giải mẫu được lập trình bằng <strong>HTML toán học thuần ngữ nghĩa</strong>, đảm bảo 100% không bao giờ bị lỗi font hay trơ code thô, kể cả khi xem offline không có mạng!</p>
+    <div class="hero-callout">
+      <span>💡</span>
+      <span><strong>Mẹo thực chiến:</strong> Nhập số thứ tự <strong style="color:#fff; text-decoration:underline;">ZZ</strong> ở góc trên, toàn bộ phép tính, bảng bình sai và bài giải ở cột vàng bên dưới sẽ <strong>TỰ ĐỘNG CẬP NHẬT THEO ĐÚNG SỐ CỦA BẠN!</strong></span>
+    </div>
+  </div>
+
+  <!-- BƯỚC 1: NẠP VŨ KHÍ -->
+  <section id="step1" class="step-section">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title">
+        <h2>KHỞI ĐỘNG VŨ KHÍ & CÀI ĐẶT MÁY TÍNH CASIO</h2>
+        <p>Chuẩn bị máy tính và thuộc lòng 4 dòng công thức bảo bối</p>
+      </div>
+      <div class="step-badge">Khởi động (5 phút)</div>
+    </div>
+
+    <div class="casio-box">
+      <h4>⚙️ Thao tác 1: Cài đặt và sử dụng máy tính Casio fx-880BTG (và fx-580VNX)</h4>
+      <p><strong>1. Chuyển đơn vị góc sang Degree (Độ):</strong><br>
+      • <strong>Trên Casio fx-880BTG:</strong> Bấm phím <span class="math-code">SETTINGS</span> (hình bánh răng) &rarr; chọn <span class="math-code">Calc Settings</span> (Cài đặt phép tính) &rarr; chọn <span class="math-code">Angle Unit</span> (Đơn vị góc) &rarr; chọn <span class="math-code">Degree</span> (Độ). Màn hình góc phải sẽ hiện chữ <strong>D</strong>.<br>
+      • <em>Trên Casio fx-580VNX:</em> Bấm <span class="math-code">SHIFT</span> &rarr; <span class="math-code">MENU</span> &rarr; <span class="math-code">2</span> (Angle Unit) &rarr; <span class="math-code">1</span> (Degree).<br>
+      <em>(Cực kỳ quan trọng: Nếu để chữ R - Radian, bấm hàm tan sẽ sai toàn bộ bài đo cao lượng giác!)</em></p>
+      <br>
+      <p><strong>2. Cách nhập góc độ phút giây trên Casio fx-880BTG:</strong><br>
+      • <em>Lưu ý:</em> Máy fx-880BTG <strong>không có phím cứng [° ' "]</strong> như 580VNX.<br>
+      • <strong>Mẹo thần tốc thi trắc địa:</strong> Đổi phút ra thập phân bằng cách chia cho 60 rồi bấm trực tiếp! Ví dụ góc 15°30' bấm thẳng: <span class="math-code">tan(15.5)</span> (vì 30/60 = 0.5); góc chúc xuống -20°30' bấm thẳng: <span class="math-code">tan(-20.5)</span>. Cách này nhanh hơn bấm menu rất nhiều và không bao giờ bị nhầm!<br>
+      • <em>Cách chuẩn bằng phím chức năng:</em> Nhập số độ &rarr; bấm phím <span class="math-code">CATALOG</span> &rarr; chọn <span class="math-code">Angle/Coord/Sexa</span> &rarr; chọn ký hiệu <span class="math-code">° ' "</span>.</p>
+    </div>
+
+    <div class="rule-box">
+      <h4>📜 Thao tác 2: Nằm lòng 4 dòng công thức cốt lõi (Chép ra giấy nháp ngay bây giờ)</h4>
+      <div class="math-block">
+        1. <strong>Thủy chuẩn từ giữa:</strong> <span class="math">h = a - b = Sau - Trước</span>; <span class="math">H<sub>N</sub> = H<sub>M</sub> + h<sub>MN</sub></span>; Sai số: <span class="math">m<sub>h</sub> = m<sub>đọc</sub> &times; &radic;2</span>.
+      </div>
+      <div class="math-block">
+        2. <strong>Đo cao lượng giác không tới chân mia:</strong> Chiều cao <span class="math">h<sub>CD</sub> = D &times; (tan V<sub>D</sub> - tan V<sub>C</sub>)</span>. Chiều cao máy <span class="math">i</span> triệt tiêu hoàn toàn.
+      </div>
+      <div class="math-block">
+        3. <strong>Mia 3 chỉ thị cự:</strong> Cự ly <span class="math">D = 100 &times; (c<sub>trên</sub> - c<sub>dưới</sub>)</span>; Chỉ khuyết: <span class="math">c<sub>trên</sub> = 2 &times; c<sub>giữa</sub> - c<sub>dưới</sub></span>; Thủy chuẩn phía trước: <span class="math">h = i - T</span>.
+      </div>
+      <div class="math-block">
+        4. <strong>Bình sai tuyến độ cao:</strong> Sai số khép <span class="math">f<sub>h</sub> = &Sigma;h<sub>đo</sub> - (H<sub>cuối</sub> - H<sub>đầu</sub>)</span>; Giới hạn <span class="math">f<sub>hcp</sub> = &plusmn;50 &times; &radic;L<sub>(km)</sub></span>; Số hiệu chỉnh <span class="math">v<sub>hi</sub> = - (f<sub>h</sub> / L) &times; D<sub>i</sub></span>.
+      </div>
+    </div>
+  </section>
+
+  <!-- BƯỚC 2: BÀI 1 - THỦY CHUẨN TỪ GIỮA & SAI SỐ -->
+  <section id="step2" class="step-section">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title">
+        <h2>ĂN CHẮC 3.0 ĐIỂM: THỦY CHUẨN TỪ GIỮA & ĐÁNH GIÁ SAI SỐ</h2>
+        <p>Nguồn đề: Slide 130 & 131 bài giảng trên lớp ngày 06/10/2026</p>
+      </div>
+      <div class="step-badge">Slide 130 & 131</div>
+    </div>
+
+    <!-- ĐỀ BÀI CHÍNH THỨC BÀI 1 -->
+    <div class="problem-box">
+      <div class="problem-box-title">
+        <span>📋 ĐỀ BÀI THI CHÍNH THỨC: BÀI 1 (3.0 ĐIỂM)</span>
+        <span class="step-badge">Slide 130 & 131</span>
+      </div>
+      <div class="problem-box-desc">
+        Người ta sử dụng phương pháp thủy chuẩn hình học từ giữa để dẫn độ cao từ mốc <span class="math">M</span> đến điểm <span class="math">N</span>. Mốc <span class="math">M</span> đã biết cao độ <span class="math">H<sub>M</sub> = 12.500 m</span>. Đặt máy thủy bình tại khoảng giữa hai điểm, ngắm mia dựng tại <span class="math">M</span> đọc được số đọc chỉ giữa mia sau là <span class="math">a = 1000 mm</span>; ngắm mia dựng tại <span class="math">N</span> đọc được số đọc chỉ giữa mia trước là <span class="math">b = ZZ mm</span> (với <span class="math">ZZ</span> là số thứ tự sinh viên; số liệu mẫu trên lớp: <span class="math">b = 1450 mm</span>; số liệu thi theo số của bạn: <span class="math">b = 1000 + ZZ mm</span>).
+      </div>
+      <div class="problem-box-questions">
+        <ul>
+          <li><span class="q-badge">Câu 1.1 (0.5đ)</span> <span>Viết công thức tổng quát và tính chênh cao <span class="math">h<sub>MN</sub></span> giữa hai điểm M và N (đơn vị: mét).</span></li>
+          <li><span class="q-badge">Câu 1.2 (0.5đ)</span> <span>Tính độ cao tuyệt đối của điểm N (<span class="math">H<sub>N</sub></span>).</span></li>
+          <li><span class="q-badge">Câu 1.3 (1.0đ)</span> <span>Biết sai số trung phương đọc số trên mỗi mia là <span class="math">m<sub>đọc</sub> = &plusmn;0.5 mm</span>. Hãy tính sai số trung phương xác định chênh cao <span class="math">m<sub>hMN</sub></span>.</span></li>
+          <li><span class="q-badge">Câu 1.4 (1.0đ)</span> <span>Nếu yêu cầu kỹ thuật quy định sai số chênh cao <span class="math">m<sub>hMN</sub> &le; &plusmn;5 mm</span>, hãy tính sai số đọc số trên mia <span class="math">m<sub>đọc</sub></span> tối đa cho phép.</span></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="diagram-wrap">
+      <svg width="650" height="150" viewBox="0 0 650 150">
+        <path d="M 30 110 L 320 120 L 620 135" stroke="#94a3b8" stroke-width="3" fill="none"/>
+        <rect x="75" y="30" width="10" height="80" fill="#3b82f6"/>
+        <text x="80" y="22" font-size="12" font-weight="700" fill="#1e3a8a" text-anchor="middle">Mốc M (Sau)</text>
+        <line x1="320" y1="50" x2="320" y2="120" stroke="#0f172a" stroke-width="3"/>
+        <circle cx="320" cy="50" r="8" fill="#d97706"/>
+        <text x="320" y="40" font-size="11" font-weight="700" fill="#d97706" text-anchor="middle">Máy thủy bình</text>
+        <line x1="85" y1="50" x2="565" y2="50" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,3"/>
+        <rect x="565" y="45" width="10" height="90" fill="#10b981"/>
+        <text x="570" y="35" font-size="12" font-weight="700" fill="#065f46" text-anchor="middle">Mốc N (Trước)</text>
+        <text x="145" y="45" font-size="11" fill="#1e3a8a">Số đọc Sau: a</text>
+        <text x="495" y="45" font-size="11" fill="#065f46">Số đọc Trước: b</text>
+        <path d="M 600 50 L 600 135" stroke="#0f172a" stroke-width="1.5"/>
+        <text x="615" y="95" font-size="11" font-weight="700" fill="#b91c1c">h = a - b</text>
+      </svg>
+      <div class="diagram-cap">Sơ đồ thủy chuẩn từ giữa: Chênh cao h = a - b (Số đọc mia Sau trừ số đọc mia Trước)</div>
+    </div>
+
+    <div class="trap-box">
+      <h4>⚠️ Bẫy trừ điểm thường gặp:</h4>
+      <p>1. Tuyệt đối không lấy <span class="math">b - a</span> (Trước trừ Sau) &rarr; Ngược dấu là mất trọn 1.0 điểm câu này!</p>
+      <p>2. Nhớ đổi đơn vị: Số đọc trên mia là milimét (<span class="math-unit">mm</span>), cao độ mốc <span class="math">H</span> tính bằng mét (<span class="math-unit">m</span>).</p>
+    </div>
+
+    <!-- SO SÁNH 2 BÀI GIẢI -->
+    <div class="dual-grid">
+      <!-- Cột thầy -->
+      <div class="sol-card teacher">
+        <div class="sol-title">
+          <span>BÀI GIẢI GỐC TRÊN LỚP (ZZ = 450)</span>
+          <span class="sol-tag">Slide 130</span>
+        </div>
+        <p><strong>Đề bài:</strong> <span class="math">H<sub>M</sub> = 12.500 m</span>; Số đọc <span class="math">a = 1000 mm</span>; <span class="math">b = 1450 mm</span>.</p>
+        <br>
+        <p><strong>1.1 Chênh cao h<sub>MN</sub> (0.5đ):</strong><br>
+        <span class="math">h<sub>MN</sub> = a - b = 1000 - 1450 = -450 mm = <strong>-0.450 m</strong></span>.</p>
+        <br>
+        <p><strong>1.2 Cao độ điểm N (0.5đ):</strong><br>
+        <span class="math">H<sub>N</sub> = H<sub>M</sub> + h<sub>MN</sub> = 12.500 + (-0.450) = <strong>12.050 m</strong></span>.</p>
+        <br>
+        <p><strong>1.3 Sai số m<sub>hMN</sub> khi m<sub>đọc</sub> = &plusmn;0.5 mm (1.0đ):</strong><br>
+        <span class="math">m<sub>h</sub> = &radic;(m<sub>a</sub><sup>2</sup> + m<sub>b</sub><sup>2</sup>) = m<sub>đọc</sub> &times; &radic;2 = 0.5 &times; &radic;2 &approx; <strong>&plusmn;0.707 mm</strong></span>.</p>
+        <br>
+        <p><strong>1.4 Sai số đọc mia cần thiết để m<sub>h</sub> &le; 5 mm (1.0đ):</strong><br>
+        <span class="math">m<sub>đọc</sub> &le; m<sub>h</sub> / &radic;2 = 5 / &radic;2 &approx; <strong>&plusmn;3.536 mm</strong></span>.</p>
+      </div>
+
+      <!-- Cột của sinh viên -->
+      <div class="sol-card student">
+        <div class="sol-title">
+          <span>BÀI GIẢI THEO SỐ CỦA BẠN (<span class="dyn-zz-tag">ZZ = 10</span>)</span>
+          <span class="sol-tag">Chép vào giấy luyện tập</span>
+        </div>
+        <p><strong>Đề bài của bạn:</strong> <span class="math">H<sub>M</sub> = 12.500 m</span>; <span class="math">a = 1000 mm</span>;<br>
+        <span class="math">b = 1000 + ZZ = <strong><span id="dyn-b-1">1010</span> mm</strong></span>.</p>
+        <br>
+        <p><strong>1.1 Chênh cao h<sub>MN</sub> (0.5đ):</strong><br>
+        <span class="math">h<sub>MN</sub> = a - b = 1000 - <span id="dyn-b-2">1010</span> = <span id="dyn-h-mm">-10</span> mm = <strong><span id="dyn-h-m">-0.010 m</span></strong></span>.</p>
+        <br>
+        <p><strong>1.2 Cao độ điểm N (0.5đ):</strong><br>
+        <span class="math">H<sub>N</sub> = H<sub>M</sub> + h<sub>MN</sub> = 12.500 + (<span id="dyn-h-m-2">-0.010</span>) = <strong><span id="dyn-hn">12.490 m</span></strong></span>.</p>
+        <br>
+        <p><strong>1.3 Sai số trung phương m<sub>h</sub> (1.0đ):</strong><br>
+        <span class="math">m<sub>h</sub> = m<sub>đọc</sub> &times; &radic;2 = 0.5 &times; &radic;2 &approx; <strong>&plusmn;0.707 mm</strong></span>.</p>
+        <br>
+        <p><strong>1.4 Sai số đọc số cho phép để m<sub>h</sub> &le; 5 mm (1.0đ):</strong><br>
+        <span class="math">m<sub>đọc</sub> &le; 5 / &radic;2 &approx; <strong>&plusmn;3.536 mm</strong></span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BƯỚC 3: BÀI 2 - ĐO CAO LƯỢNG GIÁC -->
+  <section id="step3" class="step-section">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title">
+        <h2>ĂN CHẮC 2.0 ĐIỂM: ĐO CAO LƯỢNG GIÁC XÁC ĐỊNH CHIỀU CAO CÔNG TRÌNH</h2>
+        <p>Nguồn đề: Slide 145 & 146 — Trường hợp không thể tới chân công trình</p>
+      </div>
+      <div class="step-badge">Slide 145 & 146</div>
+    </div>
+
+    <!-- ĐỀ BÀI CHÍNH THỨC BÀI 2 -->
+    <div class="problem-box">
+      <div class="problem-box-title">
+        <span>📋 ĐỀ BÀI THI CHÍNH THỨC: BÀI 2 (2.0 ĐIỂM)</span>
+        <span class="step-badge">Slide 145 & 146</span>
+      </div>
+      <div class="problem-box-desc">
+        Để xác định chiều cao đoạn công trình thẳng đứng <span class="math">CD</span> (từ chân C lên đỉnh D) của một tòa nhà cao tầng mà không thể đặt mia hay đo trực tiếp tới chân công trình, người ta đặt máy kinh vĩ tại Trạm 1 cách trục công trình khoảng cách nằm ngang <span class="math">D<sub>1</sub> = 25 + ZZ m</span> (số liệu mẫu trên lớp: <span class="math">D<sub>1</sub> = 35 m</span> ứng với <span class="math">ZZ = 10</span>). Chiều cao máy tại Trạm 1 là <span class="math">i</span>.<br>
+        Từ Trạm 1, ngắm ống kính lên đỉnh D đo được góc đứng <span class="math">V<sub>D</sub> = +15&deg;30'</span>; ngắm ống kính xuống chân C đo được góc đứng <span class="math">V<sub>C</sub> = -20&deg;30'</span>.
+      </div>
+      <div class="problem-box-questions">
+        <ul>
+          <li><span class="q-badge">Câu 2.1 (0.5đ)</span> <span>Viết công thức xác định chiều cao công trình <span class="math">h<sub>CD</sub></span> và giải thích vì sao kết quả chiều cao lại độc lập hoàn toàn với chiều cao đặt máy <span class="math">i</span> (không cần đo <span class="math">i</span>).</span></li>
+          <li><span class="q-badge">Câu 2.2 (1.5đ)</span> <span>Tính toán chi tiết chiều cao công trình <span class="math">h<sub>CD</sub></span> (đơn vị: mét).</span></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="diagram-wrap">
+      <svg width="600" height="180" viewBox="0 0 600 180">
+        <rect x="480" y="20" width="30" height="130" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+        <circle cx="480" cy="30" r="5" fill="#ef4444"/>
+        <text x="525" y="35" font-size="12" font-weight="700" fill="#b91c1c">Đỉnh D</text>
+        <circle cx="480" cy="140" r="5" fill="#3b82f6"/>
+        <text x="525" y="145" font-size="12" font-weight="700" fill="#1e3a8a">Chân C</text>
+        <line x1="120" y1="90" x2="120" y2="150" stroke="#0f172a" stroke-width="3"/>
+        <circle cx="120" cy="90" r="7" fill="#d97706"/>
+        <text x="120" y="80" font-size="11" font-weight="700" fill="#d97706" text-anchor="middle">Trạm 1 (Máy)</text>
+        <line x1="120" y1="90" x2="480" y2="90" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <line x1="120" y1="90" x2="480" y2="30" stroke="#ef4444" stroke-width="2"/>
+        <line x1="120" y1="90" x2="480" y2="140" stroke="#3b82f6" stroke-width="2"/>
+        <text x="210" y="70" font-size="11" fill="#b91c1c">V_D (+) ngắm đỉnh</text>
+        <text x="210" y="115" font-size="11" fill="#1e3a8a">V_C (-) ngắm chân</text>
+        <line x1="120" y1="165" x2="480" y2="165" stroke="#0f172a" stroke-width="1.5"/>
+        <text x="300" y="160" font-size="11" font-weight="700" text-anchor="middle">Cự ly ngang D</text>
+      </svg>
+      <div class="diagram-cap">Sơ đồ đo cao lượng giác: h_CD = D × (tan V_D - tan V_C). Chiều cao máy i tự triệt tiêu!</div>
+    </div>
+
+    <div class="rule-box">
+      <h4>💡 Câu hỏi lý thuyết bắt buộc phải giải thích (0.5 điểm):</h4>
+      <p><em>"Tại sao khi đo chiều cao công trình từ xa, không cần biết chiều cao đặt máy <span class="math">i</span>?"</em></p>
+      <p>&rarr; <strong>Đáp án chuẩn:</strong> Cả hai tia ngắm lên đỉnh <span class="math">D</span> và chân <span class="math">C</span> đều xuất phát từ cùng trục quay ống kính máy (<span class="math">H<sub>tia</sub> = H<sub>1</sub> + i</span>). Chiều cao công trình <span class="math">h<sub>CD</sub> = H<sub>D</sub> - H<sub>C</sub> = [H<sub>1</sub> + i + D &times; tan V<sub>D</sub>] - [H<sub>1</sub> + i + D &times; tan V<sub>C</sub>] = D &times; (tan V<sub>D</sub> - tan V<sub>C</sub>)</span>. Hai đại lượng <span class="math">H<sub>1</sub></span> và <span class="math">i</span> bị trừ triệt tiêu, do đó kết quả độc lập hoàn toàn với chiều cao máy!</p>
+    </div>
+
+    <div class="dual-grid">
+      <!-- Cột thầy -->
+      <div class="sol-card teacher">
+        <div class="sol-title">
+          <span>BÀI GIẢI GỐC TRÊN LỚP (ZZ = 10)</span>
+          <span class="sol-tag">Slide 145 & 146</span>
+        </div>
+        <p><strong>Số liệu gốc:</strong> <span class="math">D<sub>1</sub> = 35 m</span>; <span class="math">V<sub>D</sub> = +15&deg;30'</span>; <span class="math">V<sub>C</sub> = -20&deg;30'</span>.</p>
+        <br>
+        <p><strong>Bước 1: Tính tang các góc đứng:</strong><br>
+        <span class="math">V<sub>D</sub> = 15.5&deg; &rarr; tan(15&deg;30') &approx; 0.27732</span>.<br>
+        <span class="math">V<sub>C</sub> = -20.5&deg; &rarr; tan(-20&deg;30') &approx; -0.37388</span>.</p>
+        <br>
+        <p><strong>Bước 2: Tính chiều cao công trình:</strong><br>
+        <span class="math">h<sub>CD</sub> = D<sub>1</sub> &times; [tan V<sub>D</sub> - tan V<sub>C</sub>]</span><br>
+        <span class="math">h<sub>CD</sub> = 35 &times; [0.27732 - (-0.37388)]</span><br>
+        <span class="math">h<sub>CD</sub> = 35 &times; [0.27732 + 0.37388]</span><br>
+        <span class="math">h<sub>CD</sub> = 35 &times; 0.65120 = <strong>22.792 m</strong></span>.</p>
+      </div>
+
+      <!-- Cột sinh viên -->
+      <div class="sol-card student">
+        <div class="sol-title">
+          <span>BÀI GIẢI THEO SỐ CỦA BẠN (<span class="dyn-zz-tag">ZZ = 10</span>)</span>
+          <span class="sol-tag">Chép vào giấy luyện tập</span>
+        </div>
+        <p><strong>Số liệu của bạn:</strong> <span class="math">D = 25 + ZZ = <strong><span id="dyn-d1">35</span> m</strong></span>;<br>
+        <span class="math">V<sub>D</sub> = +15&deg;30'</span>; <span class="math">V<sub>C</sub> = -20&deg;30'</span>.</p>
+        <br>
+        <p><strong>Bước 1: Tính tang góc đứng:</strong><br>
+        <span class="math">tan(V<sub>D</sub>) = tan(15.5&deg;) &approx; 0.27732</span>.<br>
+        <span class="math">tan(V<sub>C</sub>) = tan(-20.5&deg;) &approx; -0.37388</span>.</p>
+        <br>
+        <p><strong>Bước 2: Chiều cao công trình h<sub>CD</sub>:</strong><br>
+        <span class="math">h<sub>CD</sub> = <span id="dyn-d1-2">35</span> &times; [0.27732 - (-0.37388)]</span><br>
+        <span class="math">h<sub>CD</sub> = <span id="dyn-d1-3">35</span> &times; 0.65120 = <strong><span id="dyn-hcd">22.792 m</span></strong></span>.</p>
+        <br>
+        <p><em>(Bấm máy tính Casio: <span class="math-code">tan(15°30') - tan(-20°30')</span>)</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BƯỚC 4: BÀI 3 - MIA 3 CHỈ & MỐC CỐT 0 -->
+  <section id="step4" class="step-section">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title">
+        <h2>ĂN CHẮC 3.0 ĐIỂM: MIA 3 CHỈ & MỐC CỐT 0 CÔNG TRÌNH</h2>
+        <p>Nguồn đề: Bài tập lớn Giáo trình trang 67 & Bảng Slide 200, 201</p>
+      </div>
+      <div class="step-badge">Slide 200 & 201</div>
+    </div>
+
+    <!-- ĐỀ BÀI CHÍNH THỨC BÀI 3 -->
+    <div class="problem-box">
+      <div class="problem-box-title">
+        <span>📋 ĐỀ BÀI THI CHÍNH THỨC: BÀI 3 (3.0 ĐIỂM)</span>
+        <span class="step-badge">Giáo trình tr.67 & Slide 200, 201</span>
+      </div>
+      <div class="problem-box-desc">
+        Để xác định độ cao điểm A là điểm cốt 0 của công trình, người ta đặt máy thủy bình tại điểm A ngắm về mia dựng tại hai điểm gốc N1 và N2. Chiều cao máy là <span class="math">i = 1.500 m</span>.<br>
+        Số đọc trên mia tại hai mốc gốc như sau:<br>
+        • Tại mốc N1 (<span class="math">H<sub>N1</sub> = 20.000 m</span>): Số đọc 3 chỉ ngang lần lượt là: chỉ dưới <span class="math">c<sub>d</sub> = 1475 mm</span>, chỉ giữa <span class="math">c<sub>g</sub> = 1725 mm</span>, chỉ trên <span class="math">c<sub>t</sub> = 1975 mm</span>.<br>
+        • Tại mốc N2 (<span class="math">H<sub>N2</sub> = 19.475 m</span>): Chỉ dưới <span class="math">c<sub>d</sub> = 1995 mm</span>, chỉ giữa <span class="math">c<sub>g</sub> = 2265 mm</span> (chỉ trên bị khuyết).<br>
+        Tiêu chuẩn sai số khép cho phép: <span class="math">f<sub>hcp</sub> = &plusmn;100 mm</span>.
+      </div>
+      <div class="problem-box-questions">
+        <ul>
+          <li><span class="q-badge">Câu 3.1 (0.5đ)</span> <span>Xác định khoảng cách nằm ngang <span class="math">D<sub>AN1</sub></span> giữa trạm máy A và mốc N1 bằng dây thị cự.</span></li>
+          <li><span class="q-badge">Câu 3.2 (0.5đ)</span> <span>Khôi phục chỉ trên <span class="math">c<sub>t</sub></span> tại mốc N2 và tính khoảng cách nằm ngang <span class="math">D<sub>AN2</sub></span>.</span></li>
+          <li><span class="q-badge">Câu 3.3 (0.5đ)</span> <span>Xác định chênh cao máy – mia <span class="math">h<sub>AN1</sub></span> và <span class="math">h<sub>AN2</sub></span> theo phương pháp thủy chuẩn phía trước (<span class="math">h = i - T</span>).</span></li>
+          <li><span class="q-badge">Câu 3.4 (0.5đ)</span> <span>Xác định chênh cao <span class="math">h<sub>N1N2</sub></span> giữa hai mốc gốc.</span></li>
+          <li><span class="q-badge">Câu 3.5 (1.0đ)</span> <span>Bình sai tuyến truyền độ cao N1 &rarr; A &rarr; N2 để xác định độ cao bình sai của điểm cốt 0 công trình A (<span class="math">H<sub>A</sub></span>).</span></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="rule-box">
+      <h4>📌 Bản chất bài toán thực tế công trường:</h4>
+      <p>Kỹ sư đặt máy thủy bình tại trạm <span class="math">A</span> (sàn công trình cốt 0, chiều cao máy <span class="math">i = 1.500 m</span>), quay máy ngắm về 2 mốc chuẩn đã biết cao độ <span class="math">N<sub>1</sub></span> (20.000 m) và <span class="math">N<sub>2</sub></span> (19.475 m) để xác định cao độ chuẩn xác của sàn <span class="math">A</span>.</p>
+    </div>
+
+    <div class="trap-box">
+      <h4>⚠️ Bẫy trừ điểm kinh điển của bài tập này:</h4>
+      <p>Khi ngắm từ <span class="math">A</span> về <span class="math">N<sub>1</sub></span>, chênh cao đo phía trước là <span class="math">h<sub>AN1</sub> = i - T = 1.500 - 1.725 = -0.225 m</span>.<br>
+      Nhưng khi lập tuyến truyền độ cao đi từ <strong>N<sub>1</sub> &rarr; A &rarr; N<sub>2</sub></strong>, chênh cao đoạn đầu <span class="math">h<sub>N1A</sub></span> <strong>BẮT BUỘC PHẢI ĐỔI DẤU</strong>:<br>
+      <span class="math-block" style="color:#b91c1c; font-weight:700;">h<sub>1</sub> = h<sub>N1A</sub> = -h<sub>AN1</sub> = -(-0.225) = +0.225 m</span>
+      Rất nhiều sinh viên không đổi dấu lấy nguyên -0.225 dẫn đến sai toàn bộ bảng bình sai!</p>
+    </div>
+
+    <div class="sol-card teacher" style="margin-bottom: 20px;">
+      <div class="sol-title">
+        <span>BÀI TẬP LỚN HOÀN CHỈNH TRANG 67 & SLIDE 201 (SỐ LIỆU CHUẨN CỦA THẦY TÀI)</span>
+        <span class="sol-tag">Lời giải mẫu 100%</span>
+      </div>
+      <p><strong>a) Khoảng cách D<sub>AN1</sub> (0.5đ):</strong><br>
+      <span class="math">D<sub>AN1</sub> = 100 &times; (c<sub>trên</sub> - c<sub>dưới</sub>) = 100 &times; (1975 - 1475) = 100 &times; 500 mm = 50,000 mm = <strong>50.0 m</strong></span>.</p>
+      <br>
+      <p><strong>b) Khôi phục chỉ trên và khoảng cách D<sub>AN2</sub> (0.5đ):</strong><br>
+      <span class="math">c<sub>trên</sub> = 2 &times; c<sub>giữa</sub> - c<sub>dưới</sub> = 2 &times; 2265 - 1995 = <strong>2535 mm</strong></span>.<br>
+      <span class="math">D<sub>AN2</sub> = 100 &times; (2535 - 1995) = 100 &times; 540 mm = <strong>54.0 m</strong></span>.</p>
+      <br>
+      <p><strong>c) Chênh cao máy - mia (thủy chuẩn phía trước h = i - T) (0.5đ):</strong><br>
+      <span class="math">h<sub>AN1</sub> = 1.500 - 1.725 = <strong>-0.225 m</strong></span>.<br>
+      <span class="math">h<sub>AN2</sub> = 1.500 - 2.265 = <strong>-0.765 m</strong></span>.</p>
+      <br>
+      <p><strong>d) Chênh cao giữa hai mốc h<sub>N1N2</sub> (0.5đ):</strong><br>
+      <span class="math">h<sub>N1N2</sub> = h<sub>AN2</sub> - h<sub>AN1</sub> = -0.765 - (-0.225) = <strong>-0.540 m</strong></span>.</p>
+      <br>
+      <p><strong>e) Bình sai xác định độ cao mốc công trình A (1.0đ - Slide 201):</strong></p>
+      <div class="table-responsive">
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th>Điểm trạm</th>
+              <th>Cạnh D<sub>i</sub> (m)</th>
+              <th>Chênh cao đo h<sub>i</sub> (m)</th>
+              <th>Hiệu chỉnh v<sub>hi</sub> (m)</th>
+              <th>Chênh cao BS h<sup>BS</sup> (m)</th>
+              <th>Độ cao bình sai H (m)</th>
+              <th>Ghi chú</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>N1</strong></td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td class="td-highlight">20.000</td>
+              <td>Mốc gốc N1</td>
+            </tr>
+            <tr>
+              <td>N1 &rarr; A</td>
+              <td>50.0</td>
+              <td>+0.225</td>
+              <td>+0.007</td>
+              <td>+0.232</td>
+              <td>-</td>
+              <td>Đổi dấu: -(-0.225)</td>
+            </tr>
+            <tr>
+              <td><strong>A</strong></td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td class="td-highlight" style="color:#d97706; font-size:1.05rem;">20.232</td>
+              <td><strong>Mốc sàn công trình A</strong></td>
+            </tr>
+            <tr>
+              <td>A &rarr; N2</td>
+              <td>54.0</td>
+              <td>-0.765</td>
+              <td>+0.008</td>
+              <td>-0.757</td>
+              <td>-</td>
+              <td>Giữ nguyên hAN2</td>
+            </tr>
+            <tr>
+              <td><strong>N2</strong></td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td class="td-highlight">19.475</td>
+              <td>Mốc gốc N2 (Khớp 100%)</td>
+            </tr>
+            <tr class="row-total">
+              <td><strong>Tổng (&Sigma;)</strong></td>
+              <td><strong>104.0</strong></td>
+              <td><strong>-0.540</strong></td>
+              <td><strong>+0.015</strong></td>
+              <td><strong>-0.525</strong></td>
+              <td colspan="2">f<sub>h</sub> = -0.540 - (-0.525) = -15 mm (ĐẠT)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- GIẢI THÍCH CHI TIẾT TỪNG CON SỐ TRONG BẢNG -->
+      <div style="background:#f1f5f9; border-radius:8px; padding:16px 20px; margin-top:16px; border:1px solid #cbd5e1; font-size:0.92rem;">
+        <h4 style="color:#1e3a8a; margin-bottom:10px; font-size:0.98rem;">🔍 GIẢI THÍCH DỄ HIỂU: TẠI SAO BÌNH SAI VÀ TỪNG SỐ TÍNH THẾ NÀO?</h4>
+        <p><strong>1. Tại sao phải bình sai mốc A?</strong><br>
+        • Nếu tính cao độ sàn A theo mốc N1: <span class="math">H<sub>A</sub> = 20.000 + 0.225 = 20.225 m</span>.<br>
+        • Nếu tính cao độ sàn A theo mốc N2: <span class="math">H<sub>A</sub> = 19.475 - (-0.765) = 20.240 m</span>.<br>
+        &rarr; Hai hướng tính bị <strong>lệch nhau 15 mm</strong> (0.015 m) do sai số ngẫu nhiên đọc mia! Bình sai là việc lấy 15 mm sai lệch này chia đều cho 2 đoạn đo để tìm ra cao độ chuẩn xác nhất của sàn A (kết quả là <strong>20.232 m</strong> nằm giữa 20.225 và 20.240).</p>
+        <br>
+        <p><strong>2. Cạnh D<sub>1</sub> = 50.0 m và D<sub>2</sub> = 54.0 m ở đâu ra?</strong><br>
+        • Đoạn A &rarr; N1: <span class="math">D<sub>1</sub> = 100 &times; (1975 - 1475) mm = 50,000 mm = 50.0 m</span> (tính ở câu a).<br>
+        • Đoạn A &rarr; N2: <span class="math">D<sub>2</sub> = 100 &times; (2535 - 1995) mm = 54,000 mm = 54.0 m</span> (tính ở câu b).<br>
+        • Tổng cự ly: <span class="math">L = 50.0 + 54.0 = 104.0 m</span>.</p>
+        <br>
+        <p><strong>3. Tại sao chênh cao đoạn 1 mang dấu CỘNG (+0.225 m)?</strong><br>
+        • Ở câu c, máy đặt ở A ngắm về N1 đo được: <span class="math">h<sub>AN1</sub> = 1.500 - 1.725 = -0.225 m</span> (nghĩa là N1 thấp hơn A 0.225 m).<br>
+        • Nhưng tuyến truyền độ cao đi từ <strong>N1 &rarr; A &rarr; N2</strong>. Đoạn đầu đi từ N1 lên A (ngược chiều ngắm), nên chênh cao phải <strong>đổi dấu</strong>: <span class="math">h<sub>N1A</sub> = -(-0.225) = <strong>+0.225 m</strong></span>.<br>
+        • Đoạn 2 đi từ A sang N2 (cùng chiều ngắm): giữ nguyên <span class="math">h<sub>AN2</sub> = <strong>-0.765 m</strong></span>.</p>
+        <br>
+        <p><strong>4. Sai số khép f<sub>h</sub> = -15 mm tính thế nào?</strong><br>
+        • Tổng chênh cao đo: <span class="math">&Sigma;h<sub>đo</sub> = (+0.225) + (-0.765) = -0.540 m</span>.<br>
+        • Hiệu độ cao gốc thực tế: <span class="math">H<sub>N2</sub> - H<sub>N1</sub> = 19.475 - 20.000 = -0.525 m</span>.<br>
+        • Sai số khép: <span class="math">f<sub>h</sub> = &Sigma;h<sub>đo</sub> - (H<sub>N2</sub> - H<sub>N1</sub>) = -0.540 - (-0.525) = -0.015 m = <strong>-15 mm</strong></span>.<br>
+        • Tiêu chuẩn cho phép lệch tới &plusmn;100 mm &rarr; Lệch -15 mm là <strong>ĐẠT</strong>.</p>
+        <br>
+        <p><strong>5. Số hiệu chỉnh v<sub>1</sub> = +0.007 m và v<sub>2</sub> = +0.008 m tính thế nào?</strong><br>
+        Vì kết quả đo bị hụt -15 mm, ta phải cộng bù vào (+0.015 m) tỷ lệ theo chiều dài cạnh:<br>
+        • Đoạn 1: <span class="math">v<sub>1</sub> = - (-0.015 / 104) &times; 50 = +0.0072 m &rarr; lấy <strong>+0.007 m</strong></span>.<br>
+        • Đoạn 2: <span class="math">v<sub>2</sub> = - (-0.015 / 104) &times; 54 = +0.0078 m &rarr; lấy <strong>+0.008 m</strong></span>.<br>
+        • Kiểm tra bù trừ: <span class="math">(+0.007) + (+0.008) = +0.015 m = -f<sub>h</sub></span>.</p>
+        <br>
+        <p><strong>6. Cao độ bình sai mốc sàn A = 20.232 m tính thế nào?</strong><br>
+        • Chênh cao sau bình sai đoạn 1: <span class="math">h<sub>1</sub><sup>BS</sup> = (+0.225) + (+0.007) = +0.232 m</span>.<br>
+        • Cao độ sàn A: <span class="math">H<sub>A</sub> = H<sub>N1</sub> + h<sub>1</sub><sup>BS</sup> = 20.000 + 0.232 = <strong>20.232 m</strong></span>.<br>
+        • Kiểm tra tiếp sang mốc cuối N2: <span class="math">H<sub>N2</sub> = 20.232 + [(-0.765) + 0.008] = 20.232 - 0.757 = <strong>19.475 m</strong></span> (Trùng khít 100% mốc gốc!).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BƯỚC 5: BÀI 4 - BÌNH SAI TUYẾN THEO CHIỀU DÀI CẠNH Di -->
+  <section id="step5" class="step-section">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div class="step-title">
+        <h2>ĂN TRỌN 4.0 ĐIỂM: BÌNH SAI TUYẾN PHÙ HỢP THEO CHIỀU DÀI CẠNH D<sub>i</sub></h2>
+        <p>Nguồn đề: Slide 197 & 198 — Dạng bài chiếm trọng số lớn nhất trong đề thi</p>
+      </div>
+      <div class="step-badge">Slide 197 & 198</div>
+    </div>
+
+    <!-- ĐỀ BÀI CHÍNH THỨC BÀI 4 -->
+    <div class="problem-box">
+      <div class="problem-box-title">
+        <span>📋 ĐỀ BÀI THI CHÍNH THỨC: BÀI 4 (4.0 ĐIỂM)</span>
+        <span class="step-badge">Slide 197 & 198</span>
+      </div>
+      <div class="problem-box-desc">
+        Cho tuyến đường chuyền độ cao kỹ thuật phù hợp nối từ mốc gốc A có cao độ <span class="math">H<sub>A</sub> = 55.216 m</span> qua các điểm chuyền KV1, KV2, KV3, KV4, KV5 đến mốc gốc B có cao độ <span class="math">H<sub>B</sub> = 50.000 m</span>.<br>
+        Số liệu đo thực tế gồm chiều dài từng đoạn <span class="math">D<sub>i</sub></span> và chênh cao đo <span class="math">h<sub>i</sub></span>:<br>
+        • Đoạn A &rarr; KV1: <span class="math">D<sub>1</sub> = 75 m; h<sub>1</sub> = -0.204 m</span><br>
+        • Đoạn KV1 &rarr; KV2: <span class="math">D<sub>2</sub> = 77 m; h<sub>2</sub> = +0.345 m</span><br>
+        • Đoạn KV2 &rarr; KV3: <span class="math">D<sub>3</sub> = 80 m; h<sub>3</sub> = +0.265 m</span><br>
+        • Đoạn KV3 &rarr; KV4: <span class="math">D<sub>4</sub> = 95 m; h<sub>4</sub> = +0.410 m</span><br>
+        • Đoạn KV4 &rarr; KV5: <span class="math">D<sub>5</sub> = 105 m; h<sub>5</sub> = -2.460 m</span><br>
+        • Đoạn KV5 &rarr; B: <span class="math">D<sub>6</sub> = 88 m; h<sub>6</sub> = -3.548 m</span><br>
+        Tiêu chuẩn kỹ thuật: Sai số khép cho phép <span class="math">f<sub>hcp</sub> = &plusmn;50 &times; &radic;L<sub>(km)</sub></span> (mm).
+      </div>
+      <div class="problem-box-questions">
+        <ul>
+          <li><span class="q-badge">Câu 4.1 (1.0đ)</span> <span>Tính tổng chiều dài tuyến <span class="math">L</span>, tổng chênh cao đo <span class="math">&Sigma;h<sub>đo</sub></span>, hiệu cao độ gốc <span class="math">H<sub>B</sub> - H<sub>A</sub></span> và sai số khép độ cao thực tế <span class="math">f<sub>h</sub></span>.</span></li>
+          <li><span class="q-badge">Câu 4.2 (0.5đ)</span> <span>Tính sai số khép cho phép <span class="math">f<sub>hcp</sub></span> và đánh giá điều kiện nghiệm thu tuyến đo.</span></li>
+          <li><span class="q-badge">Câu 4.3 (1.0đ)</span> <span>Phân bố số hiệu chỉnh bình sai <span class="math">v<sub>hi</sub></span> cho từng đoạn và kiểm tra điều kiện bù trừ <span class="math">&Sigma;v<sub>hi</sub> = -f<sub>h</sub></span>.</span></li>
+          <li><span class="q-badge">Câu 4.4 (1.5đ)</span> <span>Tính chênh cao bình sai <span class="math">h<sub>i</sub><sup>BS</sup></span> và lập bảng bình sai hoàn chỉnh để tính cao độ bình sai của các điểm KV1 đến KV5. Kiểm tra tính khớp nối với mốc gốc B.</span></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="casio-box">
+      <h4>⚡ Mẹo bấm nhanh cột số hiệu chỉnh v<sub>hi</sub> trên Casio fx-880BTG (dùng phím Ans siêu tốc):</h4>
+      <p>Máy fx-880BTG không có phím STO trực tiếp như dòng cũ, hãy dùng <strong>phím Ans</strong> để tính cả bảng trong đúng 15 giây:</p>
+      <p>1. Bấm tỷ số phân bổ: <span class="math-code">- ( 24 ÷ 520 ) =</span> (kết quả -0.04615... tự động lưu vào bộ nhớ tạm <span class="math-code">Ans</span>).</p>
+      <p>2. Tính nhanh lần lượt từng hàng (máy tự động nhân tiếp với Ans):<br>
+      • Hàng 1: Bấm <span class="math-code">Ans × 75 =</span> &rarr; ra -3.46 &rarr; ghi <strong>-3 mm</strong>.<br>
+      • Hàng 2: Bấm <span class="math-code">Ans × 77 =</span> &rarr; ra -3.55 &rarr; ghi <strong>-4 mm</strong>.<br>
+      • Hàng 3: Bấm <span class="math-code">Ans × 80 =</span> &rarr; ra -3.69 &rarr; ghi <strong>-4 mm</strong>.<br>
+      • Hàng 4: Bấm <span class="math-code">Ans × 95 =</span> &rarr; ra -4.38 &rarr; ghi <strong>-4 mm</strong>.<br>
+      • Hàng 5: Bấm <span class="math-code">Ans × 105 =</span> &rarr; ra -4.85 &rarr; ghi <strong>-5 mm</strong>.<br>
+      • Hàng 6: Bấm <span class="math-code">Ans × 88 =</span> &rarr; ra -4.06 &rarr; ghi <strong>-4 mm</strong>.<br>
+      <em>(Nếu dùng phím biến nhớ VARIABLE trên 880BTG: Bấm kết quả &rarr; bấm VARIABLE &rarr; chọn A &rarr; chọn Store để lưu)</em>.<br>
+      <em>(Đối với dòng cũ fx-580VNX: Bấm kết quả &rarr; STO &rarr; A)</em>.</p>
+    </div>
+
+    <div class="trap-box">
+      <h4>⚠️ Bẫy chia điểm oan uổng nhất:</h4>
+      <p>Công thức sai số khép cho phép là <span class="math">f<sub>hcp</sub> = &plusmn;50 &times; &radic;L</span>. Bắt buộc <span class="math">L</span> phải đổi ra <strong>kilômét (km)</strong>!<br>
+      Tổng cự ly <span class="math">L = 520 m = <strong>0.520 km</strong> &rarr; f<sub>hcp</sub> = &plusmn;50 &times; &radic;0.520 &approx; &plusmn;36.05 mm</span>.<br>
+      Nếu bạn để nguyên <span class="math">50 &times; &radic;520 = 1140 mm</span> là bị gạch bài ngay lập tức!</p>
+    </div>
+
+    <!-- BẢNG BÌNH SAI SLIDE 198 -->
+    <h3 style="font-size:1.05rem; color:var(--primary); margin: 16px 0 8px 0;">Bảng tính bình sai mẫu nguyên gốc Slide 198 (A &rarr; B qua KV1..KV5):</h3>
+    <div class="table-responsive">
+      <table class="calc-table">
+        <thead>
+          <tr>
+            <th>Điểm trạm</th>
+            <th>Cạnh D<sub>i</sub> (m)</th>
+            <th>Chênh cao đo h<sub>i</sub> (m)</th>
+            <th>Hiệu chỉnh v<sub>hi</sub> (m)</th>
+            <th>Chênh cao BS h<sup>BS</sup> (m)</th>
+            <th>Cao độ bình sai H (m)</th>
+            <th>Ghi chú</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>A</strong></td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-highlight">55.216</td>
+            <td>Mốc gốc A</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>75</td>
+            <td>-0.204</td>
+            <td>-0.003</td>
+            <td>-0.207</td>
+            <td>-</td>
+            <td>v<sub>1</sub> = -24 &times; (75/520)</td>
+          </tr>
+          <tr>
+            <td><strong>KV1</strong></td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-highlight">55.009</td>
+            <td>55.216 + (-0.207)</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>77</td>
+            <td>+0.345</td>
+            <td>-0.004</td>
+            <td>+0.341</td>
+            <td>-</td>
+            <td>v<sub>2</sub> = -24 &times; (77/520)</td>
+          </tr>
+          <tr>
+            <td><strong>KV2</strong></td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-highlight">55.350</td>
+            <td>55.009 + 0.341</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>80</td>
+            <td>+0.265</td>
+            <td>-0.004</td>
+            <td>+0.261</td>
+            <td>-</td>
+            <td>v<sub>3</sub> = -24 &times; (80/520)</td>
+          </tr>
+          <tr>
+            <td><strong>KV3</strong></td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-highlight">55.611</td>
+            <td>55.350 + 0.261</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>95</td>
+            <td>+0.410</td>
+            <td>-0.004</td>
+            <td>+0.406</td>
+            <td>-</td>
+            <td>v<sub>4</sub> = -24 &times; (95/520)</td>
+          </tr>
+          <tr>
+            <td><strong>KV4</strong></td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-highlight">56.017</td>
+            <td>55.611 + 0.406</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>105</td>
+            <td>-2.460</td>
+            <td>-0.005</td>
+            <td>-2.465</td>
+            <td>-</td>
+            <td>v<sub>5</sub> = -24 &times; (105/520)</td>
+          </tr>
+          <tr>
+            <td><strong>KV5</strong></td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-highlight">53.552</td>
+            <td>56.017 + (-2.465)</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>88</td>
+            <td>-3.548</td>
+            <td>-0.004</td>
+            <td>-3.552</td>
+            <td>-</td>
+            <td>v<sub>6</sub> = -24 &times; (88/520)</td>
+          </tr>
+          <tr>
+            <td><strong>B</strong></td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td class="td-highlight">50.000</td>
+            <td>Mốc gốc B (Khớp tuyệt đối!)</td>
+          </tr>
+          <tr class="row-total">
+            <td><strong>Tổng (&Sigma;)</strong></td>
+            <td><strong>520</strong></td>
+            <td><strong>-5.192</strong></td>
+            <td><strong>-0.024</strong></td>
+            <td><strong>-5.216</strong></td>
+            <td colspan="2">f<sub>h</sub> = +24 mm &le; f<sub>hcp</sub> = 36.05 mm (ĐẠT)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BƯỚC 6: BÀI 5 - BÌNH SAI THEO SỐ TRẠM ni -->
+  <section id="step6" class="step-section">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <div class="step-title">
+        <h2>ĂN CHẮC 2.0 ĐIỂM: BÌNH SAI TUYẾN THEO SỐ TRẠM MÁY n<sub>i</sub></h2>
+        <p>Nguồn đề: Slide 199 — Dẫn tuyến vùng dốc gồ ghề</p>
+      </div>
+      <div class="step-badge">Slide 199</div>
+    </div>
+
+    <!-- ĐỀ BÀI CHÍNH THỨC BÀI 5 -->
+    <div class="problem-box">
+      <div class="problem-box-title">
+        <span>📋 ĐỀ BÀI THI CHÍNH THỨC: BÀI 5 (2.0 ĐIỂM)</span>
+        <span class="step-badge">Slide 199</span>
+      </div>
+      <div class="problem-box-desc">
+        Tuyến thủy chuẩn kỹ thuật dẫn qua vùng sườn dốc gồ ghề gồm 4 đoạn đo với số lượng trạm máy đo thực tế lần lượt là: đoạn 1 có <span class="math">n<sub>1</sub> = 105 trạm</span>; đoạn 2 có <span class="math">n<sub>2</sub> = 60 trạm</span>; đoạn 3 có <span class="math">n<sub>3</sub> = 95 trạm</span>; đoạn 4 có <span class="math">n<sub>4</sub> = 80 trạm</span>.<br>
+        Tổng số trạm đo toàn tuyến là <span class="math">N = &Sigma;n<sub>i</sub> = 340 trạm</span>.<br>
+        Sai số khép độ cao tính được từ thực tế đo là <span class="math">f<sub>h</sub> = +0.067 m = +67 mm</span>.<br>
+        Quy chuẩn kỹ thuật cho phép sai số khép theo số trạm: <span class="math">f<sub>hcp</sub> = &plusmn;10 &times; &radic;N</span> (mm).
+      </div>
+      <div class="problem-box-questions">
+        <ul>
+          <li><span class="q-badge">Câu 5.1 (0.5đ)</span> <span>Kiểm tra điều kiện nghiệm thu tuyến đo theo sai số khép cho phép <span class="math">f<sub>hcp</sub></span>.</span></li>
+          <li><span class="q-badge">Câu 5.2 (1.5đ)</span> <span>Tính số hiệu chỉnh bình sai <span class="math">v<sub>hi</sub></span> cho từng đoạn theo số trạm máy và kiểm tra điều kiện bù trừ <span class="math">&Sigma;v<sub>hi</sub> = -f<sub>h</sub></span>.</span></li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="rule-box">
+      <h4>📌 Khi nào bình sai theo số trạm máy n<sub>i</sub>?</h4>
+      <p>Khi địa hình dốc, sai số tích lũy phụ thuộc vào số lần đặt máy chứ không phụ thuộc vào cự ly ngang. Trọng số và số hiệu chỉnh được phân bổ theo <span class="math">n<sub>i</sub></span> thay vì <span class="math">D<sub>i</sub></span>.</p>
+      <div class="math-block">
+        1. Công thức sai số khép cho phép: <span class="math">f<sub>hcp</sub> = &plusmn;10 &times; &radic;N</span> (mm) với <span class="math">N = &Sigma;n<sub>i</sub></span> là tổng số trạm.<br>
+        2. Số hiệu chỉnh: <span class="math">v<sub>hi</sub> = - (f<sub>h</sub> / N) &times; n<sub>i</sub></span>.
+      </div>
+    </div>
+
+    <div class="sol-card teacher">
+      <div class="sol-title">
+        <span>BÀI TOÁN SỐ TRẠM MẪU SLIDE 199 (N = 340 TRẠM)</span>
+        <span class="sol-tag">Slide 199</span>
+      </div>
+      <p><strong>Số liệu gốc:</strong> Tuyến có 4 đoạn với số trạm: <span class="math">n<sub>1</sub> = 105, n<sub>2</sub> = 60, n<sub>3</sub> = 95, n<sub>4</sub> = 80 &rarr; N = &Sigma;n<sub>i</sub> = <strong>340 trạm</strong></span>.<br>
+      Sai số khép tính được: <span class="math">f<sub>h</sub> = +0.067 m = <strong>+67 mm</strong></span>.</p>
+      <br>
+      <p><strong>Bước 1: Kiểm tra sai số cho phép:</strong><br>
+      <span class="math">f<sub>hcp</sub> = &plusmn;10 &times; &radic;340 &approx; &plusmn;10 &times; 18.439 &approx; <strong>&plusmn;184.4 mm</strong></span>.<br>
+      Vì <span class="math">|f<sub>h</sub>| = 67 mm &le; 184.4 mm</span> &rarr; Tuyến đo <strong>ĐẠT</strong>.</p>
+      <br>
+      <p><strong>Bước 2: Phân bổ số hiệu chỉnh theo từng đoạn:</strong><br>
+      • <span class="math">v<sub>1</sub> = -0.067 &times; (105 / 340) &approx; <strong>-0.021 m</strong></span> (-21 mm).<br>
+      • <span class="math">v<sub>2</sub> = -0.067 &times; (60 / 340) &approx; <strong>-0.012 m</strong></span> (-12 mm).<br>
+      • <span class="math">v<sub>3</sub> = -0.067 &times; (95 / 340) &approx; <strong>-0.019 m</strong></span> (-19 mm).<br>
+      • <span class="math">v<sub>4</sub> = -0.067 &times; (80 / 340) &approx; <strong>-0.015 m</strong></span> (-15 mm).<br>
+      • <strong>Kiểm tra bù trừ:</strong> <span class="math">&Sigma;v<sub>i</sub> = -0.021 - 0.012 - 0.019 - 0.015 = <strong>-0.067 m</strong> = -f<sub>h</sub></span> (Thỏa mãn tuyệt đối!).</p>
+    </div>
+  </section>
+
+  <!-- BƯỚC 7: TỔNG ÔN TOÀN BỘ LÝ THUYẾT & CÔNG THỨC CHƯƠNG 3 VÀ CHƯƠNG 4 -->
+  <section id="step7" class="step-section">
+    <div class="step-header">
+      <div class="step-num">7</div>
+      <div class="step-title">
+        <h2>TỔNG HỢP TOÀN BỘ KIẾN THỨC GIÁO TRÌNH CHƯƠNG 3 & CHƯƠNG 4</h2>
+        <p>Hệ thống hóa toàn bộ lý thuyết, điều kiện kiểm nghiệm máy và công thức thi cử (TS. Nguyễn Anh Tài, 2025)</p>
+      </div>
+      <div class="step-badge">Bí kíp 10 điểm</div>
+    </div>
+
+    <!-- CẢNH BÁO PHẠM VI RA ĐỀ -->
+    <div class="trap-box" style="background:#fef2f2; border-left-color:#ef4444; color:#991b1b;">
+      <h4 style="color:#ef4444;">⚠️ TRẢ LỜI THẲNG THẮN VỀ PHẠM VI ĐỀ THI GIỮA KỲ:</h4>
+      <p><strong>1. Có phải đề thi chỉ nằm ở Chương 3 và Chương 4?</strong><br>
+      👉 <strong>ĐÚNG ĐẾN 95%:</strong> Toàn bộ 5 bài toán đo đạc, đo góc, đo cao lượng giác, chỉ thị cự và 2 bài bình sai lưới độ cao đều thuộc <strong>Chương 3 (Dụng cụ & Phương pháp đo)</strong> và <strong>Chương 4 (Lưới khống chế trắc địa)</strong>.</p>
+      <p style="margin-top:8px;"><strong>2. NHƯNG CỰC KỲ NGUY HIỂM — KHÔNG ĐƯỢC BỎ QUÊN CHƯƠNG 2!</strong><br>
+      👉 <strong>Bài 1 (chiếm 2.0 điểm):</strong> Câu hỏi 1.3 và 1.4 bắt buộc dùng công thức truyền sai số trung phương hàm số: <span class="math">m<sub>h</sub> = &radic;(m<sub>a</sub><sup>2</sup> + m<sub>b</sub><sup>2</sup>) = m<sub>đọc</sub> &times; &radic;2</span> và <span class="math">m<sub>đọc</sub> &le; m<sub>h,cp</sub> / &radic;2</span>. Đây là kiến thức thuần túy của <strong>Chương 2 (Lý thuyết sai số, trang 27-34)</strong>. Nếu chủ quan nghĩ rằng "chỉ thi chương 3 và 4" mà bỏ qua Chương 2 thì bạn sẽ bị mất trắng 2 điểm câu này!</p>
+    </div>
+
+    <!-- KHỐI 1: CHƯƠNG 3 -->
+    <div style="margin-top:24px;">
+      <h3 style="color:var(--primary); font-size:1.25rem; border-bottom:2px solid var(--primary-light); padding-bottom:6px; margin-bottom:14px;">
+        📘 PHẦN A: CHƯƠNG 3 — DỤNG CỤ VÀ PHƯƠNG PHÁP ĐO (TRANG 37 – 70)
+      </h3>
+
+      <!-- 3.1 ĐO GÓC -->
+      <div class="rule-box" style="background:#f8fafc; border-left-color:var(--primary);">
+        <h4 style="color:var(--primary);">1. MÁY KINH VĨ (THEODOLITE) & ĐO GÓC</h4>
+        <p><strong>A. 4 trục hình học cơ bản của máy kinh vĩ:</strong></p>
+        <ul style="margin-left:20px; margin-bottom:8px;">
+          <li><span class="math">VV<sub>1</sub></span>: Trục quay đứng của máy.</li>
+          <li><span class="math">LL<sub>1</sub></span>: Trục ống thủy dài của bàn độ ngang.</li>
+          <li><span class="math">HH<sub>1</sub></span>: Trục quay ngang của ống kính.</li>
+          <li><span class="math">CC<sub>1</sub></span>: Trục ngắm quang học (nối quang tâm kính vật và giao điểm lưới chỉ thập).</li>
+        </ul>
+        <p><strong>B. 4 điều kiện hình học & kiểm nghiệm máy kinh vĩ:</strong></p>
+        <ol style="margin-left:20px; margin-bottom:8px;">
+          <li><span class="math">LL<sub>1</sub> &perp; VV<sub>1</sub></span>: Trục ống thủy dài vuông góc trục đứng máy (khi cân bọt thủy quay máy 180&deg; bọt không chạy).</li>
+          <li><span class="math">CC<sub>1</sub> &perp; HH<sub>1</sub></span>: Trục ngắm vuông góc trục quay ống kính. Nếu không thỏa mãn, sinh ra <strong>sai số góc ngắm (sai số 2c)</strong>. <br>
+          👉 <strong>Cách triệt tiêu sai số 2c:</strong> Đo ở 2 vị trí bàn độ <strong>Thuận kính (L)</strong> và <strong>Đảo kính (R)</strong> rồi lấy trung bình: <span class="math">&beta; = (&beta;<sub>L</sub> + &beta;<sub>R</sub>) / 2</span>.</li>
+          <li><span class="math">HH<sub>1</sub> &perp; VV<sub>1</sub></span>: Trục quay ống kính vuông góc trục đứng máy. Khi quay ống kính trong mặt phẳng đứng thì trục ngắm vạch ra mặt phẳng thẳng đứng.</li>
+          <li><strong>Dây đứng của màng dây chữ thập phải song song với trục đứng <span class="math">VV<sub>1</sub></span></strong> (hoặc vuông góc với trục quay <span class="math">HH<sub>1</sub></span>).</li>
+        </ol>
+        <p><strong>C. Đo góc bằng & góc đứng:</strong></p>
+        <ul style="margin-left:20px;">
+          <li><strong>Đo góc bằng phương pháp đơn giản:</strong> Nửa lần đo thuận kính <span class="math">&beta;<sub>L</sub> = b<sub>L</sub> - a<sub>L</sub></span>; nửa lần đo đảo kính <span class="math">&beta;<sub>R</sub> = b<sub>R</sub> - a<sub>R</sub></span>. Trị số 1 lần đo: <span class="math">&beta; = (&beta;<sub>L</sub> + &beta;<sub>R</sub>) / 2</span>. Kiểm tra sai số: <span class="math">2c = |L - (R &plusmn; 180&deg;)| &le; 2c<sub>cp</sub></span>.</li>
+          <li><strong>Đo góc bằng phương pháp toàn vòng:</strong> Áp dụng khi tại trạm máy ngắm từ 3 hướng trở lên. Phải khép về hướng mở đầu (sai số khép hướng mở đầu &le; sai số cho phép).</li>
+          <li><strong>Góc đứng (V) & Sai số chỉ tiêu (MO):</strong> Góc đứng là góc giữa trục ngắm và mặt phẳng nằm ngang. Công thức tính góc đứng: <span class="math">V = L - MO = MO - R + 180&deg;</span>; Sai số chỉ tiêu: <span class="math">MO = (L + R - 360&deg;) / 2</span> (hoặc <span class="math">(L + R - 180&deg;)/2</span> tùy loại bàn độ).</li>
+        </ul>
+      </div>
+
+      <!-- 3.2 ĐO KHOẢNG CÁCH -->
+      <div class="rule-box" style="background:#f8fafc; border-left-color:#0284c7;">
+        <h4 style="color:#0284c7;">2. ĐO KHOẢNG CÁCH QUANG HỌC (CHỈ THỊ CỰ)</h4>
+        <p><strong>A. Nguyên lý đo khoảng cách bằng màng dây chữ thập (chỉ thị cự Stadia):</strong></p>
+        <p>Ngắm ống kính đến mia thẳng đứng, đọc 3 chỉ: chỉ trên (<span class="math">c<sub>t</sub></span>), chỉ giữa (<span class="math">c<sub>g</sub></span>), chỉ dưới (<span class="math">c<sub>d</sub></span>).</p>
+        <div class="math-block">
+          • Khoảng cách ngang khi trục ngắm nằm ngang: <span class="math">D = K &times; (c<sub>t</sub> - c<sub>d</sub>)</span> với hệ số máy thông dụng <span class="math">K = 100</span>.<br>
+          • Đổi khoảng khoảng cách mia: <span class="math">n = c<sub>t</sub> - c<sub>d</sub></span> (mm) &rarr; <span class="math">D = 100 &times; (n / 1000) = 0.1 &times; n</span> (m).<br>
+          • Điều kiện kiểm tra đọc chỉ đối xứng: <span class="math">c<sub>g</sub> = (c<sub>t</sub> + c<sub>d</sub>) / 2</span> (chênh lệch thực tế không quá &plusmn;1 mm &plusmn; 2 mm).<br>
+          • Khi trục ngắm nghiêng góc <span class="math">V</span>: <span class="math">D = 100 &times; (c<sub>t</sub> - c<sub>d</sub>) &times; cos<sup>2</sup>V</span>.
+        </div>
+      </div>
+
+      <!-- 3.3 ĐO CAO HÌNH HỌC -->
+      <div class="rule-box" style="background:#f8fafc; border-left-color:#16a34a;">
+        <h4 style="color:#16a34a;">3. ĐO CAO HÌNH HỌC (MÁY THỦY BÌNH) & 6 NGUỒN SAI SỐ</h4>
+        <p><strong>A. Hai phương pháp đo cao hình học:</strong></p>
+        <ul style="margin-left:20px; margin-bottom:8px;">
+          <li><strong>Đo từ giữa (đo hình học thông dụng):</strong> Đặt máy ở giữa hai điểm A và B (<span class="math">S<sub>1</sub> &approx; S<sub>2</sub></span>). Ngắm mia sau A đọc số <span class="math">a</span>, ngắm mia trước B đọc số <span class="math">b</span>.<br>
+          Công thức: <span class="math">h<sub>AB</sub> = a - b</span>; Cao độ B: <span class="math">H<sub>B</sub> = H<sub>A</sub> + h<sub>AB</sub></span>.</li>
+          <li><strong>Đo phía trước:</strong> Đặt máy ngay tại mốc A, đo chiều cao máy từ mốc đến tâm ống kính là <span class="math">i</span>. Đặt mia tại B đọc số <span class="math">b</span>.<br>
+          Công thức: <span class="math">h<sub>AB</sub> = i - b</span>; Cao độ B: <span class="math">H<sub>B</sub> = H<sub>A</sub> + i - b</span>.</li>
+        </ul>
+        <p><strong>B. Điều kiện kiểm nghiệm máy thủy bình:</strong></p>
+        <p>Trục ống thủy dài <span class="math">LL<sub>1</sub></span> phải song song với trục ngắm quang học <span class="math">CC<sub>1</sub></span> (<span class="math">LL<sub>1</sub> // CC<sub>1</sub></span>). Nếu không song song, sinh ra <strong>sai số góc i</strong> làm tia ngắm bị chúc xuống hoặc hất lên một góc <span class="math">i</span>.</p>
+        <p style="margin-top:8px;"><strong>C. 6 NGUỒN SAI SỐ TRONG ĐO THỦY CHUẨN VÀ BIỆN PHÁP KHẮC PHỤC (HAY THI VẤN ĐÁP/LÝ THUYẾT):</strong></p>
+        <table class="calc-table" style="margin-top:8px;">
+          <thead>
+            <tr>
+              <th style="width:25%;">Nguồn sai số</th>
+              <th style="width:40%;">Bản chất ảnh hưởng</th>
+              <th style="width:35%;">Biện pháp triệt tiêu / Khắc phục</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align:left; font-weight:600;">1. Sai số góc i của máy</td>
+              <td style="text-align:left;">Tia ngắm bị nghiêng góc <span class="math">i</span>, sinh sai số đọc số <span class="math">&Delta;b = S &times; tan i</span>.</td>
+              <td style="text-align:left; color:#15803d; font-weight:600;">ĐẶT MÁY Ở CHÍNH GIỮA HAI MIA (<span class="math">S<sub>1</sub> = S<sub>2</sub></span>) &rarr; Hai sai số đọc số trên 2 mia bằng nhau nên tự triệt tiêu khi lấy hiệu <span class="math">h = a - b</span>.</td>
+            </tr>
+            <tr>
+              <td style="text-align:left; font-weight:600;">2. Độ cong Trái Đất & Chiết quang</td>
+              <td style="text-align:left;">Mặt cầu Trái Đất uốn cong và tia sáng khúc xạ qua tầng khí quyển làm mia bị đọc cao lên một lượng <span class="math">f = S<sup>2</sup> / (2R) &times; (1 - k)</span>.</td>
+              <td style="text-align:left; color:#15803d; font-weight:600;">ĐẶT MÁY Ở CHÍNH GIỮA (<span class="math">S<sub>1</sub> = S<sub>2</sub></span>) &rarr; Tự động triệt tiêu hoàn toàn lượng ảnh hưởng này.</td>
+            </tr>
+            <tr>
+              <td style="text-align:left; font-weight:600;">3. Sai số do mia nghiêng</td>
+              <td style="text-align:left;">Khi mia bị nghiêng một góc &theta;, vạch đọc trên mia luôn nằm cao hơn vị trí thẳng đứng: <span class="math">b<sub>đo</sub> = b<sub>thực</sub> / cos&theta; &gt; b<sub>thực</sub></span> &rarr; <strong>Số đọc LUÔN BỊ TĂNG</strong>.</td>
+              <td style="text-align:left;">Gắn bọt thủy tròn trên thân mia và giữ thăng bằng cẩn thận trước khi đọc số; lắc mia lấy số đọc nhỏ nhất.</td>
+            </tr>
+            <tr>
+              <td style="text-align:left; font-weight:600;">4. Sai số vạch chia & mòn đế mia</td>
+              <td style="text-align:left;">Đế mia bị mòn hoặc vạch khắc bị co giãn nhiệt gây sai lệch cao độ đo.</td>
+              <td style="text-align:left;">Kiểm định mia trước khi đo; đo tuyến có <strong>số trạm máy chẵn</strong> và luân chuyển mia trước/sau.</td>
+            </tr>
+            <tr>
+              <td style="text-align:left; font-weight:600;">5. Sai số do lún máy và lún mia</td>
+              <td style="text-align:left;">Chân máy hoặc cóc đệm mia bị lún xuống đất mềm trong lúc thao tác ngắm đọc.</td>
+              <td style="text-align:left;">Dùng cóc đệm mia chuyên dụng, đạp chân máy thật chặt vào nền đất vững, thao tác đo nhanh chóng.</td>
+            </tr>
+            <tr>
+              <td style="text-align:left; font-weight:600;">6. Sai số ngắm và đọc số của mắt</td>
+              <td style="text-align:left;">Mắt người đọc ước lượng mm bị dao động ngẫu nhiên, sinh sai số trung phương đọc số <span class="math">m<sub>đọc</sub></span>.</td>
+              <td style="text-align:left;">Tuân thủ nghiêm ngặt điều kiện hạn sai: <span class="math">m<sub>đọc</sub> &le; m<sub>h,cp</sub> / &radic;2</span>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 3.4 ĐO CAO LƯỢNG GIÁC -->
+      <div class="rule-box" style="background:#f8fafc; border-left-color:#d97706;">
+        <h4 style="color:#d97706;">4. ĐO CAO LƯỢNG GIÁC (TRIGONOMETRIC LEVELING)</h4>
+        <p><strong>A. Công thức tổng quát:</strong></p>
+        <div class="math-block">
+          <span class="math">h<sub>AB</sub> = D &times; tan V + i - l</span><br>
+          Trong đó: <span class="math">D</span> là khoảng cách ngang; <span class="math">V</span> là góc đứng; <span class="math">i</span> là chiều cao máy; <span class="math">l</span> là chiều cao gương/tiêu ngắm trên mia.
+        </div>
+        <p style="margin-top:8px;"><strong>B. Dạng bài thi đặc biệt (Bài 2: Xác định chiều cao công trình không cần chiều cao máy):</strong></p>
+        <p>Khi ngắm lên đỉnh công trình D (góc đứng <span class="math">V<sub>D</sub> &gt; 0</span>) và ngắm xuống chân công trình C (góc đứng <span class="math">V<sub>C</sub> &lt; 0</span>):</p>
+        <div class="math-block">
+          <span class="math">h<sub>CD</sub> = D &times; (tan V<sub>D</sub> - tan V<sub>C</sub>)</span><br>
+          👉 <em>Chiều cao máy <span class="math">i</span> bị triệt tiêu hoàn toàn khi lấy hiệu hai phương trình! Nhớ dấu trừ gặp góc âm thành dấu cộng: <span class="math">tan V<sub>D</sub> - tan(-|V<sub>C</sub>|) = tan V<sub>D</sub> + tan |V<sub>C</sub>|</span>.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- KHỐI 2: CHƯƠNG 4 -->
+    <div style="margin-top:28px;">
+      <h3 style="color:var(--primary); font-size:1.25rem; border-bottom:2px solid var(--primary-light); padding-bottom:6px; margin-bottom:14px;">
+        📙 PHẦN B: CHƯƠNG 4 — LƯỚI KHỐNG CHẾ TRẮC ĐỊA (TRANG 71 – 114)
+      </h3>
+
+      <!-- 4.1 HAI BÀI TOÁN CƠ BẢN -->
+      <div class="rule-box" style="background:#f8fafc; border-left-color:#8b5cf6;">
+        <h4 style="color:#8b5cf6;">1. HAI BÀI TOÁN TRẮC ĐỊA CƠ BẢN</h4>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <div style="background:#fff; padding:12px; border:1px solid #e2e8f0; border-radius:6px;">
+            <strong style="color:var(--primary);">A. BÀI TOÁN THUẬN (Direct Problem)</strong>
+            <p style="font-size:0.85rem; margin-top:4px;"><strong>Cho:</strong> Tọa độ điểm A (<span class="math">X<sub>A</sub>, Y<sub>A</sub></span>), khoảng cách ngang <span class="math">D<sub>AB</sub></span>, góc định hướng <span class="math">&alpha;<sub>AB</sub></span>.<br><strong>Tìm:</strong> Tọa độ điểm B (<span class="math">X<sub>B</sub>, Y<sub>B</sub></span>).</p>
+            <div class="math-block" style="font-size:0.85rem; margin:6px 0;">
+              <span class="math">&Delta;X<sub>AB</sub> = D<sub>AB</sub> &times; cos &alpha;<sub>AB</sub></span><br>
+              <span class="math">&Delta;Y<sub>AB</sub> = D<sub>AB</sub> &times; sin &alpha;<sub>AB</sub></span><br>
+              <span class="math">X<sub>B</sub> = X<sub>A</sub> + &Delta;X<sub>AB</sub></span><br>
+              <span class="math">Y<sub>B</sub> = Y<sub>A</sub> + &Delta;Y<sub>AB</sub></span>
+            </div>
+            <p style="font-size:0.82rem; color:#15803d;"><strong>Casio 880BTG:</strong> Bấm [CATALOG] &rarr; Calculation Function &rarr; Coordinate Conver &rarr; <code>Rec(D, &alpha;)</code>.</p>
+          </div>
+
+          <div style="background:#fff; padding:12px; border:1px solid #e2e8f0; border-radius:6px;">
+            <strong style="color:var(--primary);">B. BÀI TOÁN NGHỊCH (Inverse Problem)</strong>
+            <p style="font-size:0.85rem; margin-top:4px;"><strong>Cho:</strong> Tọa độ 2 điểm (<span class="math">X<sub>A</sub>, Y<sub>A</sub></span>) và (<span class="math">X<sub>B</sub>, Y<sub>B</sub></span>).<br><strong>Tìm:</strong> Khoảng cách <span class="math">D<sub>AB</sub></span> và góc định hướng <span class="math">&alpha;<sub>AB</sub></span>.</p>
+            <div class="math-block" style="font-size:0.85rem; margin:6px 0;">
+              <span class="math">&Delta;X = X<sub>B</sub> - X<sub>A</sub>; &Delta;Y = Y<sub>B</sub> - Y<sub>A</sub></span><br>
+              <span class="math">D<sub>AB</sub> = &radic;(&Delta;X<sup>2</sup> + &Delta;Y<sup>2</sup>)</span><br>
+              <span class="math">r = arctan |&Delta;Y / &Delta;X|</span>
+            </div>
+            <p style="font-size:0.82rem; color:#b45309;"><strong>Quy đổi góc định hướng &alpha; theo 4 góc phần tư:</strong><br>
+            • Phần tư I (+&Delta;X, +&Delta;Y): <span class="math">&alpha; = r</span><br>
+            • Phần tư II (-&Delta;X, +&Delta;Y): <span class="math">&alpha; = 180&deg; - r</span><br>
+            • Phần tư III (-&Delta;X, -&Delta;Y): <span class="math">&alpha; = 180&deg; + r</span><br>
+            • Phần tư IV (+&Delta;X, -&Delta;Y): <span class="math">&alpha; = 360&deg; - r</span></p>
+            <p style="font-size:0.82rem; color:#15803d; margin-top:4px;"><strong>Casio 880BTG:</strong> [CATALOG] &rarr; Coordinate Conver &rarr; <code>Pol(&Delta;X, &Delta;Y)</code> ra ngay <span class="math">D</span> và góc <span class="math">&alpha;</span>!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.2 LƯỚI KHỐNG CHẾ MẶT BẰNG -->
+      <div class="rule-box" style="background:#f8fafc; border-left-color:#0d9488;">
+        <h4 style="color:#0d9488;">2. LƯỚI KHỐNG CHẾ MẶT BẰNG (ĐƯỜNG CHUYỀN KINH VĨ)</h4>
+        <p><strong>A. Khái niệm & Phân loại:</strong></p>
+        <p>Đường chuyền kinh vĩ là chuỗi các điểm mốc khống chế mặt bằng được nối với nhau, tại mỗi đỉnh đo góc ngoặt <span class="math">&beta;</span> và chiều dài cạnh <span class="math">D</span>. Có 3 dạng: Phù hợp (nối giữa 2 cạnh gốc đã biết tọa độ), Khép kín (vòng lặp về lại điểm xuất phát), Nhánh/Treo (chỉ tự do 1 đầu, không kiểm tra được sai số).</p>
+        <p style="margin-top:6px;"><strong>B. Trình tự bình sai đường chuyền kinh vĩ:</strong></p>
+        <ol style="margin-left:20px;">
+          <li><strong>Tính sai số khép góc:</strong> <span class="math">f<sub>&beta;</sub> = &Sigma;&beta;<sub>đo</sub> - &Sigma;&beta;<sub>lt</sub></span>. Kiểm tra hạn sai: <span class="math">|f<sub>&beta;</sub>| &le; f<sub>&beta;,cp</sub> = &plusmn;1'&radic;n</span> (hoặc <span class="math">&plusmn;2 m<sub>&beta;</sub>&radic;n</span>).</li>
+          <li><strong>Phân bổ số hiệu chỉnh góc:</strong> <span class="math">v<sub>&beta;i</sub> = - f<sub>&beta;</sub> / n</span> &rarr; Góc đã bình sai: <span class="math">&beta;'<sub>i</sub> = &beta;<sub>i</sub> + v<sub>&beta;i</sub></span>.</li>
+          <li><strong>Truyền góc định hướng các cạnh:</strong> <br>
+          • Nếu đo góc ngoặt bên phải: <span class="math">&alpha;<sub>k+1</sub> = &alpha;<sub>k</sub> + 180&deg; - &beta;'<sub>k</sub></span>.<br>
+          • Nếu đo góc ngoặt bên trái: <span class="math">&alpha;<sub>k+1</sub> = &alpha;<sub>k</sub> + &beta;'<sub>k</sub> - 180&deg;</span>.<br>
+          <em>(Nếu tính ra âm thì cộng 360&deg;; nếu lớn hơn 360&deg; thì trừ 360&deg;).</em></li>
+          <li><strong>Tính số gia tọa độ & Sai số khép tọa độ:</strong> <span class="math">&Delta;X<sub>i</sub> = D<sub>i</sub> &times; cos &alpha;<sub>i</sub></span>; <span class="math">&Delta;Y<sub>i</sub> = D<sub>i</sub> &times; sin &alpha;<sub>i</sub></span>.<br>
+          Sai số khép tọa độ: <span class="math">f<sub>x</sub> = &Sigma;&Delta;X<sub>i</sub> - &Delta;X<sub>lt</sub></span>; <span class="math">f<sub>y</sub> = &Sigma;&Delta;Y<sub>i</sub> - &Delta;Y<sub>lt</sub></span>.</li>
+          <li><strong>Kiểm tra sai số khép tương đối:</strong> <span class="math">f<sub>s</sub> = &radic;(f<sub>x</sub><sup>2</sup> + f<sub>y</sub><sup>2</sup>)</span> &rarr; Sai số khép tương đối: <span class="math">1/T = f<sub>s</sub> / &Sigma;D &le; 1/2000</span> (đạt yêu cầu kỹ thuật).</li>
+        </ol>
+      </div>
+
+      <!-- 4.3 LƯỚI KHỐNG CHẾ ĐỘ CAO -->
+      <div class="rule-box" style="background:#f8fafc; border-left-color:#b45309;">
+        <h4 style="color:#b45309;">3. LƯỚI KHỐNG CHẾ ĐỘ CAO (ĐƯỜNG CHUYỀN THỦY CHUẨN KỸ THUẬT)</h4>
+        <p><strong>A. Sai số khép độ cao (f<sub>h</sub>):</strong></p>
+        <ul style="margin-left:20px; margin-bottom:8px;">
+          <li><strong>Đường chuyền phù hợp (nối giữa 2 mốc I và II):</strong> <span class="math">f<sub>h</sub> = &Sigma;h<sub>đo</sub> - (H<sub>cuối</sub> - H<sub>đầu</sub>)</span>.</li>
+          <li><strong>Đường chuyền khép kín (về lại mốc xuất phát):</strong> <span class="math">f<sub>h</sub> = &Sigma;h<sub>đo</sub></span> (vì <span class="math">H<sub>cuối</sub> - H<sub>đầu</sub> = 0</span>).</li>
+        </ul>
+        <p><strong>B. Hạn sai khép độ cao cho phép (f<sub>hcp</sub>):</strong></p>
+        <ul style="margin-left:20px; margin-bottom:8px;">
+          <li><strong>Khi tuyến đo theo chiều dài L (địa hình đồng bằng / đồi thoải):</strong> <span class="math">f<sub>hcp</sub> = &plusmn;50 &times; &radic;L</span> (mm), với <span class="math">L</span> tính bằng <strong>km</strong> (<span class="math">L = &Sigma;D<sub>i</sub> / 1000</span>).</li>
+          <li><strong>Khi tuyến đo qua vùng dốc hiểm trở (> 25 trạm/km):</strong> <span class="math">f<sub>hcp</sub> = &plusmn;10 &times; &radic;N</span> (mm), với <span class="math">N = &Sigma;n<sub>i</sub></span> là tổng số trạm máy toàn tuyến.</li>
+        </ul>
+        <p><strong>C. Phân bổ số hiệu chỉnh bình sai v<sub>hi</sub>:</strong></p>
+        <ul style="margin-left:20px;">
+          <li>Theo cự ly: <span class="math">v<sub>hi</sub> = - (f<sub>h</sub> / &Sigma;D) &times; D<sub>i</sub></span>.</li>
+          <li>Theo số trạm: <span class="math">v<sub>hi</sub> = - (f<sub>h</sub> / N) &times; n<sub>i</sub></span>.</li>
+          <li>Điều kiện bù trừ tuyệt đối: <span class="math">&Sigma;v<sub>hi</sub> = -f<sub>h</sub></span>.</li>
+          <li>Tính chênh cao bình sai: <span class="math">h'<sub>i</sub> = h<sub>i</sub> + v<sub>hi</sub></span> &rarr; Cao độ mốc kế tiếp: <span class="math">H<sub>i</sub> = H<sub>i-1</sub> + h'<sub>i</sub></span>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- KHỐI 3: CÁC CÂU HỎI LÝ THUYẾT VẤN ĐÁP / TRẮC NGHIỆM THƯỜNG GẶP -->
+    <div style="margin-top:28px;">
+      <h3 style="color:#b91c1c; font-size:1.25rem; border-bottom:2px solid #ef4444; padding-bottom:6px; margin-bottom:14px;">
+        💡 TOP 5 CÂU HỎI LÝ THUYẾT & VẤN ĐÁP THẦY TÀI HAY HỎI NHẤT
+      </h3>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="background:#fff; border:1px solid #e2e8f0; border-left:4px solid #ef4444; padding:12px 16px; border-radius:0 8px 8px 0;">
+          <strong style="color:#b91c1c;">Câu 1: Tại sao khi đo thủy chuẩn kỹ thuật phải cố gắng đặt máy ở chính giữa hai mia?</strong>
+          <p style="font-size:0.9rem; margin-top:4px; color:#334155;">
+            👉 <strong>Trả lời:</strong> Vì khi đặt máy ở chính giữa (<span class="math">S<sub>1</sub> = S<sub>2</sub></span>), khoảng cách từ máy đến mia sau và mia trước bằng nhau. Do đó, hai sai số cực kỳ nghiêm trọng là <strong>sai số góc i của máy</strong> và <strong>sai số do độ cong Trái Đất cùng chiết quang không khí</strong> sinh ra trên hai mia có độ lớn y hệt nhau cùng dấu. Khi lấy hiệu số <span class="math">h = a - b</span>, hai sai số này sẽ <strong>tự động triệt tiêu lẫn nhau hoàn toàn</strong>!
+          </p>
+        </div>
+
+        <div style="background:#fff; border:1px solid #e2e8f0; border-left:4px solid #ef4444; padding:12px 16px; border-radius:0 8px 8px 0;">
+          <strong style="color:#b91c1c;">Câu 2: Tại sao khi đo góc bằng và góc đứng máy kinh vĩ phải đo ở 2 vị trí bàn độ Thuận kính (L) và Đảo kính (R)?</strong>
+          <p style="font-size:0.9rem; margin-top:4px; color:#334155;">
+            👉 <strong>Trả lời:</strong> Khi quay máy đảo kính 180&deg; và lật ống kính, <strong>sai số góc ngắm 2c</strong> (do trục ngắm không vuông góc trục quay ống kính) và <strong>sai số chỉ tiêu MO</strong> sẽ đổi dấu ngược lại. Khi lấy trung bình cộng trị số của hai nửa lần đo <span class="math">&beta; = (&beta;<sub>L</sub> + &beta;<sub>R</sub>)/2</span>, các sai số này sẽ <strong>bị triệt tiêu hoàn toàn</strong>, nâng cao độ chính xác đo góc.
+          </p>
+        </div>
+
+        <div style="background:#fff; border:1px solid #e2e8f0; border-left:4px solid #ef4444; padding:12px 16px; border-radius:0 8px 8px 0;">
+          <strong style="color:#b91c1c;">Câu 3: Nếu mia thủy chuẩn bị nghiêng về phía máy hoặc ngả ra xa máy thì số đọc trên mia tăng hay giảm so với vị trí thẳng đứng?</strong>
+          <p style="font-size:0.9rem; margin-top:4px; color:#334155;">
+            👉 <strong>Trả lời:</strong> <strong>Số đọc trên mia LUÔN LUÔN TĂNG (lớn hơn trị số đúng)!</strong> Vì tia ngắm nằm ngang tạo thành cạnh huyền của tam giác vuông tạo bởi mia nghiêng: <span class="math">b<sub>đo</sub> = b<sub>thực</sub> / cos&theta; &gt; b<sub>thực</sub></span> (vì <span class="math">cos&theta; &lt; 1</span>). Do đó, khi lắc mia, số đọc nhỏ nhất chính là số đọc khi mia thẳng đứng.
+          </p>
+        </div>
+
+        <div style="background:#fff; border:1px solid #e2e8f0; border-left:4px solid #ef4444; padding:12px 16px; border-radius:0 8px 8px 0;">
+          <strong style="color:#b91c1c;">Câu 4: Phân biệt Góc định hướng (&alpha;) và Góc phương vị (A)?</strong>
+          <p style="font-size:0.9rem; margin-top:4px; color:#334155;">
+            👉 <strong>Trả lời:</strong><br>
+            • <strong>Góc phương vị (A):</strong> Hướng chuẩn là hướng Bắc của đường kinh tuyến (kinh tuyến từ hoặc kinh tuyến thực). Vì các đường kinh tuyến hội tụ tại cực nên phương vị của một đường thẳng thay đổi theo từng điểm.<br>
+            • <strong>Góc định hướng (&alpha;):</strong> Hướng chuẩn là <strong>hướng Bắc của trục tọa độ X (trục tung) song song với kinh tuyến trục</strong> của múi chiếu trong hệ tọa độ phẳng vuông góc (VN-2000). Góc định hướng của một đoạn thẳng không đổi tại mọi điểm trên đoạn thẳng đó.
+          </p>
+        </div>
+
+        <div style="background:#fff; border:1px solid #e2e8f0; border-left:4px solid #ef4444; padding:12px 16px; border-radius:0 8px 8px 0;">
+          <strong style="color:#b91c1c;">Câu 5: Tại sao trong đường chuyền kinh vĩ phải kiểm tra sai số khép tương đối 1/T thay vì chỉ kiểm tra sai số tuyệt đối f<sub>s</sub>?</strong>
+          <p style="font-size:0.9rem; margin-top:4px; color:#334155;">
+            👉 <strong>Trả lời:</strong> Vì sai số tuyệt đối <span class="math">f<sub>s</sub> = &radic;(f<sub>x</sub><sup>2</sup> + f<sub>y</sub><sup>2</sup>)</span> tăng theo chiều dài toàn tuyến <span class="math">&Sigma;D</span>. Một sai số <span class="math">f<sub>s</sub> = 0.10 m</span> trên tuyến dài 200 m là kém chính xác (<span class="math">1/2000</span>), nhưng cũng <span class="math">f<sub>s</sub> = 0.10 m</span> trên tuyến dài 2000 m lại là rất chính xác (<span class="math">1/20000</span>). Do đó, phải dùng sai số khép tương đối <span class="math">1/T = f<sub>s</sub> / &Sigma;D</span> để đánh giá chất lượng đo đạc khách quan.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BƯỚC 8: TUYỂN TẬP 15 BÀI TẬP TỰ LUYỆN MỞ RỘNG (5 DẠNG BÀI THI) -->
+  <section id="step8" class="step-section">
+    <div class="step-header">
+      <div class="step-num">8</div>
+      <div class="step-title">
+        <h2>TUYỂN TẬP 15 BÀI TẬP TỰ LUYỆN MỞ RỘNG (5 DẠNG BÀI THI)</h2>
+        <p>Tự nháp lời giải trước, sau đó bấm vào từng bài để đối chiếu lời giải chi tiết và các bước tự kiểm tra</p>
+      </div>
+      <div class="step-badge">15 bài tập mẫu</div>
+    </div>
+
+    <!-- DẠNG 1 -->
+    <div style="margin-top:16px;">
+      <h3 style="color:var(--primary); font-size:1.15rem; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+        <span class="ex-tag">Dạng 1</span> THỦY CHUẨN HÌNH HỌC & ĐO KHOẢNG CÁCH CHỈ THỊ CỰ (3 BÀI)
+      </h3>
+
+      <!-- BÀI 1.1 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 1.1: Trạm máy ngắm 2 mốc N1, N2 (Mất chỉ trên & Thủy chuẩn phía trước - Slide 201)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Đặt máy tại <span class="math">A</span> (<span class="math">i = 1.500</span> m). Mia <span class="math">N<sub>1</sub></span> đọc 3 chỉ: <span class="math">1975, 1725, 1475</span> mm. Mia <span class="math">N<sub>2</sub></span> có chỉ dưới <span class="math">1995</span> mm, chỉ giữa <span class="math">2265</span> mm. Tính cự ly <span class="math">D<sub>AN1</sub>, D<sub>AN2</sub></span>, chênh cao <span class="math">h<sub>AN1</sub>, h<sub>AN2</sub></span> và chênh cao <span class="math">h<sub>N1N2</sub></span>?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải từng bước:</strong></p>
+          <p>• Cự ly <span class="math">D<sub>AN1</sub> = 100 &times; (1975 - 1475) &times; 10<sup>-3</sup> = 100 &times; 0.500 = <strong>50.0 m</strong></span>.<br>
+          • Chỉ trên bị che tại <span class="math">N<sub>2</sub></span>: <span class="math">c<sub>t</sub> = 2 &times; 2265 - 1995 = <strong>2535 mm</strong></span>.<br>
+          • Cự ly <span class="math">D<sub>AN2</sub> = 100 &times; (2535 - 1995) &times; 10<sup>-3</sup> = 100 &times; 0.540 = <strong>54.0 m</strong></span>.<br>
+          • Chênh cao phía trước: <span class="math">h = i - c<sub>g</sub></span> &rarr; <span class="math">h<sub>AN1</sub> = 1.500 - 1.725 = <strong>-0.225 m</strong></span>; <span class="math">h<sub>AN2</sub> = 1.500 - 2.265 = <strong>-0.765 m</strong></span>.<br>
+          • Chênh cao giữa 2 mốc: <span class="math">h<sub>N1N2</sub> = h<sub>AN2</sub> - h<sub>AN1</sub> = -0.765 - (-0.225) = <strong>-0.540 m</strong></span>.</p>
+          <p style="color:#15803d; font-size:0.85rem; margin-top:6px;">✔ <em>Tự kiểm tra: <span class="math">h<sub>N1A</sub> = +0.225 m</span>; <span class="math">h<sub>N1N2</sub> = +0.225 + (-0.765) = -0.540 m</span> (Khớp tuyệt đối!).</em></p>
+        </div>
+      </details>
+
+      <!-- BÀI 1.2 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 1.2: Thủy chuẩn từ giữa trạm đơn lẻ (Tìm chỉ giữa mia trước & Cao độ điểm tới)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Đặt máy ở giữa <span class="math">A</span> và <span class="math">B</span>. Mia sau <span class="math">A</span>: <span class="math">c<sub>t</sub> = 1750, c<sub>g</sub> = 1500, c<sub>d</sub> = 1250</span> mm. Mia trước <span class="math">B</span>: <span class="math">c<sub>t</sub> = 1420, c<sub>d</sub> = 1080</span> mm. Biết <span class="math">H<sub>A</sub> = 25.000</span> m. Tính cự ly <span class="math">D<sub>AB</sub></span>, chênh cao <span class="math">h<sub>AB</sub></span> và <span class="math">H<sub>B</sub></span>?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải từng bước:</strong></p>
+          <p>• Chỉ giữa mia trước: <span class="math">c<sub>gB</sub> = (1420 + 1080) / 2 = <strong>1250 mm</strong></span>.<br>
+          • Cự ly: <span class="math">D<sub>MA</sub> = 100 &times; (1.750 - 1.250) = 50.0 m</span>; <span class="math">D<sub>MB</sub> = 100 &times; (1.420 - 1.080) = 34.0 m</span> &rarr; <span class="math">D<sub>AB</sub> = 50.0 + 34.0 = <strong>84.0 m</strong></span>.<br>
+          • Chênh cao từ giữa: <span class="math">h<sub>AB</sub> = a - b = 1500 - 1250 = +250 mm = <strong>+0.250 m</strong></span>.<br>
+          • Cao độ điểm tới: <span class="math">H<sub>B</sub> = H<sub>A</sub> + h<sub>AB</sub> = 25.000 + 0.250 = <strong>25.250 m</strong></span>.</p>
+          <p style="color:#15803d; font-size:0.85rem; margin-top:6px;">✔ <em>Tự kiểm tra: Vì số đọc sau (1500) &gt; trước (1250) nên điểm B cao hơn A, chênh cao mang dấu dương (+).</em></p>
+        </div>
+      </details>
+
+      <!-- BÀI 1.3 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 1.3: Thủy chuẩn từ giữa bị che khuất chỉ trên (Chênh cao âm & Cự ly trạm)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Đặt máy giữa <span class="math">M</span> và <span class="math">N</span>. Mia sau <span class="math">M</span>: <span class="math">1860, 1600, 1340</span> mm. Mia trước <span class="math">N</span>: <span class="math">c<sub>g</sub> = 2150, c<sub>d</sub> = 1900</span> mm (mất chỉ trên). Biết <span class="math">H<sub>M</sub> = 10.200</span> m. Tính chỉ trên <span class="math">c<sub>tN</sub></span>, cự ly <span class="math">D<sub>MN</sub></span>, chênh cao <span class="math">h<sub>MN</sub></span> và <span class="math">H<sub>N</sub></span>?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải từng bước:</strong></p>
+          <p>• Chỉ trên tại <span class="math">N</span>: <span class="math">c<sub>tN</sub> = 2 &times; 2150 - 1900 = <strong>2400 mm</strong></span>.<br>
+          • Cự ly trạm: <span class="math">D<sub>MM</sub> = 100 &times; 0.520 = 52.0 m</span>; <span class="math">D<sub>MN'</sub> = 100 &times; 0.500 = 50.0 m</span> &rarr; <span class="math">D<sub>MN</sub> = 52.0 + 50.0 = <strong>102.0 m</strong></span>.<br>
+          • Chênh cao: <span class="math">h<sub>MN</sub> = a - b = 1600 - 2150 = -550 mm = <strong>-0.550 m</strong></span>.<br>
+          • Cao độ <span class="math">N</span>: <span class="math">H<sub>N</sub> = H<sub>M</sub> + h<sub>MN</sub> = 10.200 + (-0.550) = <strong>9.650 m</strong></span>.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- DẠNG 2 -->
+    <div style="margin-top:24px;">
+      <h3 style="color:var(--primary); font-size:1.15rem; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+        <span class="ex-tag">Dạng 2</span> ĐÁNH GIÁ ĐỘ CHÍNH XÁC ĐO CAO & SAI SỐ ĐỌC MIA (3 BÀI)
+      </h3>
+
+      <!-- BÀI 2.1 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 2.1: Bài toán thuận và bài toán ngược sai số đọc mia 1 trạm (Slide 131)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Đo thủy chuẩn từ giữa: a) Cho sai số đọc mia <span class="math">m<sub>đọc</sub> = &plusmn;0.5</span> mm, tính sai số trung phương chênh cao <span class="math">m<sub>h</sub></span>? b) Yêu cầu <span class="math">m<sub>h</sub> &le; &plusmn;5.0</span> mm, tìm sai số đọc số <span class="math">m<sub>đọc</sub></span> tối đa?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải từng bước:</strong></p>
+          <p>• Câu a: <span class="math">m<sub>h</sub> = &radic;(m<sub>a</sub><sup>2</sup> + m<sub>b</sub><sup>2</sup>) = m<sub>đọc</sub> &times; &radic;2 = 0.5 &times; &radic;2 &approx; <strong>&plusmn;0.707 mm</strong></span>.<br>
+          • Câu b: <span class="math">m<sub>đọc</sub> &times; &radic;2 &le; 5.0 mm &rarr; m<sub>đọc</sub> &le; 5.0 / &radic;2 &approx; <strong>&plusmn;3.536 mm</strong></span> (hoặc &le; 3.5 mm).</p>
+        </div>
+      </details>
+
+      <!-- BÀI 2.2 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 2.2: Sai số tích lũy toàn tuyến gồm N = 16 trạm máy</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Tuyến thủy chuẩn có <span class="math">N = 16</span> trạm máy. a) Mỗi lần đọc mia có <span class="math">m<sub>đọc</sub> = &plusmn;1.0</span> mm, tính sai số chênh cao toàn tuyến <span class="math">m<sub>tuyến</sub></span>? b) Muốn toàn tuyến đạt <span class="math">m<sub>tuyến</sub> &le; &plusmn;10.0</span> mm thì <span class="math">m<sub>đọc</sub></span> mỗi trạm tối đa là bao nhiêu?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải từng bước:</strong></p>
+          <p>• Câu a: Sai số toàn tuyến tích lũy theo căn số trạm: <span class="math">m<sub>tuyến</sub> = m<sub>đọc</sub> &times; &radic;(2N) = 1.0 &times; &radic;(2 &times; 16) = &radic;32 &approx; <strong>&plusmn;5.657 mm</strong></span>.<br>
+          • Câu b: <span class="math">m<sub>đọc</sub> &le; m<sub>tuyến,cp</sub> / &radic;(2N) = 10.0 / &radic;32 = 10.0 / 5.6568 &approx; <strong>&plusmn;1.768 mm</strong></span>.</p>
+        </div>
+      </details>
+
+      <!-- BÀI 2.3 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 2.3: Hai lần đọc mia có độ chính xác khác nhau (m<sub>a</sub> ≠ m<sub>b</sub>)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Tại một trạm đo, mia sau đọc với sai số <span class="math">m<sub>a</sub> = &plusmn;0.8</span> mm, mia trước đọc với <span class="math">m<sub>b</sub> = &plusmn;0.6</span> mm. Tính sai số trung phương chênh cao <span class="math">m<sub>h</sub></span> của trạm đo?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải:</strong></p>
+          <p><span class="math">m<sub>h</sub> = &radic;(m<sub>a</sub><sup>2</sup> + m<sub>b</sub><sup>2</sup>) = &radic;(0.8<sup>2</sup> + 0.6<sup>2</sup>) = &radic;(0.64 + 0.36) = &radic;1.00 = <strong>&plusmn;1.000 mm</strong></span>.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- DẠNG 3 -->
+    <div style="margin-top:24px;">
+      <h3 style="color:var(--primary); font-size:1.15rem; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+        <span class="ex-tag">Dạng 3</span> ĐO CAO LƯỢNG GIÁC KHÔNG TỚI CHÂN MIA (3 BÀI)
+      </h3>
+
+      <!-- BÀI 3.1 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 3.1: Chiều cao ống khói khi không thể dựng mia ở chân (Slide 145 & 146)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Đặt máy cách công trình <span class="math">D = 35.0 m</span>. Góc ngắm đỉnh <span class="math">V<sub>Đ</sub> = +15&deg; 30'</span>, góc ngắm chân <span class="math">V<sub>C</sub> = -20&deg; 30'</span>. <span class="math">L<sub>1</sub> = L<sub>2</sub> = 0</span>. Tính chiều cao công trình <span class="math">h<sub>CĐ</sub></span>?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải:</strong></p>
+          <p>• Đổi góc: <span class="math">V<sub>Đ</sub> = +15.5&deg; &rarr; tan V<sub>Đ</sub> &approx; 0.27732</span>; <span class="math">V<sub>C</sub> = -20.5&deg; &rarr; tan V<sub>C</sub> &approx; -0.37388</span>.<br>
+          • <span class="math">&Delta;tan = 0.27732 - (-0.37388) = 0.65120</span>.<br>
+          • Chiều cao: <span class="math">h<sub>CĐ</sub> = D &times; &Delta;tan = 35.0 &times; 0.65120 = <strong>22.792 m</strong></span>.</p>
+        </div>
+      </details>
+
+      <!-- BÀI 3.2 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 3.2: Chiều cao tòa nhà kèm tính cao độ đỉnh H<sub>Đ</sub> (Có chiều cao máy i)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Đặt máy tại trạm có <span class="math">H<sub>trạm</sub> = 15.000</span> m, <span class="math">i = 1.450</span> m, khoảng cách <span class="math">D = 40.0</span> m. Góc ngắm đỉnh <span class="math">V<sub>Đ</sub> = +22&deg; 15'</span>, chân <span class="math">V<sub>C</sub> = -12&deg; 45'</span>. Tính chiều cao <span class="math">h<sub>CĐ</sub></span> và cao độ đỉnh <span class="math">H<sub>Đ</sub></span>?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải:</strong></p>
+          <p>• <span class="math">V<sub>Đ</sub> = +22.25&deg; &rarr; tan V<sub>Đ</sub> &approx; 0.40909</span>; <span class="math">V<sub>C</sub> = -12.75&deg; &rarr; tan V<sub>C</sub> &approx; -0.22630</span>.<br>
+          • <span class="math">&Delta;tan = 0.40909 + 0.22630 = 0.63539</span> &rarr; <span class="math">h<sub>CĐ</sub> = 40.0 &times; 0.63539 = <strong>25.416 m</strong></span>.<br>
+          • Cao độ đỉnh: <span class="math">H<sub>Đ</sub> = H<sub>trạm</sub> + i + D tan V<sub>Đ</sub> = 15.000 + 1.450 + 40.0 &times; 0.40909 = <strong>32.814 m</strong></span>.</p>
+        </div>
+      </details>
+
+      <!-- BÀI 3.3 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 3.3: Tháp trên đỉnh đồi (Cả hai góc ngắm đều dương V<sub>Đ</sub> > V<sub>C</sub> > 0)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Máy đặt dưới chân đồi cách tháp <span class="math">D = 52.5 m</span>. Ngắm đỉnh tháp <span class="math">V<sub>Đ</sub> = +18&deg; 30'</span>, ngắm chân tháp <span class="math">V<sub>C</sub> = +2&deg; 15'</span>. Tính chiều cao thân tháp <span class="math">h<sub>CĐ</sub></span>?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải:</strong></p>
+          <p>• <span class="math">tan(18.5&deg;) &approx; 0.33460</span>; <span class="math">tan(2.25&deg;) &approx; 0.03929</span>.<br>
+          • <span class="math">&Delta;tan = 0.33460 - 0.03929 = 0.29531</span>.<br>
+          • Chiều cao tháp: <span class="math">h<sub>CĐ</sub> = 52.5 &times; 0.29531 = <strong>15.504 m</strong></span>.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- DẠNG 4 -->
+    <div style="margin-top:24px;">
+      <h3 style="color:var(--primary); font-size:1.15rem; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+        <span class="ex-tag">Dạng 4</span> BÌNH SAI TUYẾN THỦY CHUẨN KỸ THUẬT (3 BÀI)
+      </h3>
+
+      <!-- BÀI 4.1 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 4.1: Tuyến phù hợp theo chiều dài cạnh D<sub>i</sub> (Slide 198 - 6 đoạn, ΣD = 520 m)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Tóm tắt lời giải Slide 198:</strong><br>
+          • <span class="math">H<sub>cuối</sub> - H<sub>đầu</sub> = 50.000 - 55.216 = -5.216 m</span>.<br>
+          • <span class="math">f<sub>h</sub> = -5.192 - (-5.216) = +0.024 m = +24 mm</span>.<br>
+          • Hạn sai: <span class="math">f<sub>hcp</sub> = &plusmn;50&radic;0.520 &approx; &plusmn;36 mm</span> &rarr; ĐẠT.<br>
+          • Số hiệu chỉnh: <span class="math">v = [-0.003, -0.004, -0.004, -0.004, -0.005, -0.004]</span> m. Tổng <span class="math">&Sigma;v = -0.024 m = -f<sub>h</sub></span>.<br>
+          • Cao độ bình sai: <span class="math">H<sub>KV1</sub> = 55.009; H<sub>KV2</sub> = 55.350; H<sub>KV3</sub> = 55.611; H<sub>KV4</sub> = 56.017; H<sub>KV5</sub> = 53.552; H<sub>B</sub> = 50.000 m</span>.</p>
+        </div>
+      </details>
+
+      <!-- BÀI 4.2 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 4.2: Tuyến vùng dốc hiểm trở theo số trạm máy n<sub>i</sub> (Slide 199 - N = 340 trạm)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Tóm tắt lời giải Slide 199:</strong><br>
+          • 4 đoạn: <span class="math">n = [105, 60, 95, 80] &rarr; N = 340</span> trạm. <span class="math">f<sub>h</sub> = +0.067 m = +67 mm</span>.<br>
+          • Hạn sai theo số trạm: <span class="math">f<sub>hcp</sub> = &plusmn;10&radic;340 &approx; &plusmn;184 mm</span> &rarr; ĐẠT.<br>
+          • Số hiệu chỉnh: <span class="math">v<sub>1</sub> = -0.021; v<sub>2</sub> = -0.012; v<sub>3</sub> = -0.019; v<sub>4</sub> = -0.015 m</span>.<br>
+          • Kiểm tra: <span class="math">&Sigma;v = -0.021 - 0.012 - 0.019 - 0.015 = -0.067 m = -f<sub>h</sub></span>.</p>
+        </div>
+      </details>
+
+      <!-- BÀI 4.3 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 4.3: Tuyến thủy chuẩn khép kín 4 đoạn (Về lại điểm xuất phát A)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Tuyến khép kín từ <span class="math">A</span> (<span class="math">H<sub>A</sub> = 10.000</span> m) qua 1, 2, 3 rồi về <span class="math">A</span>. Chiều dài: <span class="math">120, 150, 180, 150</span> m (<span class="math">&Sigma;D = 600</span> m). Chênh cao: <span class="math">h<sub>đo</sub> = [+1.245, -0.630, -1.820, +1.185]</span> m. Tính độ cao bình sai?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải:</strong><br>
+          • Khép kín nên <span class="math">&Delta;H<sub>gốc</sub> = 0 &rarr; f<sub>h</sub> = &Sigma;h<sub>đo</sub> = -0.020 m = -20 mm</span>.<br>
+          • <span class="math">f<sub>hcp</sub> = &plusmn;50&radic;0.600 &approx; &plusmn;38.7 mm</span> &rarr; ĐẠT.<br>
+          • Số hiệu chỉnh: <span class="math">v = [+0.004, +0.005, +0.006, +0.005]</span> m (<span class="math">&Sigma;v = +0.020 m = -f<sub>h</sub></span>).<br>
+          • Chênh cao bình sai: <span class="math">h<sup>BS</sup> = [+1.249, -0.625, -1.814, +1.190]</span> m (<span class="math">&Sigma;h<sup>BS</sup> = 0.000</span> m).<br>
+          • Cao độ: <span class="math">H<sub>1</sub> = 11.249; H<sub>2</sub> = 10.624; H<sub>3</sub> = 8.810; H<sub>A</sub> = 10.000 m</span> (Khớp mốc xuất phát!).</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- DẠNG 5 -->
+    <div style="margin-top:24px;">
+      <h3 style="color:var(--primary); font-size:1.15rem; margin-bottom:10px; display:flex; align-items:center; gap:8px;">
+        <span class="ex-tag">Dạng 5</span> BÌNH SAI MỐC CÔNG TRÌNH TỪ HAI MỐC GỐC (3 BÀI)
+      </h3>
+
+      <!-- BÀI 5.1 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 5.1: Mốc công trình cốt sàn A (Slide 200 & 201 - Bài tập trang 67 giáo trình)</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Tóm tắt lời giải Slide 201:</strong><br>
+          • Tuyến <span class="math">N<sub>1</sub> &rarr; A &rarr; N<sub>2</sub></span>: Đoạn đầu đổi dấu <span class="math">h<sub>1</sub> = -h<sub>AN1</sub> = -(-0.225) = +0.225 m</span>; <span class="math">h<sub>2</sub> = -0.765 m</span>.<br>
+          • <span class="math">&Sigma;h<sub>đo</sub> = -0.540 m</span>; <span class="math">&Delta;H<sub>gốc</sub> = 19.475 - 20.000 = -0.525 m</span> &rarr; <span class="math">f<sub>h</sub> = -15 mm</span> (&le; 100 mm &rarr; ĐẠT).<br>
+          • Số hiệu chỉnh: <span class="math">v<sub>1</sub> = +0.007 m</span>; <span class="math">v<sub>2</sub> = +0.008 m</span> &rarr; <span class="math">&Sigma;v = +0.015 m</span>.<br>
+          • <span class="math">h<sub>1</sub><sup>BS</sup> = +0.232 m</span> &rarr; Độ cao mốc công trình: <span class="math">H<sub>A</sub> = 20.000 + 0.232 = <strong>20.232 m</strong></span>.<br>
+          • Kiểm tra mốc cuối: <span class="math">H<sub>N2</sub> = 20.232 - 0.757 = <strong>19.475 m</strong></span> (Khớp 100%).</p>
+        </div>
+      </details>
+
+      <!-- BÀI 5.2 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 5.2: Xác định cao độ mốc cốt nền móng B</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Đặt máy tại cốt móng <span class="math">B</span> ngắm mia tại <span class="math">N<sub>1</sub></span> (<span class="math">H<sub>N1</sub> = 15.000</span> m) và <span class="math">N<sub>2</sub></span> (<span class="math">H<sub>N2</sub> = 14.850</span> m). Cự ly <span class="math">D<sub>BN1</sub> = 60 m, D<sub>BN2</sub> = 40 m</span> (<span class="math">&Sigma;D = 100</span> m). Đo được <span class="math">h<sub>BN1</sub> = -0.450 m, h<sub>BN2</sub> = -0.580 m</span>. Tiêu chuẩn <span class="math">f<sub>hcp</sub> = &plusmn;50</span> mm. Tính cao độ <span class="math">H<sub>B</sub></span>?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải:</strong><br>
+          • Tuyến <span class="math">N<sub>1</sub> &rarr; B &rarr; N<sub>2</sub></span>: <span class="math">h<sub>1</sub> = -(-0.450) = +0.450 m</span>; <span class="math">h<sub>2</sub> = -0.580 m</span> &rarr; <span class="math">&Sigma;h<sub>đo</sub> = -0.130 m</span>.<br>
+          • <span class="math">&Delta;H<sub>gốc</sub> = 14.850 - 15.000 = -0.150 m</span> &rarr; <span class="math">f<sub>h</sub> = -0.130 - (-0.150) = +0.020 m = +20 mm</span> (&le; 50 mm &rarr; ĐẠT).<br>
+          • Số hiệu chỉnh: <span class="math">v<sub>1</sub> = -0.020 &times; (60/100) = -0.012 m</span>; <span class="math">v<sub>2</sub> = -0.020 &times; (40/100) = -0.008 m</span>.<br>
+          • Chênh cao bình sai: <span class="math">h<sub>1</sub><sup>BS</sup> = +0.450 - 0.012 = +0.438 m</span>.<br>
+          • Cao độ mốc móng: <span class="math">H<sub>B</sub> = 15.000 + 0.438 = <strong>15.438 m</strong></span>.<br>
+          • Kiểm tra mốc <span class="math">N<sub>2</sub></span>: <span class="math">15.438 + (-0.580 - 0.008) = 15.438 - 0.588 = <strong>14.850 m</strong></span> (Khớp tuyệt đối!).</p>
+        </div>
+      </details>
+
+      <!-- BÀI 5.3 -->
+      <details class="ex-card">
+        <summary>
+          <span>Bài 5.3: Mốc định vị trục tim công trình C</span>
+          <span style="font-size:0.8rem; color:#0369a1;">Bấm xem lời giải ▾</span>
+        </summary>
+        <div class="ex-body">
+          <p><strong>Đề bài:</strong> Đặt máy tại mốc tim trục <span class="math">C</span> ngắm 2 mốc <span class="math">M</span> (<span class="math">H<sub>M</sub> = 30.500</span> m) và <span class="math">N</span> (<span class="math">H<sub>N</sub> = 31.200</span> m). Cự ly <span class="math">D<sub>CM</sub> = 80 m, D<sub>CN</sub> = 120 m</span> (<span class="math">&Sigma;D = 200</span> m). Đo được <span class="math">h<sub>CM</sub> = -1.150 m, h<sub>CN</sub> = -0.420 m</span>. Tiêu chuẩn <span class="math">f<sub>hcp</sub> = &plusmn;40</span> mm. Tính cao độ mốc <span class="math">C</span>?</p>
+          <hr style="margin:10px 0; border:0; border-top:1px dashed #cbd5e1;">
+          <p><strong>Lời giải:</strong><br>
+          • Tuyến <span class="math">M &rarr; C &rarr; N</span>: <span class="math">h<sub>1</sub> = -(-1.150) = +1.150 m</span>; <span class="math">h<sub>2</sub> = -0.420 m</span> &rarr; <span class="math">&Sigma;h<sub>đo</sub> = +0.730 m</span>.<br>
+          • <span class="math">&Delta;H<sub>gốc</sub> = 31.200 - 30.500 = +0.700 m</span> &rarr; <span class="math">f<sub>h</sub> = +0.730 - (+0.700) = +0.030 m = +30 mm</span> (&le; 40 mm &rarr; ĐẠT).<br>
+          • Số hiệu chỉnh: <span class="math">v<sub>1</sub> = -0.030 &times; (80/200) = -0.012 m</span>; <span class="math">v<sub>2</sub> = -0.030 &times; (120/200) = -0.018 m</span>.<br>
+          • Chênh cao bình sai: <span class="math">h<sub>1</sub><sup>BS</sup> = +1.150 - 0.012 = +1.138 m</span>.<br>
+          • Cao độ mốc tim trục: <span class="math">H<sub>C</sub> = 30.500 + 1.138 = <strong>31.638 m</strong></span>.<br>
+          • Kiểm tra mốc <span class="math">N</span>: <span class="math">31.638 + (-0.420 - 0.018) = 31.638 - 0.438 = <strong>31.200 m</strong></span> (Khớp 100%).</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- BƯỚC 9: ĐỀ THI THỬ GIỮA KỲ 10 ĐIỂM (TỰ ĐỘNG THEO SỐ ZZ CỦA BẠN!) -->
+  <section id="step9" class="step-section">
+    <div class="step-header">
+      <div class="step-num">9</div>
+      <div class="step-title">
+        <h2>ĐỀ THI THỬ GIỮA KỲ 10 ĐIỂM CHUẨN CẤU TRÚC (TỰ ĐỘNG THEO SỐ ZZ)</h2>
+        <p>Thời gian làm bài: 60 – 75 phút • Toàn bộ số liệu và đáp án tự động nhảy số theo số ZZ của bạn!</p>
+      </div>
+      <div class="step-badge" style="background:#fce7f3; color:#9d174d; border:1px solid #f472b6;">Đề thi thử 10đ</div>
+    </div>
+
+    <div class="hero-callout" style="background:#fdf2f8; border-color:#f472b6; color:#831843; margin-bottom:20px;">
+      <span>⏱️</span>
+      <span><strong>Chế độ thi thử:</strong> Hãy lấy giấy nháp và máy tính Casio làm 4 câu bên dưới trong 60 phút theo số <strong class="dyn-zz-tag" style="color:#be185d; text-decoration:underline;">ZZ = 10</strong> của bạn, sau đó đối chiếu với đáp án và barem điểm chi tiết kèm theo!</span>
+    </div>
+
+    <!-- CÂU 1 -->
+    <div class="problem-box" style="border-left-color:#8b5cf6;">
+      <div class="problem-box-title">
+        <span style="color:#6d28d9;">📋 CÂU 1 (2.0 ĐIỂM): LÝ THUYẾT MÁY KINH VĨ & BÀI TOÁN TRẮC ĐỊA NGHỊCH</span>
+        <span class="step-badge">2.0 điểm</span>
+      </div>
+      <div class="problem-box-desc">
+        <strong>1.1 (1.0đ):</strong> Nêu 4 điều kiện hình học cơ bản của máy kinh vĩ. Nếu trục ngắm không vuông góc với trục quay ống kính thì sinh ra sai số gì, và nêu biện pháp đo để triệt tiêu sai số này?<br>
+        <strong>1.2 (1.0đ):</strong> Cho biết tọa độ hai điểm <span class="math">A(X<sub>A</sub>, Y<sub>A</sub>)</span> và <span class="math">B(X<sub>B</sub>, Y<sub>B</sub>)</span>. Viết công thức tính khoảng cách ngang <span class="math">D<sub>AB</sub></span> và góc định hướng <span class="math">&alpha;<sub>AB</sub></span> (kèm quy tắc xét dấu 4 góc phần tư).
+      </div>
+      <details class="ex-card" style="margin-top:12px;">
+        <summary><span>Xem đáp án & Barem điểm Câu 1 ▾</span></summary>
+        <div class="ex-body">
+          <p><strong>1.1 (1.0 điểm):</strong><br>
+          • 4 điều kiện hình học: <span class="math">LL<sub>1</sub> &perp; VV<sub>1</sub></span>; <span class="math">CC<sub>1</sub> &perp; HH<sub>1</sub></span>; <span class="math">HH<sub>1</sub> &perp; VV<sub>1</sub></span>; Dây đứng màng chỉ thập <span class="math">// VV<sub>1</sub></span>. (0.5đ)<br>
+          • Nếu <span class="math">CC<sub>1</sub> &not;&perp; HH<sub>1</sub></span> sinh ra <strong>sai số góc ngắm (sai số 2c)</strong>. Triệt tiêu bằng cách đo ở 2 vị trí bàn độ <strong>Thuận kính (L)</strong> và <strong>Đảo kính (R)</strong> rồi lấy trung bình: <span class="math">&beta; = (&beta;<sub>L</sub> + &beta;<sub>R</sub>)/2</span>. (0.5đ)</p>
+          <p style="margin-top:8px;"><strong>1.2 (1.0 điểm):</strong><br>
+          • <span class="math">&Delta;X = X<sub>B</sub> - X<sub>A</sub>; &Delta;Y = Y<sub>B</sub> - Y<sub>A</sub> &rarr; D<sub>AB</sub> = &radic;(&Delta;X<sup>2</sup> + &Delta;Y<sup>2</sup>)</span>. (0.5đ)<br>
+          • <span class="math">r = arctan |&Delta;Y / &Delta;X|</span>. Quy tắc xét dấu: Phần tư I (+,+): <span class="math">&alpha; = r</span>; Phần tư II (-,+): <span class="math">&alpha; = 180&deg; - r</span>; Phần tư III (-,-): <span class="math">&alpha; = 180&deg; + r</span>; Phần tư IV (+,-): <span class="math">&alpha; = 360&deg; - r</span>. (0.5đ)</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- CÂU 2 -->
+    <div class="problem-box" style="border-left-color:#d97706;">
+      <div class="problem-box-title">
+        <span style="color:#b45309;">📋 CÂU 2 (2.0 ĐIỂM): ĐO CAO LƯỢNG GIÁC CÔNG TRÌNH THEO SỐ ZZ CỦA BẠN</span>
+        <span class="step-badge">Slide 145 & 146</span>
+      </div>
+      <div class="problem-box-desc">
+        Xác định chiều cao công trình <span class="math">h<sub>CĐ</sub></span> (từ chân C đến đỉnh Đ) bằng phương pháp đo cao lượng giác khi không tới chân mia. Máy kinh vĩ đặt tại trạm 1:<br>
+        • Khoảng cách ngang: <span class="math">D<sub>1</sub> = ZZ + 25 = </span><strong class="td-highlight" id="dyn-exam-d1-q">35.0 m</strong>.<br>
+        • Góc đứng ngắm đỉnh: <span class="math">V<sub>Đ</sub> = +15&deg; ZZ' = </span><strong class="td-highlight" id="dyn-exam-vd-q">+15&deg; 10'</strong>.<br>
+        • Góc đứng ngắm chân: <span class="math">V<sub>C</sub> = -20&deg; 30'</span>. Chiều cao gương <span class="math">L<sub>1</sub> = L<sub>2</sub> = 0</span>.<br>
+        <strong>Yêu cầu:</strong> a) Chứng minh chiều cao máy <span class="math">i</span> triệt tiêu. (0.5đ) • b) Tính chiều cao công trình <span class="math">h<sub>CĐ</sub></span> theo số ZZ của bạn? (1.5đ)
+      </div>
+      <details class="ex-card" style="margin-top:12px;">
+        <summary><span>Xem đáp án & Lời giải tự động theo ZZ Câu 2 ▾</span></summary>
+        <div class="ex-body">
+          <p><strong>a) Chứng minh i triệt tiêu (0.5 điểm):</strong><br>
+          <span class="math">H<sub>Đ</sub> = H<sub>trạm</sub> + i + D<sub>1</sub> tan V<sub>Đ</sub></span>; <span class="math">H<sub>C</sub> = H<sub>trạm</sub> + i + D<sub>1</sub> tan V<sub>C</sub></span>.<br>
+          <span class="math">h<sub>CĐ</sub> = H<sub>Đ</sub> - H<sub>C</sub> = D<sub>1</sub> &times; (tan V<sub>Đ</sub> - tan V<sub>C</sub>)</span> &rarr; Chiều cao máy <span class="math">i</span> triệt tiêu hoàn toàn.</p>
+          <p style="margin-top:8px;"><strong>b) Tính số cụ thể theo <span class="dyn-zz-tag">ZZ = 10</span> (1.5 điểm):</strong><br>
+          • <span class="math">D<sub>1</sub> = </span><span id="dyn-exam-d1-sol">35.0</span> m.<br>
+          • <span class="math">V<sub>Đ</sub> = </span><span id="dyn-exam-vd-sol">+15&deg; 10' &approx; 15.1667&deg;</span> &rarr; <span class="math">tan V<sub>Đ</sub> &approx; </span><span id="dyn-exam-tanvd">0.27107</span>.<br>
+          • <span class="math">V<sub>C</sub> = -20.5&deg;</span> &rarr; <span class="math">tan V<sub>C</sub> &approx; -0.37388</span>.<br>
+          • <span class="math">&Delta;tan = tan V<sub>Đ</sub> - tan V<sub>C</sub> = </span><span id="dyn-exam-deltatan">0.64495</span>.<br>
+          • <strong>Chiều cao công trình:</strong> <span class="math">h<sub>CĐ</sub> = D<sub>1</sub> &times; &Delta;tan = </span><strong style="color:#b45309; font-size:1.05rem;" id="dyn-exam-hcd-sol">22.573 m</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- CÂU 3 -->
+    <div class="problem-box" style="border-left-color:#2563eb;">
+      <div class="problem-box-title">
+        <span style="color:#1d4ed8;">📋 CÂU 3 (3.0 ĐIỂM): THỦY CHUẨN TỪ GIỮA & SAI SỐ ĐỌC MIA THEO ZZ</span>
+        <span class="step-badge">Slide 130 & 131</span>
+      </div>
+      <div class="problem-box-desc">
+        Đặt máy thủy chuẩn ở giữa hai điểm M và N. Cao độ mốc chuẩn <span class="math">H<sub>M</sub> = 12.500</span> m.<br>
+        • Mia sau tại M đọc chỉ giữa: <span class="math">a = 1000</span> mm.<br>
+        • Mia trước tại N đọc chỉ giữa: <span class="math">b = 1000 + ZZ = </span><strong class="td-highlight" id="dyn-exam-b-q">1010 mm</strong>.<br>
+        <strong>3.1 (0.5đ):</strong> Tính chênh cao <span class="math">h<sub>MN</sub></span> (m)? • <strong>3.2 (0.5đ):</strong> Tính cao độ <span class="math">H<sub>N</sub></span> (m)?<br>
+        <strong>3.3 (1.0đ):</strong> Cho <span class="math">m<sub>đọc</sub> = &plusmn;0.5</span> mm, tính sai số chênh cao <span class="math">m<sub>h</sub></span>? • <strong>3.4 (1.0đ):</strong> Yêu cầu <span class="math">m<sub>h</sub> &le; &plusmn;5</span> mm, tìm <span class="math">m<sub>đọc</sub></span> tối đa?
+      </div>
+      <details class="ex-card" style="margin-top:12px;">
+        <summary><span>Xem đáp án & Lời giải tự động theo ZZ Câu 3 ▾</span></summary>
+        <div class="ex-body">
+          <p>• <strong>3.1 (0.5đ):</strong> <span class="math">h<sub>MN</sub> = a - b = 1000 - </span><span id="dyn-exam-b-sol">1010</span> mm = <strong id="dyn-exam-h-sol">-0.010 m</strong>.<br>
+          • <strong>3.2 (0.5đ):</strong> <span class="math">H<sub>N</sub> = H<sub>M</sub> + h<sub>MN</sub> = 12.500 + (</span><span id="dyn-exam-h-sol2">-0.010</span>) = <strong id="dyn-exam-hn-sol">12.490 m</strong>.<br>
+          • <strong>3.3 (1.0đ):</strong> <span class="math">m<sub>h</sub> = &radic;(m<sub>a</sub><sup>2</sup> + m<sub>b</sub><sup>2</sup>) = m<sub>đọc</sub> &times; &radic;2 = 0.5 &times; &radic;2 &approx; <strong>&plusmn;0.707 mm</strong></span>.<br>
+          • <strong>3.4 (1.0đ):</strong> <span class="math">m<sub>đọc</sub> &le; 5.0 / &radic;2 &approx; <strong>&plusmn;3.536 mm</strong></span> (hoặc &le; 3.5 mm).</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- CÂU 4 -->
+    <div class="problem-box" style="border-left-color:#15803d;">
+      <div class="problem-box-title">
+        <span style="color:#15803d;">📋 CÂU 4 (3.0 ĐIỂM): BÌNH SAI MỐC CÔNG TRÌNH CỐT SÀN A (±0.000)</span>
+        <span class="step-badge">Slide 200 & 201</span>
+      </div>
+      <div class="problem-box-desc">
+        Đặt máy tại điểm công trình A ngắm hai mốc gốc <span class="math">N<sub>1</sub></span> (<span class="math">H<sub>N1</sub> = 20.000</span> m) và <span class="math">N<sub>2</sub></span> (<span class="math">H<sub>N2</sub> = 19.475</span> m).<br>
+        • <span class="math">D<sub>AN1</sub> = 50 m, D<sub>AN2</sub> = 54 m</span> (<span class="math">&Sigma;D = 104</span> m).<br>
+        • <span class="math">h<sub>AN1</sub> = -0.225 m; h<sub>AN2</sub> = -0.765 m</span>. Tiêu chuẩn cho phép: <span class="math">f<sub>hcp</sub> = &plusmn;100</span> mm.<br>
+        <strong>4.1 (1.0đ):</strong> Lập tuyến dẫn, tính <span class="math">f<sub>h</sub></span> và kiểm tra hạn sai? • <strong>4.2 (1.0đ):</strong> Phân bổ số hiệu chỉnh <span class="math">v<sub>hi</sub></span>? • <strong>4.3 (1.0đ):</strong> Tính cao độ bình sai mốc <span class="math">H<sub>A</sub></span> và kiểm tra khớp mốc <span class="math">N<sub>2</sub></span>?
+      </div>
+      <details class="ex-card" style="margin-top:12px;">
+        <summary><span>Xem đáp án & Barem điểm Câu 4 ▾</span></summary>
+        <div class="ex-body">
+          <p>• <strong>4.1 (1.0đ):</strong> Tuyến <span class="math">N<sub>1</sub> &rarr; A &rarr; N<sub>2</sub></span>. Đoạn đầu đổi dấu: <span class="math">h<sub>1</sub> = -h<sub>AN1</sub> = +0.225 m</span>; <span class="math">h<sub>2</sub> = -0.765 m &rarr; &Sigma;h<sub>đo</sub> = -0.540 m</span>.<br>
+          <span class="math">&Delta;H<sub>gốc</sub> = 19.475 - 20.000 = -0.525 m &rarr; f<sub>h</sub> = -0.540 - (-0.525) = -0.015 m = -15 mm</span>. Vì <span class="math">|f<sub>h</sub>| &le; 100 mm &rarr; <strong>ĐẠT</strong></span>. (1.0đ)<br>
+          • <strong>4.2 (1.0đ):</strong> <span class="math">v<sub>1</sub> = -(-0.015) &times; 50/104 &approx; +0.007 m</span>; <span class="math">v<sub>2</sub> = -(-0.015) &times; 54/104 &approx; +0.008 m</span>. <span class="math">&Sigma;v = +0.015 m = -f<sub>h</sub></span>. (1.0đ)<br>
+          • <strong>4.3 (1.0đ):</strong> <span class="math">h<sub>1</sub><sup>BS</sup> = +0.225 + 0.007 = +0.232 m &rarr; H<sub>A</sub> = 20.000 + 0.232 = <strong>20.232 m</strong></span>.<br>
+          Kiểm tra mốc <span class="math">N<sub>2</sub></span>: <span class="math">H<sub>N2</sub> = 20.232 + (-0.765 + 0.008) = 20.232 - 0.757 = <strong>19.475 m</strong></span> (Khớp 100%!). (1.0đ)</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- BƯỚC 10: SỔ 16 LỖI CHẾT NGƯỜI, TỜ CÔNG THỨC 1 TRANG IN & CHECK-LIST PHÒNG THI -->
+  <section id="step10" class="step-section">
+    <div class="step-header">
+      <div class="step-num" style="background:#dc2626;">10</div>
+      <div class="step-title">
+        <h2>SỔ 16 LỖI CHẾT NGƯỜI, TỜ CÔNG THỨC 1 TRANG IN & CHECK-LIST PHÒNG THI</h2>
+        <p>Bảo hiểm điểm 10 • Tra cứu 16 bẫy trừ điểm kinh điển, tờ công thức in ấn và check-list 5 phút phát đề</p>
+      </div>
+      <div class="step-badge" style="background:#fee2e2; color:#991b1b; border:1px solid #f87171;">Bảo hiểm 10đ</div>
+    </div>
+
+    <div class="hero-callout" style="background:#fef2f2; border-color:#f87171; color:#991b1b; margin-bottom:24px;">
+      <span>🛡️</span>
+      <span><strong>Chiến lược đạt điểm tuyệt đối:</strong> 80% sinh viên mất điểm trong bài thi Trắc địa không phải do không thuộc công thức, mà do mắc các lỗi về <strong>đơn vị (mm &harr; m, m &harr; km)</strong>, <strong>dấu âm của góc đứng và chênh cao</strong>, và <strong>quên nhân hệ số &radic;2</strong>. Hãy rà soát kỹ bảng 16 bẫy dưới đây trước khi vào thi!</span>
+    </div>
+
+    <!-- PHẦN 1: BẢNG TRA CỨU 16 LỖI CHẾT NGƯỜI -->
+    <div>
+      <h3 style="color:#991b1b; font-size:1.15rem; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+        <span>🚨</span> PHẦN 1: BẢNG 16 BẪY SAI "CHẾT NGƯỜI" HAY BỊ TRỪ ĐIỂM NHẤT TRONG ĐỀ THI
+      </h3>
+      <div class="table-responsive">
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th style="width:50px;">STT</th>
+              <th style="width:130px;">Chủ đề / Bài thi</th>
+              <th style="width:230px;">Bẫy sai hay mắc phải</th>
+              <th style="width:220px;">Bản chất & Hậu quả</th>
+              <th>Cách phòng tránh chuẩn 100%</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1</strong></td>
+              <td><span class="ex-tag" style="background:#fee2e2; color:#991b1b;">Slide 130</span><br>Thủy chuẩn giữa</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Lấy <span class="math">h = b - a</span> (ngược dấu chênh cao)</td>
+              <td style="text-align:left; font-size:0.85rem;">Lấy Trước trừ Sau thay vì Sau trừ Trước.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;"><span class="math">h = a - b = </span><strong>mia sau &minus; mia trước</strong>. Điểm trước thấp hơn thì <span class="math">h &lt; 0</span>.</td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td><span class="ex-tag" style="background:#fee2e2; color:#991b1b;">Slide 130</span><br>Thủy chuẩn giữa</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Cộng độ cao khi chưa đổi mm sang m</td>
+              <td style="text-align:left; font-size:0.85rem;">Mia đọc bằng milimét (1000 mm), độ cao lại tính bằng mét (12.500 m).</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;">Bắt buộc chia 1000: <span class="math">h(m) = h(mm) / 1000</span> trước khi cộng vào <span class="math">H<sub>M</sub></span>.</td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td><span class="ex-tag" style="background:#fee2e2; color:#991b1b;">Slide 131</span><br>Sai số chênh cao</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Lấy <span class="math">m<sub>h</sub> = m<sub>đọc</sub></span> (quên &radic;2)</td>
+              <td style="text-align:left; font-size:0.85rem;">Nghĩ rằng đo 1 trạm thì sai số bằng sai số 1 lần đọc mia.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;">Một trạm đọc 2 mia: <span class="math">m<sub>h</sub> = &radic;(m<sub>a</sub><sup>2</sup> + m<sub>b</sub><sup>2</sup>) = m<sub>đọc</sub> &times; &radic;2</span>.</td>
+            </tr>
+            <tr>
+              <td><strong>4</strong></td>
+              <td><span class="ex-tag" style="background:#fee2e2; color:#991b1b;">Slide 131</span><br>Bài toán ngược</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Lấy trực tiếp 5 mm làm <span class="math">m<sub>đọc</sub></span></td>
+              <td style="text-align:left; font-size:0.85rem;">Không giải bất đẳng thức truyền sai số trung phương.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;"><span class="math">m<sub>đọc</sub> &le; m<sub>h,cp</sub> / &radic;2 = 5 / &radic;2 &approx; <strong>&plusmn;3.536 mm</strong></span>.</td>
+            </tr>
+            <tr>
+              <td><strong>5</strong></td>
+              <td><span class="ex-tag" style="background:#e0f2fe; color:#0369a1;">Trang 67</span><br>Thị cự mia</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Quên nhân 2 khi mất chỉ trên</td>
+              <td style="text-align:left; font-size:0.85rem;">Lấy trực tiếp <span class="math">(c<sub>g</sub> - c<sub>d</sub>) &times; 100</span> làm cự ly.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;"><span class="math">D = 200 &times; (c<sub>g</sub> - c<sub>d</sub>)</span> hoặc khôi phục <span class="math">c<sub>t</sub> = 2c<sub>g</sub> - c<sub>d</sub></span> trước rồi mới tính <span class="math">D = 100(c<sub>t</sub> - c<sub>d</sub>)</span>.</td>
+            </tr>
+            <tr>
+              <td><strong>6</strong></td>
+              <td><span class="ex-tag" style="background:#fef3c7; color:#b45309;">Slide 145</span><br>Lượng giác</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Quên dấu âm của góc ngắm chân <span class="math">V<sub>C</sub></span></td>
+              <td style="text-align:left; font-size:0.85rem;">Góc ngắm xuống chân <span class="math">V<sub>C</sub> = -20&deg;30'</span> mang dấu âm.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;"><span class="math">tan V<sub>Đ</sub> - tan(-20.5&deg;) = tan V<sub>Đ</sub> + tan(20.5&deg;)</span>. Chiều cao công trình luôn &gt; 0.</td>
+            </tr>
+            <tr>
+              <td><strong>7</strong></td>
+              <td><span class="ex-tag" style="background:#fef3c7; color:#b45309;">Slide 145</span><br>Lượng giác</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Bấm <span class="math">tan(V<sub>Đ</sub> - V<sub>C</sub>)</span> gộp chung</td>
+              <td style="text-align:left; font-size:0.85rem;">Nhầm lẫn công thức toán học <span class="math">tan(A - B) &ne; tan A - tan B</span>.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;">Bắt buộc tính riêng: <span class="math">(tan V<sub>Đ</sub>) - (tan V<sub>C</sub>)</span> rồi mới nhân với cự ly <span class="math">D</span>!</td>
+            </tr>
+            <tr>
+              <td><strong>8</strong></td>
+              <td><span class="ex-tag" style="background:#fef3c7; color:#b45309;">Slide 145</span><br>Lượng giác</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Đổi phút sai thập phân: <span class="math">30' = 0.30&deg;</span></td>
+              <td style="text-align:left; font-size:0.85rem;">Lẫn lộn giữa hệ thập phân (hệ 10) và lục thập phân (hệ 60).</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;"><span class="math">30' = 30/60 = 0.5&deg;</span>. Góc <span class="math">15&deg;ZZ' = (15 + ZZ/60)&deg;</span>.</td>
+            </tr>
+            <tr>
+              <td><strong>9</strong></td>
+              <td><span class="ex-tag" style="background:#fef3c7; color:#b45309;">Slide 146</span><br>Lượng giác</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Bỏ thi vì đề không cho chiều cao máy <span class="math">i</span></td>
+              <td style="text-align:left; font-size:0.85rem;">Không nhận ra tính chất hình học triệt tiêu chiều cao trạm.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;"><span class="math">h<sub>CĐ</sub> = H<sub>Đ</sub> - H<sub>C</sub> = D(tan V<sub>Đ</sub> - tan V<sub>C</sub>)</span>. Đại lượng <span class="math">i</span> tự động triệt tiêu hoàn toàn!</td>
+            </tr>
+            <tr>
+              <td><strong>10</strong></td>
+              <td><span class="ex-tag" style="background:#dcfce7; color:#15803d;">Slide 198</span><br>Bình sai cự ly</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Thay cự ly mét vào căn tính <span class="math">f<sub>hcp</sub></span></td>
+              <td style="text-align:left; font-size:0.85rem;">Quên quy ước đơn vị chuẩn của công thức <span class="math">&plusmn;50&radic;L</span>.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;">Chiều dài <span class="math">L</span> bắt buộc phải đổi ra <strong>kilômét (km)</strong>: <span class="math">520 m = 0.520 km &rarr; 50&radic;0.520 &approx; &plusmn;36 mm</span>.</td>
+            </tr>
+            <tr>
+              <td><strong>11</strong></td>
+              <td><span class="ex-tag" style="background:#dcfce7; color:#15803d;">Slide 198</span><br>Bình sai tuyến</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Đảo dấu sai số khép <span class="math">f<sub>h</sub></span> và số hiệu chỉnh</td>
+              <td style="text-align:left; font-size:0.85rem;">Lấy <span class="math">(H<sub>đầu</sub> - H<sub>cuối</sub>)</span> hoặc quên đổi dấu khi tính <span class="math">v<sub>i</sub></span>.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;"><span class="math">f<sub>h</sub> = &Sigma;h<sub>đo</sub> - (H<sub>cuối</sub> - H<sub>đầu</sub>)</span>; Số hiệu chỉnh <span class="math">v<sub>i</sub> = -f<sub>h</sub> &times; ...</span> (ngược dấu <span class="math">f<sub>h</sub></span>).</td>
+            </tr>
+            <tr>
+              <td><strong>12</strong></td>
+              <td><span class="ex-tag" style="background:#dcfce7; color:#15803d;">Slide 199</span><br>Bình sai số trạm</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Làm tròn cứng nhắc làm lệch tổng <span class="math">&Sigma;v</span></td>
+              <td style="text-align:left; font-size:0.85rem;">Làm tròn độc lập từng số dẫn đến <span class="math">&Sigma;v &ne; -f<sub>h</sub></span>.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;">Kiểm tra <span class="math">&Sigma;v = -f<sub>h</sub></span>. Nếu lệch 1 mm, tăng/giảm 1 mm ở đoạn dài nhất hoặc nhiều trạm nhất.</td>
+            </tr>
+            <tr>
+              <td><strong>13</strong></td>
+              <td><span class="ex-tag" style="background:#f3e8ff; color:#6b21a8;">Slide 201</span><br>Mốc công trình A</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Lấy trực tiếp <span class="math">h<sub>AN1</sub></span> cho đoạn <span class="math">N<sub>1</sub> &rarr; A</span></td>
+              <td style="text-align:left; font-size:0.85rem;">Chiều đo thực tế tại trạm máy ngược chiều tiến của tuyến.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;">Bắt buộc đổi dấu: <span class="math">h<sub>1</sub> = h<sub>N1A</sub> = -h<sub>AN1</sub> = -(-0.225) = +0.225 m</span>!</td>
+            </tr>
+            <tr>
+              <td><strong>14</strong></td>
+              <td><span class="ex-tag" style="background:#e0e7ff; color:#3730a3;">Trang 96</span><br>Đường chuyền</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Nhầm công thức góc ngoặt Trái và Phải</td>
+              <td style="text-align:left; font-size:0.85rem;">Không chú ý vị trí đỉnh góc theo chiều tiến của tuyến đo.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;">Góc <strong>Trái</strong>: <span class="math">&alpha;<sub>sau</sub> = &alpha;<sub>trước</sub> + &beta;<sub>trái</sub> - 180&deg;</span>; Góc <strong>Phải</strong>: <span class="math">&alpha;<sub>sau</sub> = &alpha;<sub>trước</sub> + 180&deg; - &beta;<sub>phải</sub></span>.</td>
+            </tr>
+            <tr>
+              <td><strong>15</strong></td>
+              <td><span class="ex-tag" style="background:#e0e7ff; color:#3730a3;">Trang 94</span><br>Tọa độ nghịch</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Nhầm góc định hướng giữa 4 góc phần tư</td>
+              <td style="text-align:left; font-size:0.85rem;">Máy Casio chỉ trả về <span class="math">arctan</span> trong khoảng <span class="math">(-90&deg;, +90&deg;)</span>.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;">Xét dấu <span class="math">(&Delta;X, &Delta;Y)</span>: I (+,+): <span class="math">&alpha; = r</span>; II (-,+): <span class="math">180&deg; - r</span>; III (-,-): <span class="math">180&deg; + r</span>; IV (+,-): <span class="math">360&deg; - r</span>.</td>
+            </tr>
+            <tr>
+              <td><strong>16</strong></td>
+              <td><span class="ex-tag" style="background:#fee2e2; color:#991b1b;">Trang 68</span><br>Kiểm nghiệm máy</td>
+              <td style="color:#dc2626; font-weight:600; text-align:left;">Lắc mia lấy số đọc lớn nhất</td>
+              <td style="text-align:left; font-size:0.85rem;">Nhầm tính chất tam giác vuông: cạnh huyền dài hơn cạnh góc vuông.</td>
+              <td style="text-align:left; font-weight:600; color:#16a34a;">Mia nghiêng là cạnh huyền (số đọc lớn hơn) &rarr; Khi lắc mia qua vị trí thẳng đứng phải lấy <strong>SỐ ĐỌC NHỎ NHẤT</strong>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PHẦN 2: TỜ CÔNG THỨC 1 TRANG IN -->
+    <div style="margin-top:28px; background:#f8fafc; border:2px solid #cbd5e1; border-radius:12px; padding:20px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+        <h3 style="color:#0f172a; font-size:1.15rem; margin:0; display:flex; align-items:center; gap:8px;">
+          <span>📄</span> PHẦN 2: TỜ CÔNG THỨC CÔ ĐỌNG 1 TRANG IN (ÔN CẤP TỐC)
+        </h3>
+        <button onclick="window.print()" class="btn-print" style="background:#1e293b; color:white; border:none; padding:8px 16px; border-radius:6px; cursor:pointer; font-weight:600; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+          🖨️ In / Lưu PDF Tờ Này
+        </button>
+      </div>
+      <p style="font-size:0.85rem; color:#64748b; margin-bottom:14px;">
+        <em>Quy ước: Số đọc mia tính bằng mm; độ cao và chênh cao tính bằng m (chia 1000). Chiều dài tuyến L trong hạn sai tính bằng km.</em>
+      </p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+        <!-- Bảng 1 -->
+        <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+          <h4 style="color:#2563eb; font-size:0.92rem; margin-bottom:8px;">1. Thủy chuẩn hình học & Sai số (Ch.3 & 2)</h4>
+          <ul style="font-size:0.85rem; line-height:1.6; padding-left:18px; margin:0;">
+            <li><span class="math">h<sub>MN</sub> = a - b</span> (Sau &minus; Trước, chia 1000 ra m).</li>
+            <li><span class="math">H<sub>N</sub> = H<sub>M</sub> + h<sub>MN</sub></span>.</li>
+            <li><span class="math">m<sub>h</sub> = m<sub>đọc</sub> &times; &radic;2</span> (1 trạm đo 2 mia).</li>
+            <li><span class="math">m<sub>đọc</sub> &le; m<sub>h,cp</sub> / &radic;2</span> (bài toán ngược).</li>
+            <li><span class="math">m<sub>tuyến</sub> = m<sub>h</sub>&radic;N = m<sub>đọc</sub>&radic;(2N)</span>.</li>
+            <li><span class="math">D = 100 &times; (c<sub>t</sub> - c<sub>d</sub>)</span>; Khi mất chỉ trên: <span class="math">c<sub>t</sub> = 2c<sub>g</sub> - c<sub>d</sub></span> hoặc <span class="math">D = 200(c<sub>g</sub> - c<sub>d</sub>)</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Bảng 2 -->
+        <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+          <h4 style="color:#d97706; font-size:0.92rem; margin-bottom:8px;">2. Đo cao lượng giác (Chương 3)</h4>
+          <ul style="font-size:0.85rem; line-height:1.6; padding-left:18px; margin:0;">
+            <li>Tổng quát: <span class="math">h = D &times; tan V + i - l</span>.</li>
+            <li>Chiều cao công trình: <span class="math">h<sub>CĐ</sub> = D(tan V<sub>Đ</sub> - tan V<sub>C</sub>)</span>. (Chiều cao máy <span class="math">i</span> triệt tiêu hoàn toàn).</li>
+            <li>Đổi phút sang độ: <span class="math">V = (độ + phút/60)&deg;</span>.</li>
+            <li>Ngắm đỉnh: <span class="math">V<sub>Đ</sub> &gt; 0</span>; Ngắm chân: <span class="math">V<sub>C</sub> &lt; 0</span>.</li>
+            <li><span class="math">&Delta;tan = tan V<sub>Đ</sub> - (-|tan V<sub>C</sub>|) = tan V<sub>Đ</sub> + |tan V<sub>C</sub>|</span>.</li>
+          </ul>
+        </div>
+
+        <!-- Bảng 3 -->
+        <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+          <h4 style="color:#8b5cf6; font-size:0.92rem; margin-bottom:8px;">3. Máy kinh vĩ & Đo góc (Chương 3)</h4>
+          <ul style="font-size:0.85rem; line-height:1.6; padding-left:18px; margin:0;">
+            <li>Góc bằng triệt tiêu 2c: <span class="math">&beta; = (&beta;<sub>L</sub> + &beta;<sub>R</sub>)/2</span>.</li>
+            <li>Sai số ngắm: <span class="math">2c = |L - (R &plusmn; 180&deg;)|</span>.</li>
+            <li>Chỉ tiêu bàn độ đứng: <span class="math">MO = (L + R - 360&deg;)/2</span>.</li>
+            <li>Góc đứng: <span class="math">V = L - MO = MO - R + 180&deg;</span>.</li>
+            <li>Điều kiện trục: <span class="math">LL<sub>1</sub> &perp; VV<sub>1</sub>; CC<sub>1</sub> &perp; HH<sub>1</sub>; HH<sub>1</sub> &perp; VV<sub>1</sub></span>.</li>
+          </ul>
+        </div>
+
+        <!-- Bảng 4 -->
+        <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+          <h4 style="color:#15803d; font-size:0.92rem; margin-bottom:8px;">4. Bình sai thủy chuẩn kỹ thuật (Chương 4)</h4>
+          <ul style="font-size:0.85rem; line-height:1.6; padding-left:18px; margin:0;">
+            <li>Sai số khép: <span class="math">f<sub>h</sub> = &Sigma;h<sub>đo</sub> - (H<sub>cuối</sub> - H<sub>đầu</sub>)</span>. (Khép kín: <span class="math">f<sub>h</sub> = &Sigma;h<sub>đo</sub></span>).</li>
+            <li>Hạn sai cự ly: <span class="math">f<sub>hcp</sub> = &plusmn;50&radic;L</span> mm (<span class="math">L</span> tính bằng <strong>km</strong>).</li>
+            <li>Hạn sai trạm dốc: <span class="math">f<sub>hcp</sub> = &plusmn;10&radic;N</span> mm (<span class="math">N = &Sigma;n<sub>i</sub></span>).</li>
+            <li>Số hiệu chỉnh: <span class="math">v<sub>hi</sub> = -f<sub>h</sub> &times; (D<sub>i</sub> / &Sigma;D)</span> hoặc <span class="math">-f<sub>h</sub> &times; (n<sub>i</sub> / N)</span>. Kiểm tra: <span class="math">&Sigma;v<sub>hi</sub> = -f<sub>h</sub></span>.</li>
+            <li>Chênh cao bình sai: <span class="math">h<sub>i</sub><sup>BS</sup> = h<sub>đo,i</sub> + v<sub>hi</sub></span>.</li>
+            <li>Độ cao: <span class="math">H<sub>i</sub> = H<sub>i-1</sub> + h<sub>i</sub><sup>BS</sup></span> (khớp <span class="math">H<sub>cuối</sub></span>).</li>
+            <li>Mốc công trình A: Đổi dấu đoạn đầu <span class="math">h<sub>N1A</sub> = -h<sub>AN1</sub></span>.</li>
+          </ul>
+        </div>
+
+        <!-- Bảng 5 -->
+        <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:12px; grid-column: span 2;">
+          <h4 style="color:#0284c7; font-size:0.92rem; margin-bottom:8px;">5. Kinh vĩ & Tọa độ phẳng (Chương 4)</h4>
+          <ul style="font-size:0.85rem; line-height:1.6; padding-left:18px; margin:0;">
+            <li>Truyền góc Trái (tr.96–98): <span class="math">&alpha;<sub>sau</sub> = &alpha;<sub>trước</sub> + &beta;<sub>trái</sub> - 180&deg;</span> &bull; Truyền góc Phải: <span class="math">&alpha;<sub>sau</sub> = &alpha;<sub>trước</sub> + 180&deg; - &beta;<sub>phải</sub></span>.</li>
+            <li>Bài toán thuận: <span class="math">&Delta;X = D &times; cos &alpha;; &Delta;Y = D &times; sin &alpha;</span> &rarr; <span class="math">X<sub>B</sub> = X<sub>A</sub> + &Delta;X; Y<sub>B</sub> = Y<sub>A</sub> + &Delta;Y</span>.</li>
+            <li>Bài toán nghịch: <span class="math">D = &radic;(&Delta;X<sup>2</sup> + &Delta;Y<sup>2</sup>); r = arctan |&Delta;Y / &Delta;X|</span>. Quy tắc phần tư: I (+,+): <span class="math">&alpha; = r</span>; II (-,+): <span class="math">180&deg; - r</span>; III (-,-): <span class="math">180&deg; + r</span>; IV (+,-): <span class="math">360&deg; - r</span>.</li>
+            <li>Sai số khép tương đối mặt bằng: <span class="math">1/T = &radic;(f<sub>x</sub><sup>2</sup> + f<sub>y</sub><sup>2</sup>) / &Sigma;D &le; 1/2000</span>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHẦN 3: CHECK-LIST 5 PHÚT PHÒNG THI -->
+    <div style="margin-top:28px;">
+      <h3 style="color:#15803d; font-size:1.15rem; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+        <span>✅</span> PHẦN 3: CHECK-LIST 5 PHÚT TRƯỚC CỬA PHÒNG THI & 5 NGUYÊN TẮC VÀNG
+      </h3>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="background:#f0fdf4; border-left:4px solid #22c55e; padding:12px 16px; border-radius:0 8px 8px 0; font-size:0.92rem;">
+          <strong>1. Kiểm tra đơn vị góc máy tính Casio ngay khi ngồi vào bàn:</strong><br>
+          Nhìn trên đỉnh màn hình xem có chữ <strong>D</strong> (Degree - Độ) hay không! Nếu hiện <strong>R</strong> (Radian) hoặc <strong>G</strong> (Gradian), hãy chỉnh ngay:<br>
+          &bull; <strong>fx-880BTG:</strong> Phím <span class="math-code">HOME</span> &rarr; <span class="math-code">Cài đặt (Settings)</span> &rarr; <span class="math-code">Cài đặt phép tính</span> &rarr; <span class="math-code">Đơn vị góc</span> &rarr; Chọn <strong>Độ (Degree)</strong>.<br>
+          &bull; <strong>fx-580VNX:</strong> Bấm <span class="math-code">SHIFT</span> &rarr; <span class="math-code">MENU (SET UP)</span> &rarr; Phím <span class="math-code">2 (Angle Unit)</span> &rarr; Phím <span class="math-code">1 (Degree)</span>.
+        </div>
+
+        <div style="background:#f0fdf4; border-left:4px solid #22c55e; padding:12px 16px; border-radius:0 8px 8px 0; font-size:0.92rem;">
+          <strong>2. Nhận đề thi: Ghi to số ZZ lên góc giấy nháp ngay:</strong><br>
+          Đọc kỹ quy ước đề bài cho biến <span class="math">ZZ</span> (hai số cuối mã số sinh viên hoặc số thứ tự trong danh sách thi). Ví dụ <span class="math">ZZ = 10</span> &rarr; Ghi sẵn <span class="math">D = 25 + 10 = 35 m</span>, <span class="math">b = 1010 mm</span>, <span class="math">V<sub>Đ</sub> = 15&deg;10'</span> để không bị cuống khi tính toán.
+        </div>
+
+        <div style="background:#f0fdf4; border-left:4px solid #22c55e; padding:12px 16px; border-radius:0 8px 8px 0; font-size:0.92rem;">
+          <strong>3. Khắc sâu 3 phép đổi đơn vị sống còn:</strong><br>
+          &bull; <strong>Mia sang mét:</strong> <span class="math">1000 mm = 1.000 m</span> (chia 1000).<br>
+          &bull; <strong>Chiều dài tuyến L sang kilômét:</strong> <span class="math">520 m = 0.520 km</span> (chia 1000 trước khi bấm <span class="math">50&radic;L</span>).<br>
+          &bull; <strong>Phút sang độ:</strong> <span class="math">30' = 30/60 = 0.5&deg;</span>; <span class="math">10' = 10/60 &approx; 0.1667&deg;</span>.
+        </div>
+
+        <div style="background:#f0fdf4; border-left:4px solid #22c55e; padding:12px 16px; border-radius:0 8px 8px 0; font-size:0.92rem;">
+          <strong>4. Thần chú quy tắc dấu và phép trừ:</strong><br>
+          &bull; Thủy chuẩn: <strong>Sau trừ Trước</strong> (<span class="math">h = a - b</span>).<br>
+          &bull; Chiều cao công trình: <strong>Đỉnh trừ Chân</strong>, trừ số âm thành cộng (<span class="math">tan V<sub>Đ</sub> - (-tan|V<sub>C</sub>|) = tan V<sub>Đ</sub> + tan|V<sub>C</sub>|</span>).<br>
+          &bull; Mốc công trình A: Đổi dấu đoạn đầu <span class="math">h<sub>1</sub> = -h<sub>AN1</sub></span> vì đi ngược chiều tia ngắm!
+        </div>
+
+        <div style="background:#f0fdf4; border-left:4px solid #22c55e; padding:12px 16px; border-radius:0 8px 8px 0; font-size:0.92rem;">
+          <strong>5. Kiểm tra khép kín trước khi nộp bài:</strong><br>
+          &bull; Tổng số hiệu chỉnh: <span class="math">&Sigma;v = -f<sub>h</sub></span>.<br>
+          &bull; Độ cao điểm cuối bảng bình sai: Phải trùng khít 100% với độ cao mốc gốc cuối đề bài cho (<span class="math">H<sub>cuối</sub></span>). Nếu lệch &plusmn;1 mm, kiểm tra lại bước làm tròn số hiệu chỉnh!
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  function updateAllCalculations() {
+    const zzInput = document.getElementById('studentZZ');
+    let zz = parseInt(zzInput.value);
+    if (isNaN(zz) || zz < 0) zz = 10;
+
+    // Cập nhật nhãn ZZ hiển thị
+    document.querySelectorAll('.dyn-zz-tag').forEach(el => {
+      el.textContent = 'ZZ = ' + zz;
+    });
+
+    // 1. CẬP NHẬT BÀI 1 (Bước 2)
+    const bReading = 1000 + zz;
+    const hMM = 1000 - bReading;
+    const hM = (hMM / 1000).toFixed(3);
+    const hmBase = 12.500;
+    const hn = (hmBase + parseFloat(hM)).toFixed(3);
+
+    const elB1 = document.getElementById('dyn-b-1');
+    if (elB1) elB1.textContent = bReading;
+    const elB2 = document.getElementById('dyn-b-2');
+    if (elB2) elB2.textContent = bReading;
+    const elHMM = document.getElementById('dyn-h-mm');
+    if (elHMM) elHMM.textContent = hMM;
+    const elHM = document.getElementById('dyn-h-m');
+    if (elHM) elHM.textContent = hM + ' m';
+    const elHM2 = document.getElementById('dyn-h-m-2');
+    if (elHM2) elHM2.textContent = hM;
+    const elHN = document.getElementById('dyn-hn');
+    if (elHN) elHN.textContent = hn + ' m';
+
+    // 2. CẬP NHẬT BÀI 2 (Bước 3)
+    const d1 = 25 + zz;
+    const deltaTan = Math.tan(15.5 * Math.PI / 180) - Math.tan(-20.5 * Math.PI / 180);
+    const hcd = (d1 * deltaTan).toFixed(3);
+
+    const elD1 = document.getElementById('dyn-d1');
+    if (elD1) elD1.textContent = d1;
+    const elD1_2 = document.getElementById('dyn-d1-2');
+    if (elD1_2) elD1_2.textContent = d1;
+    const elD1_3 = document.getElementById('dyn-d1-3');
+    if (elD1_3) elD1_3.textContent = d1;
+    const elHCD = document.getElementById('dyn-hcd');
+    if (elHCD) elHCD.textContent = hcd + ' m';
+
+    // 3. CẬP NHẬT ĐỀ THI THỬ (Bước 9)
+    // Câu 2 Đề thi thử: D1 = ZZ + 25; V_Đ = +15° ZZ'; V_C = -20°30'
+    const examD1 = 25 + zz;
+    const examVDDeg = 15 + (zz / 60);
+    const examTanVD = Math.tan(examVDDeg * Math.PI / 180);
+    const examTanVC = Math.tan(-20.5 * Math.PI / 180);
+    const examDeltaTan = examTanVD - examTanVC;
+    const examHCD = (examD1 * examDeltaTan).toFixed(3);
+
+    const elExamD1Q = document.getElementById('dyn-exam-d1-q');
+    if (elExamD1Q) elExamD1Q.textContent = examD1.toFixed(1) + ' m';
+    const elExamVDQ = document.getElementById('dyn-exam-vd-q');
+    if (elExamVDQ) elExamVDQ.textContent = '+15° ' + (zz < 10 ? '0' + zz : zz) + '\'';
+
+    const elExamD1Sol = document.getElementById('dyn-exam-d1-sol');
+    if (elExamD1Sol) elExamD1Sol.textContent = examD1.toFixed(1);
+    const elExamVDSol = document.getElementById('dyn-exam-vd-sol');
+    if (elExamVDSol) elExamVDSol.textContent = '+15° ' + (zz < 10 ? '0' + zz : zz) + '\' ≈ ' + examVDDeg.toFixed(4) + '°';
+    const elExamTanVD = document.getElementById('dyn-exam-tanvd');
+    if (elExamTanVD) elExamTanVD.textContent = examTanVD.toFixed(5);
+    const elExamDeltaTan = document.getElementById('dyn-exam-deltatan');
+    if (elExamDeltaTan) elExamDeltaTan.textContent = examDeltaTan.toFixed(5);
+    const elExamHCDSol = document.getElementById('dyn-exam-hcd-sol');
+    if (elExamHCDSol) elExamHCDSol.textContent = examHCD + ' m';
+
+    // Câu 3 Đề thi thử: a = 1000 mm, b = 1000 + ZZ mm
+    const examBReading = 1000 + zz;
+    const examHMM = 1000 - examBReading;
+    const examHM = (examHMM / 1000).toFixed(3);
+    const examHN = (12.500 + parseFloat(examHM)).toFixed(3);
+
+    const elExamBQ = document.getElementById('dyn-exam-b-q');
+    if (elExamBQ) elExamBQ.textContent = examBReading + ' mm';
+    const elExamBSol = document.getElementById('dyn-exam-b-sol');
+    if (elExamBSol) elExamBSol.textContent = examBReading;
+    const elExamHSol = document.getElementById('dyn-exam-h-sol');
+    if (elExamHSol) elExamHSol.textContent = examHM + ' m';
+    const elExamHSol2 = document.getElementById('dyn-exam-h-sol2');
+    if (elExamHSol2) elExamHSol2.textContent = examHM;
+    const elExamHNSol = document.getElementById('dyn-exam-hn-sol');
+    if (elExamHNSol) elExamHNSol.textContent = examHN + ' m';
+  }
+
+  // Khởi động tính toán ban đầu
+  document.addEventListener('DOMContentLoaded', () => {
+    updateAllCalculations();
+  });
+</script>
+
+</body>
+</html>

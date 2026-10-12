@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trực quan đo cao lượng giác không tới chân mia</title>
+<style>
+  :root {
+    --bg: #f8f9fa;
+    --panel: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #cbd5e1;
+    --primary: #2563eb;
+    --building: #475569;
+    --sight: #dc2626;
+    --font-main: 'Be Vietnam Pro', 'Segoe UI', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 1050px;
+    margin: 0 auto;
+  }
+  header {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+  h1 { font-size: 1.15rem; color: var(--primary); margin-bottom: 6px; }
+  .essence-question { font-size: 0.95rem; font-weight: 500; }
+  .grid-layout {
+    display: grid;
+    grid-template-columns: 330px 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 840px) {
+    .grid-layout { grid-template-columns: 1fr; }
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  h2 { font-size: 0.9rem; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px; color: var(--text); }
+  .control-group { margin-bottom: 14px; }
+  label { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+  label span.val { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 100%; accent-color: var(--primary); }
+  .calc-box {
+    background: #f1f5f9;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-top: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .result-highlight {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid #cbd5e1;
+  }
+  .chart-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  svg { width: 100%; height: 360px; overflow: visible; }
+  footer {
+    font-size: 0.8rem;
+    color: var(--muted);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Xác định chiều cao công trình bằng đo cao lượng giác</h1>
+  <div class="essence-question">
+    Câu hỏi bản chất: Vì sao đo góc đứng từ xa có thể xác định chính xác chiều cao công trình mà không phụ thuộc vào độ cao mốc đặt máy và chiều cao máy $i$?
+  </div>
+</header>
+
+<div class="grid-layout">
+  <!-- Điều khiển tham số -->
+  <div class="panel">
+    <h2>Tham số đo (Mô phỏng Slide 145)</h2>
+
+    <div class="control-group">
+      <label>Khoảng cách ngang $D_1$: <span class="val" id="val-d">35.0 m</span></label>
+      <input id="rng-d" type="range" min="15" max="60" step="1" value="35">
+    </div>
+
+    <div class="control-group">
+      <label>Góc đứng ngắm đỉnh $V_D$: <span class="val" id="val-vd">+15° 30'</span></label>
+      <input id="rng-vd" type="range" min="5" max="45" step="0.5" value="15.5">
+    </div>
+
+    <div class="control-group">
+      <label>Góc đứng ngắm chân $V_C$: <span class="val" id="val-vc">-20° 30'</span></label>
+      <input id="rng-vc" type="range" min="-35" max="-2" step="0.5" value="-20.5">
+    </div>
+
+    <div class="control-group">
+      <label>Chiều cao đặt máy $i$: <span class="val" id="val-i">1.50 m</span></label>
+      <input id="rng-i" type="range" min="1.0" max="2.0" step="0.05" value="1.50">
+    </div>
+
+    <div class="calc-box">
+      <div>$\Delta h_D = D \cdot \tan V_D = $ <span id="calc-hd">9.71 m</span></div>
+      <div>$\Delta h_C = D \cdot \tan V_C = $ <span id="calc-hc">-13.09 m</span></div>
+      <div>Chiều cao máy $i$: <span id="calc-i">1.50 m</span> (bị triệt tiêu khi trừ)</div>
+      <div class="result-highlight">
+        Chiều cao $h_{CD} = D(\tan V_D - \tan V_C) = $ <span id="calc-hcd">22.79 m</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sơ đồ hình học SVG -->
+  <div class="chart-box">
+    <svg id="svg-trig" viewBox="0 0 620 340">
+      <!-- Sơ đồ hình học được vẽ bằng JavaScript -->
+    </svg>
+    <div style="font-size:0.75rem; color:var(--muted); text-align:center;">
+      Kéo thanh trượt <strong>chiều cao máy $i$</strong> để trực tiếp thấy: dù tâm máy dịch chuyển lên xuống, hai tam giác vuông vẫn bù trừ hoàn hảo và chiều cao công trình $h_{CD}$ luôn giữ nguyên!
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>Nguyên lý suy dẫn:</strong><br>
+  - Cao độ đỉnh: $H_D = H_1 + i + D \cdot \tan V_D$<br>
+  - Cao độ chân: $H_C = H_1 + i + D \cdot \tan V_C$<br>
+  - Chiều cao công trình: $h_{CD} = H_D - H_C = D \cdot (\tan V_D - \tan V_C)$ (độc lập hoàn toàn với $H_1$ và $i$).<br>
+  <strong>Trường hợp đã kiểm tra tính tay:</strong> $D = 35$ m, $V_D = +15^\circ 30'$ ($\tan V_D \approx 0.27732$), $V_C = -20^\circ 30'$ ($\tan V_C \approx -0.37388$). Khớp chính xác tính tay: $h_{CD} = 35 \times (0.27732 + 0.37388) = 22.792$ m.
+</footer>
+
+<script>
+  const dom = {
+    d: document.getElementById('rng-d'),
+    vd: document.getElementById('rng-vd'),
+    vc: document.getElementById('rng-vc'),
+    i: document.getElementById('rng-i'),
+    valD: document.getElementById('val-d'),
+    valVd: document.getElementById('val-vd'),
+    valVc: document.getElementById('val-vc'),
+    valI: document.getElementById('val-i'),
+    calcHd: document.getElementById('calc-hd'),
+    calcHc: document.getElementById('calc-hc'),
+    calcI: document.getElementById('calc-i'),
+    calcHcd: document.getElementById('calc-hcd'),
+    svg: document.getElementById('svg-trig')
+  };
+
+  function toDMS(degFloat) {
+    const abs = Math.abs(degFloat);
+    const d = Math.floor(abs);
+    const m = Math.round((abs - d) * 60);
+    const sign = degFloat >= 0 ? '+' : '-';
+    return `${sign}${d}° ${m < 10 ? '0' : ''}${m}'`;
+  }
+
+  function update() {
+    const D = Number(dom.d.value);
+    const vdDeg = Number(dom.vd.value);
+    const vcDeg = Number(dom.vc.value);
+    const i = Number(dom.i.value);
+
+    dom.valD.textContent = `${D.toFixed(1)} m`;
+    dom.valVd.textContent = toDMS(vdDeg);
+    dom.valVc.textContent = toDMS(vcDeg);
+    dom.valI.textContent = `${i.toFixed(2)} m`;
+
+    const radD = (vdDeg * Math.PI) / 180;
+    const radC = (vcDeg * Math.PI) / 180;
+
+    const tanD = Math.tan(radD);
+    const tanC = Math.tan(radC);
+
+    const deltaHD = D * tanD;
+    const deltaHC = D * tanC;
+    const hCD = D * (tanD - tanC);
+
+    dom.calcHd.textContent = `${deltaHD >= 0 ? '+' : ''}${deltaHD.toFixed(2)} m`;
+    dom.calcHc.textContent = `${deltaHC.toFixed(2)} m`;
+    dom.calcI.textContent = `${i.toFixed(2)} m`;
+    dom.calcHcd.textContent = `${hCD.toFixed(2)} m`;
+
+    renderSvg(D, vdDeg, vcDeg, i, deltaHD, deltaHC, hCD);
+  }
+
+  function renderSvg(D, vdDeg, vcDeg, i, deltaHD, deltaHC, hCD) {
+    const stationX = 80;
+    const bldX = 480;
+    const groundY = 280;
+
+    // Scale chiều cao vẽ
+    const scale = 5.5; // pixel / mét
+    const instY = groundY - (i * 20); // Phóng đại chiều cao máy để dễ nhìn trực quan
+
+    const topY = instY - (deltaHD * scale);
+    const botY = instY - (deltaHC * scale);
+
+    let html = `
+      <!-- Mặt đất -->
+      <line x1="40" y1="${groundY}" x2="560" y2="${groundY}" stroke="#94a3b8" stroke-width="2" />
+      <text x="50" y="${groundY + 18}" font-size="11" fill="#64748b">Mặt đất tự nhiên</text>
+
+      <!-- Trạm máy kinh vĩ -->
+      <!-- Chân máy -->
+      <line x1="${stationX - 18}" y1="${groundY}" x2="${stationX}" y2="${instY}" stroke="#475569" stroke-width="2.5" />
+      <line x1="${stationX + 18}" y1="${groundY}" x2="${stationX}" y2="${instY}" stroke="#475569" stroke-width="2.5" />
+      <line x1="${stationX}" y1="${groundY}" x2="${stationX}" y2="${instY}" stroke="#475569" stroke-width="1.5" stroke-dasharray="2,2" />
+      <!-- Thân máy -->
+      <circle cx="${stationX}" cy="${instY}" r="6" fill="#2563eb" stroke="#1e293b" stroke-width="1.5" />
+      <text x="${stationX - 35}" y="${instY - 12}" font-size="11" font-weight="bold" fill="#2563eb">Trạm 1 (i = ${i.toFixed(2)}m)</text>
+
+      <!-- Đường ngắm nằm ngang chuẩn (chân trời) -->
+      <line x1="${stationX}" y1="${instY}" x2="${bldX}" y2="${instY}" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,4" />
+      <text x="${(stationX + bldX)/2}" y="${instY - 6}" font-size="11" fill="#2563eb" text-anchor="middle">Khoảng cách ngang D = ${D.toFixed(1)} m</text>
+
+      <!-- Khối công trình xây dựng -->
+      <rect x="${bldX}" y="${topY}" width="70" height="${botY - topY}" fill="#cbd5e1" stroke="#334155" stroke-width="2" />
+      <!-- Các tầng nhà -->
+      <line x1="${bldX}" y1="${topY + (botY - topY)*0.33}" x2="${bldX + 70}" y2="${topY + (botY - topY)*0.33}" stroke="#94a3b8" stroke-width="1" />
+      <line x1="${bldX}" y1="${topY + (botY - topY)*0.66}" x2="${bldX + 70}" y2="${topY + (botY - topY)*0.66}" stroke="#94a3b8" stroke-width="1" />
+
+      <!-- Tia ngắm đỉnh D -->
+      <line x1="${stationX}" y1="${instY}" x2="${bldX}" y2="${topY}" stroke="var(--sight)" stroke-width="2" />
+      <circle cx="${bldX}" cy="${topY}" r="4" fill="var(--sight)" />
+      <text x="${bldX + 8}" y="${topY - 8}" font-size="12" font-weight="bold" fill="#b91c1c">Đỉnh D (VD = ${toDMS(vdDeg)})</text>
+
+      <!-- Tia ngắm chân C -->
+      <line x1="${stationX}" y1="${instY}" x2="${bldX}" y2="${botY}" stroke="#d97706" stroke-width="2" />
+      <circle cx="${bldX}" cy="${botY}" r="4" fill="#d97706" />
+      <text x="${bldX + 8}" y="${botY + 16}" font-size="12" font-weight="bold" fill="#b45309">Chân C (VC = ${toDMS(vcDeg)})</text>
+
+      <!-- Kích thước chiều cao công trình h_CD -->
+      <line x1="${bldX + 85}" y1="${topY}" x2="${bldX + 85}" y2="${botY}" stroke="#0f172a" stroke-width="2" />
+      <line x1="${bldX + 75}" y1="${topY}" x2="${bldX + 95}" y2="${topY}" stroke="#0f172a" stroke-width="1.5" />
+      <line x1="${bldX + 75}" y1="${botY}" x2="${bldX + 95}" y2="${botY}" stroke="#0f172a" stroke-width="1.5" />
+      <text x="${bldX + 98}" y="${(topY + botY)/2 + 4}" font-size="12" font-weight="bold" fill="#0f172a">h_CD = ${hCD.toFixed(2)} m</text>
+    `;
+
+    dom.svg.innerHTML = html;
+  }
+
+  [dom.d, dom.vd, dom.vc, dom.i].forEach(el => el.addEventListener('input', update));
+  update();
+</script>
+</body>
+</html>

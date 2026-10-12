@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trực quan bình sai đường chuyền độ cao</title>
+<style>
+  :root {
+    --bg: #f8f9fa;
+    --panel-bg: #ffffff;
+    --text: #1d2330;
+    --muted: #5f6b7c;
+    --border: #d1d5db;
+    --primary: #1e40af;
+    --measured: #dc2626;
+    --adjusted: #16a34a;
+    --datum: #0284c7;
+    --font-main: 'Be Vietnam Pro', 'Segoe UI', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  header {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+  h1 { font-size: 1.15rem; color: var(--primary); margin-bottom: 6px; }
+  .essence-question { font-size: 0.95rem; color: var(--text); font-weight: 500; }
+  .grid-layout {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 860px) {
+    .grid-layout { grid-template-columns: 1fr; }
+  }
+  .panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  h2 { font-size: 0.95rem; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  .control-group { margin-bottom: 12px; }
+  label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px; color: var(--muted); }
+  label span.val { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 100%; accent-color: var(--primary); }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 14px;
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  .kpi-card { font-size: 0.8rem; }
+  .kpi-title { color: var(--muted); }
+  .kpi-value { font-size: 1rem; font-weight: bold; font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .status-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; }
+  .tag-pass { background: #dcfce7; color: #15803d; }
+  .tag-fail { background: #fee2e2; color: #b91c1c; }
+  .chart-container {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  svg { width: 100%; height: 320px; overflow: visible; }
+  .legend {
+    display: flex;
+    gap: 16px;
+    font-size: 0.8rem;
+    align-items: center;
+    padding: 4px 8px;
+    background: #f8fafc;
+    border-radius: 4px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-line { width: 20px; height: 3px; display: inline-block; border-radius: 2px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    margin-top: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: right; }
+  th { background: #f8fafc; color: var(--muted); font-weight: 600; text-align: center; }
+  td:first-child, td:nth-child(2) { text-align: center; }
+  footer {
+    font-size: 0.8rem;
+    color: var(--muted);
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Bình sai đường chuyền độ cao kỹ thuật</h1>
+  <div class="essence-question">
+    Câu hỏi bản chất: Sai số khép tích lũy phân bổ vào từng đoạn đo thế nào, và cao độ các điểm thay đổi ra sao khi triệt tiêu sai số mâu thuẫn?
+  </div>
+</header>
+
+<div class="grid-layout">
+  <!-- Bảng điều khiển tham số -->
+  <div class="panel">
+    <h2>Tham số tuyến đo (Mô phỏng Slide 198)</h2>
+    
+    <div class="control-group">
+      <label>Sai lệch tích lũy tại điểm cuối $f_h$: <span class="val" id="val-err">+24 mm</span></label>
+      <input id="rng-err" type="range" min="-60" max="60" step="2" value="24">
+    </div>
+
+    <div class="control-group">
+      <label>Chiều dài đoạn 1 $D_1$: <span class="val" id="val-d1">75 m</span></label>
+      <input id="rng-d1" type="range" min="30" max="150" step="5" value="75">
+    </div>
+
+    <div class="control-group">
+      <label>Chiều dài đoạn 2 $D_2$: <span class="val" id="val-d2">77 m</span></label>
+      <input id="rng-d2" type="range" min="30" max="150" step="5" value="77">
+    </div>
+
+    <div class="control-group">
+      <label>Chiều dài đoạn 3 $D_3$: <span class="val" id="val-d3">80 m</span></label>
+      <input id="rng-d3" type="range" min="30" max="150" step="5" value="80">
+    </div>
+
+    <div class="control-group">
+      <label>Chiều dài đoạn 4 $D_4$: <span class="val" id="val-d4">95 m</span></label>
+      <input id="rng-d4" type="range" min="30" max="150" step="5" value="95">
+    </div>
+
+    <div class="control-group">
+      <label>Chiều dài đoạn 5 $D_5$: <span class="val" id="val-d5">105 m</span></label>
+      <input id="rng-d5" type="range" min="30" max="150" step="5" value="105">
+    </div>
+
+    <div class="control-group">
+      <label>Chiều dài đoạn 6 $D_6$: <span class="val" id="val-d6">88 m</span></label>
+      <input id="rng-d6" type="range" min="30" max="150" step="5" value="88">
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-title">Tổng chiều dài $L$</div>
+        <div class="kpi-value" id="kpi-l">520 m</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Giới hạn $f_{hcp}$</div>
+        <div class="kpi-value" id="kpi-fhcp">±36.1 mm</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Sai số khép $f_h$</div>
+        <div class="kpi-value" id="kpi-fh">+24 mm</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Kết luận</div>
+        <div class="kpi-value" id="kpi-status"><span class="status-tag tag-pass">ĐẠT</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phần trực quan hóa trắc dọc và bảng số liệu -->
+  <div class="chart-container">
+    <div class="legend">
+      <div class="legend-item"><span class="legend-line" style="background:var(--measured); border:1px dashed var(--measured);"></span> Đường đo dở dang ($H_{đo}$)</div>
+      <div class="legend-item"><span class="legend-line" style="background:var(--adjusted);"></span> Đường bình sai chuẩn ($H_{BS}$)</div>
+      <div class="legend-item"><span class="legend-line" style="background:var(--datum); height:8px; width:8px; border-radius:50%;"></span> Mốc gốc $A, B$</div>
+      <div style="margin-left:auto; color:var(--muted); font-size:0.75rem;">Phóng đại sai số trục đứng: ×300 lần</div>
+    </div>
+
+    <svg id="svg-profile" viewBox="0 0 650 280">
+      <!-- Trục và lưới được vẽ bằng JS -->
+    </svg>
+
+    <!-- Bảng số liệu chi tiết -->
+    <div style="overflow-x:auto;">
+      <table id="tbl-results">
+        <thead>
+          <tr>
+            <th>Điểm</th>
+            <th>Cạnh $D_i$ (m)</th>
+            <th>$h_{đo}$ (m)</th>
+            <th>$v_{hi}$ (m)</th>
+            <th>$h^{BS}$ (m)</th>
+            <th>$H_{đo}$ (m)</th>
+            <th>$H_{BS}$ (m)</th>
+          </tr>
+        </thead>
+        <tbody id="tbl-body">
+          <!-- Điền tự động bằng Javascript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>Quy ước dấu & Nguyên lý:</strong><br>
+  - Sai số khép tuyến phù hợp: $f_h = \sum h_{đo} - (H_{cuối} - H_{đầu})$. Nếu đo dư ($f_h > 0$), số hiệu chỉnh phải âm ($v_{hi} = -f_h \cdot \frac{D_i}{\sum D_i} < 0$) để kéo cao độ về mốc chuẩn.<br>
+  - Tiêu chuẩn kỹ thuật: $f_{hcp} = \pm 50\sqrt{L\text{ (km)}}$ (mm). Kiểm tra: $|f_h| \le |f_{hcp}|$.<br>
+  <strong>Trường hợp đã kiểm tra tính tay:</strong> Khớp 100% dữ liệu bài tập trong bài giảng Slide 198: $H_A = 55.216$ m, $H_B = 50.000$ m, $L = 520$ m, $f_h = +24$ mm, $f_{hcp} = \pm 36.05$ mm, cao độ bình sai cuối cùng tại mốc $B$ khớp chính xác $50.000$ m.
+</footer>
+
+<script>
+  // Dữ liệu mốc gốc và chênh cao đo chuẩn từ Slide 198
+  const HA = 55.216;
+  const HB = 50.000;
+  const base_h_do = [-0.204, 0.345, 0.265, 0.410, -2.460, -3.548]; // Tổng gốc = -5.192 m; Hiệu gốc = -5.216 m -> fh = +0.024 m
+
+  const dom = {
+    err: document.getElementById('rng-err'),
+    valErr: document.getElementById('val-err'),
+    d: [1,2,3,4,5,6].map(i => document.getElementById(`rng-d${i}`)),
+    valD: [1,2,3,4,5,6].map(i => document.getElementById(`val-d${i}`)),
+    kpiL: document.getElementById('kpi-l'),
+    kpiFhcp: document.getElementById('kpi-fhcp'),
+    kpiFh: document.getElementById('kpi-fh'),
+    kpiStatus: document.getElementById('kpi-status'),
+    svg: document.getElementById('svg-profile'),
+    tblBody: document.getElementById('tbl-body')
+  };
+
+  function update() {
+    const fh_mm = Number(dom.err.value);
+    dom.valErr.textContent = (fh_mm > 0 ? `+${fh_mm}` : `${fh_mm}`) + ' mm';
+    
+    const D = dom.d.map((el, i) => {
+      const v = Number(el.value);
+      dom.valD[i].textContent = `${v} m`;
+      return v;
+    });
+
+    const sumD = D.reduce((a, b) => a + b, 0);
+    const L_km = sumD / 1000;
+    const fhcp = 50 * Math.sqrt(L_km);
+    const pass = Math.abs(fh_mm) <= fhcp;
+
+    dom.kpiL.textContent = `${sumD} m`;
+    dom.kpiFhcp.textContent = `±${fhcp.toFixed(1)} mm`;
+    dom.kpiFh.textContent = `${fh_mm > 0 ? '+' : ''}${fh_mm} mm`;
+    dom.kpiStatus.innerHTML = pass ? `<span class="status-tag tag-pass">ĐẠT</span>` : `<span class="status-tag tag-fail">VƯỢT HẠN</span>`;
+
+    // Tính chênh cao đo tương ứng với sai số khép fh_mm đã chọn
+    // fh = sum(h_do) - (HB - HA) => sum(h_do) = (HB - HA) + fh
+    const fh_m = fh_mm / 1000;
+    const target_sum_h = (HB - HA) + fh_m;
+    const delta_per_segment = (target_sum_h - (-5.192)) / 6;
+
+    const h_do = base_h_do.map(h => h + delta_per_segment);
+
+    // Tính số hiệu chỉnh v_hi theo chiều dài cạnh
+    const v_hi = D.map(di => -fh_m * (di / sumD));
+    const h_bs = h_do.map((h, i) => h + v_hi[i]);
+
+    // Tính cao độ H_do và H_bs
+    const pts = ['A', 'KV1', 'KV2', 'KV3', 'KV4', 'KV5', 'B'];
+    const H_do = [HA];
+    const H_bs = [HA];
+
+    for (let i = 0; i < 6; i++) {
+      H_do.push(H_do[i] + h_do[i]);
+      H_bs.push(H_bs[i] + h_bs[i]);
+    }
+
+    // Render bảng số liệu
+    let tableHtml = `
+      <tr>
+        <td><strong>A</strong></td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td><strong>${HA.toFixed(3)}</strong></td>
+        <td><strong style="color:var(--primary);">${HA.toFixed(3)}</strong></td>
+      </tr>
+    `;
+
+    for (let i = 0; i < 6; i++) {
+      tableHtml += `
+        <tr>
+          <td><strong>${pts[i+1]}</strong></td>
+          <td>${D[i]}</td>
+          <td>${h_do[i] > 0 ? '+' : ''}${h_do[i].toFixed(3)}</td>
+          <td style="color:${v_hi[i] < 0 ? '#b91c1c' : '#15803d'}">${v_hi[i] > 0 ? '+' : ''}${v_hi[i].toFixed(3)}</td>
+          <td>${h_bs[i] > 0 ? '+' : ''}${h_bs[i].toFixed(3)}</td>
+          <td style="color:var(--measured);">${H_do[i+1].toFixed(3)}</td>
+          <td style="color:var(--adjusted); font-weight:600;">${H_bs[i+1].toFixed(3)}</td>
+        </tr>
+      `;
+    }
+    dom.tblBody.innerHTML = tableHtml;
+
+    // Render đồ thị SVG
+    renderSvg(D, H_do, H_bs, sumD);
+  }
+
+  function renderSvg(D, H_do, H_bs, sumD) {
+    const W = 620, H = 260;
+    const padL = 50, padR = 40, padT = 30, padB = 40;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+
+    // Tọa độ X tích lũy dọc tuyến
+    const dist = [0];
+    let curX = 0;
+    for (let d of D) {
+      curX += d;
+      dist.push(curX);
+    }
+
+    // Min Max độ cao để scale trục đứng
+    const allH = [...H_do, ...H_bs];
+    const minH = Math.min(...allH) - 0.5;
+    const maxH = Math.max(...allH) + 0.5;
+
+    function scaleX(d) { return padL + (d / sumD) * plotW; }
+    function scaleY(h) { return padT + plotH - ((h - minH) / (maxH - minH)) * plotH; }
+
+    let svgHtml = `
+      <!-- Lưới trục Y -->
+      <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + plotH}" stroke="#cbd5e1" stroke-width="1.5" />
+      <line x1="${padL}" y1="${padT + plotH}" x2="${padL + plotW}" y2="${padT + plotH}" stroke="#cbd5e1" stroke-width="1.5" />
+      <text x="${padL - 10}" y="${padT}" font-size="11" text-anchor="end" fill="#64748b">${maxH.toFixed(1)} m</text>
+      <text x="${padL - 10}" y="${padT + plotH}" font-size="11" text-anchor="end" fill="#64748b">${minH.toFixed(1)} m</text>
+      <text x="${padL}" y="${padT - 12}" font-size="11" font-weight="600" fill="#1e293b">Độ cao H (m)</text>
+      <text x="${padL + plotW}" y="${padT + plotH + 30}" font-size="11" text-anchor="end" fill="#64748b">Khoảng cách dọc tuyến L (m)</text>
+    `;
+
+    // Vẽ đường đo (Measured)
+    let pathDo = `M ${scaleX(dist[0])} ${scaleY(H_do[0])}`;
+    for (let i = 1; i < dist.length; i++) {
+      pathDo += ` L ${scaleX(dist[i])} ${scaleY(H_do[i])}`;
+    }
+    svgHtml += `<path d="${pathDo}" fill="none" stroke="var(--measured)" stroke-width="2" stroke-dasharray="4,3" />`;
+
+    // Vẽ đường bình sai (Adjusted)
+    let pathBs = `M ${scaleX(dist[0])} ${scaleY(H_bs[0])}`;
+    for (let i = 1; i < dist.length; i++) {
+      pathBs += ` L ${scaleX(dist[i])} ${scaleY(H_bs[i])}`;
+    }
+    svgHtml += `<path d="${pathBs}" fill="none" stroke="var(--adjusted)" stroke-width="2.5" />`;
+
+    // Vẽ các điểm mốc
+    const pts = ['A', 'KV1', 'KV2', 'KV3', 'KV4', 'KV5', 'B'];
+    for (let i = 0; i < dist.length; i++) {
+      const cx = scaleX(dist[i]);
+      const cyDo = scaleY(H_do[i]);
+      const cyBs = scaleY(H_bs[i]);
+
+      // Vạch gióng đứng
+      svgHtml += `<line x1="${cx}" y1="${padT + plotH}" x2="${cx}" y2="${Math.min(cyDo, cyBs)}" stroke="#e2e8f0" stroke-width="1" />`;
+      svgHtml += `<text x="${cx}" y="${padT + plotH + 16}" font-size="11" font-weight="600" text-anchor="middle" fill="#334155">${pts[i]}</text>`;
+
+      // Điểm đo đỏ
+      svgHtml += `<circle cx="${cx}" cy="${cyDo}" r="3.5" fill="var(--measured)" />`;
+      // Điểm bình sai xanh
+      svgHtml += `<circle cx="${cx}" cy="${cyBs}" r="4" fill="var(--adjusted)" />`;
+    }
+
+    // Điểm gốc cố định A và B
+    svgHtml += `<circle cx="${scaleX(0)}" cy="${scaleY(HA)}" r="6" fill="var(--datum)" stroke="#fff" stroke-width="2" />`;
+    svgHtml += `<circle cx="${scaleX(sumD)}" cy="${scaleY(HB)}" r="6" fill="var(--datum)" stroke="#fff" stroke-width="2" />`;
+
+    // Mũi tên sai số khép fh tại điểm B
+    const bDoY = scaleY(H_do[6]);
+    const bBsY = scaleY(H_bs[6]);
+    if (Math.abs(bDoY - bBsY) > 2) {
+      svgHtml += `
+        <line x1="${scaleX(sumD) + 12}" y1="${bBsY}" x2="${scaleX(sumD) + 12}" y2="${bDoY}" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#arrow)" />
+        <text x="${scaleX(sumD) + 18}" y="${(bDoY + bBsY)/2 + 4}" font-size="10" font-weight="bold" fill="#b91c1c">fh</text>
+      `;
+    }
+
+    dom.svg.innerHTML = svgHtml;
+  }
+
+  // Lắng nghe sự kiện kéo thanh trượt
+  dom.err.addEventListener('input', update);
+  dom.d.forEach(el => el.addEventListener('input', update));
+
+  // Khởi tạo lần đầu
+  update();
+</script>
+</body>
+</html>
