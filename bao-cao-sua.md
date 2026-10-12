@@ -79,6 +79,10 @@
     - Thiết kế khối hiển thị đề bài chuẩn `.problem-box` viền xanh nổi bật.
     - Toàn bộ các bài toán (Câu 3 slide 130–131, Câu 2 slide 145–146, Bình sai cự ly slide 198, Bình sai số trạm slide 199, Mốc công trình A slide 200–201, 8 câu hỏi thi lý thuyết trọng tâm mục 6, và 12 bài tập tự luyện mục 7) đều được cấu trúc mạch lạc: phân định rành mạch giữa *Giả thiết đề bài cho* và *Các câu hỏi yêu cầu giải quyết* (đánh số 1, 2, 3...), kèm điểm số và tiêu chuẩn kỹ thuật tương ứng.
 
+13. **Triển khai xuất bản trực tuyến qua GitHub & GitHub Pages:**
+    - Tạo kho lưu trữ GitHub: [trac-dia-xay-dung](https://github.com/25520100073-glitch/trac-dia-xay-dung).
+    - Cấu hình và kích hoạt GitHub Pages để sinh viên truy cập học trực tiếp trên điện thoại: [https://25520100073-glitch.github.io/trac-dia-xay-dung/](https://25520100073-glitch.github.io/trac-dia-xay-dung/).
+
 ---
 
 ## 3. NHỮNG VIỆC CHƯA LÀM ĐƯỢC VÀ LÝ DO
