@@ -83,6 +83,10 @@
     - Tạo kho lưu trữ GitHub: [trac-dia-xay-dung](https://github.com/25520100073-glitch/trac-dia-xay-dung).
     - Cấu hình và kích hoạt GitHub Pages để sinh viên truy cập học trực tiếp trên điện thoại: [https://25520100073-glitch.github.io/trac-dia-xay-dung/](https://25520100073-glitch.github.io/trac-dia-xay-dung/).
 
+14. **Biên soạn Tờ công thức tra cứu phòng thi (Open-book Cheat Sheet):**
+    - Tạo file chuyên dụng [cong-thuc-thi.html](cong-thuc-thi.html) (tối ưu xem trên điện thoại và in ấn A4) và [to-cong-thuc.md](to-cong-thuc.md).
+    - Bao quát toàn diện **15 dạng bài tập** Chương 3 & 4. Đúng yêu cầu phòng thi: chỉ nêu ngắn gọn dạng đề, liệt kê các thông số/ký hiệu cho trước dưới dạng biến số (không gán số cụ thể), và ghi rõ công thức giải chi tiết theo từng bước (Bước 1, Bước 2, Bước 3...).
+
 ---
 
 ## 3. NHỮNG VIỆC CHƯA LÀM ĐƯỢC VÀ LÝ DO
