@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BẢNG TRA CÔNG THỨC TRẮC ĐỊA XÂY DỰNG - PHÒNG THI</title>
+<style>
+  :root {
+    --primary: #0f4c81;
+    --primary-light: #e8f1f8;
+    --accent: #b91c1c;
+    --accent-light: #fef2f2;
+    --step-bg: #f1f5f9;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --border: #cbd5e1;
+    --warn-bg: #fffbeb;
+    --warn-border: #fcd34d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background: #f8fafc;
+    line-height: 1.5;
+    font-size: 13.5px;
+    padding: 10px;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 18px 22px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  header {
+    text-align: center;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid var(--primary);
+  }
+  header h1 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  header p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .exam-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #ffffff;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin-top: 4px;
+  }
+  nav.quick-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 14px;
+    background: var(--primary-light);
+    padding: 8px 10px;
+    border-radius: 6px;
+  }
+  nav.quick-nav a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 3px 7px;
+    background: #ffffff;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+  }
+  nav.quick-nav a:hover {
+    background: var(--primary);
+    color: #ffffff;
+  }
+
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 14px;
+    background: #ffffff;
+    overflow: hidden;
+    page-break-inside: avoid;
+  }
+  .card-header {
+    background: #f1f5f9;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 12px;
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-body {
+    padding: 10px 14px;
+  }
+  .given-data {
+    background: #f8fafc;
+    border-left: 3px solid #64748b;
+    padding: 6px 10px;
+    margin-bottom: 8px;
+    font-size: 0.84rem;
+  }
+  .given-data strong { color: #1e293b; }
+
+  .step {
+    margin-bottom: 8px;
+    padding-left: 2px;
+  }
+  .step-label {
+    font-weight: 700;
+    color: #0369a1;
+    font-size: 0.86rem;
+    display: inline-block;
+    margin-bottom: 2px;
+  }
+  .formula-highlight {
+    background: #eff6ff;
+    border: 1px dashed #93c5fd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin: 3px 0 4px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 0.92rem;
+    color: #0f172a;
+    font-weight: 600;
+    display: block;
+  }
+  .note-danger {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    color: #991b1b;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    border-radius: 0 4px 4px 0;
+  }
+  .note-warn {
+    background: var(--warn-bg);
+    border-left: 3px solid var(--warn-border);
+    color: #92400e;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    border-radius: 0 4px 4px 0;
+  }
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 650px) {
+    .checklist-grid { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    body { background: white; padding: 0; font-size: 11.5px; }
+    .container { max-width: 100%; box-shadow: none; padding: 0; }
+    nav.quick-nav { display: none; }
+    .card { break-inside: avoid; border-color: #999; margin-bottom: 8px; }
+    .card-header { background: #eee; padding: 4px 8px; font-size: 0.85rem; }
+    .card-body { padding: 6px 8px; }
+    .formula-highlight { background: #f5f5f5; border-color: #aaa; padding: 2px 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+  <h1>🧭 BẢNG TRA CÔNG THỨC TRẮC ĐỊA XÂY DỰNG (CHƯƠNG 3 & 4)</h1>
+  <p>Tài liệu mang vào phòng thi • Tóm lược dạng đề, thông số cho và các bước giải bằng công thức</p>
+  <span class="exam-badge">ÁP DỤNG TRỰC TIẾP CHO MỌI SỐ ĐỀ (KHÔNG PHỤ THUỘC SỐ CỤ THỂ)</span>
+</header>
+
+<nav class="quick-nav">
+  <a href="#d1">1. Thủy chuẩn từ giữa</a>
+  <a href="#d2">2. Sai số đọc mia & ngược</a>
+  <a href="#d3">3. Đo cao lượng giác chân-đỉnh</a>
+  <a href="#d4">4. Toàn đạc ngắm tháp</a>
+  <a href="#d5">5. Thị cự tia ngang</a>
+  <a href="#d6">6. Khôi phục chỉ bị khuất</a>
+  <a href="#d7">7. Thị cự tia nghiêng</a>
+  <a href="#d8">8. Chỉ tiêu MO & Góc đứng</a>
+  <a href="#d9">9. Sai số ngắm 2c</a>
+  <a href="#d10">10. Bình sai cự ly Di</a>
+  <a href="#d11">11. Bình sai số trạm ni</a>
+  <a href="#d12">12. Bình sai mốc cốt 0 sàn A</a>
+  <a href="#d13">13. Bài toán thuận</a>
+  <a href="#d14">14. Bài toán nghịch</a>
+  <a href="#d15">15. Truyền góc định hướng</a>
+  <a href="#d16">16. Checklist Casio & Bẫy thi</a>
+</nav>
+
+<!-- DẠNG 1 -->
+<div id="d1" class="card">
+  <div class="card-header">
+    <span>DẠNG 1: THỦY CHUẨN TỪ GIỮA & TRUYỀN CAO ĐỘ (Slide 130; Bài 1)</span>
+    <span>Trọng tâm đề thi</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Máy đặt giữa 2 điểm M và N; Mia sau tại M đọc chỉ giữa <code>a</code> (mm); Mia trước tại N đọc chỉ giữa <code>b</code> (mm); Cao độ mốc gốc M là <code>H_M</code> (m).
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Tính chênh cao h_MN (Quy tắc: Sau trừ Trước)</span>
+      <div class="formula-highlight">h_MN = a - b (mm)  ⟹  h_MN = (a - b) / 1000 (m)</div>
+      <div class="note-danger">⚠️ Bẫy dấu: Phải lấy Sau trừ Trước (a - b). Tuyệt đối không lấy (b - a). Nếu a &lt; b thì h_MN mang dấu ÂM (-).</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Tính cao độ điểm trước H_N</span>
+      <div class="formula-highlight">H_N = H_M + h_MN (m)</div>
+      <div class="note-warn">Lưu ý: Cộng đại số (nếu h_MN âm thì lấy H_M trừ đi giá trị tuyệt đối).</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 2 -->
+<div id="d2" class="card">
+  <div class="card-header">
+    <span>DẠNG 2: SAI SỐ TRUNG PHƯƠNG THỦY CHUẨN & BÀI TOÁN NGƯỢC (Slide 131; Bài 1)</span>
+    <span>Định luật Gauss</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Sai số đọc số trên mia là <code>m_đọc</code> (mm); hoặc cho hạn sai chênh cao trạm máy <code>m_{h,cp}</code> (mm); hoặc số trạm máy toàn tuyến <code>N</code>.
+    </div>
+    <div class="step">
+      <span class="step-label">Trường hợp 1 (Bài toán thuận): Tính sai số chênh cao 1 trạm máy m_h</span>
+      <div class="formula-highlight">m_h = √(m_a² + m_b²) = √(m_đọc² + m_đọc²) = m_đọc × √2 (mm)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Trường hợp 2 (Bài toán ngược): Yêu cầu m_h ≤ [m_{h,cp}], tìm m_đọc tối đa</span>
+      <div class="formula-highlight">m_đọc ≤ m_{h,cp} / √2 (mm)</div>
+      <div class="note-danger">⚠️ Bẫy trừ điểm: Thiếu hệ số √2 là mất trọn 1.0 điểm của câu sai số!</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Trường hợp 3: Sai số tích lũy toàn tuyến qua N trạm máy độc lập</span>
+      <div class="formula-highlight">m_tuyến = m_h × √N = m_đọc × √(2N) (mm)</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 3 -->
+<div id="d3" class="card">
+  <div class="card-header">
+    <span>DẠNG 3: ĐO CAO LƯỢNG GIÁC CÔNG TRÌNH TỪ XA (Slide 145–146; Bài 2)</span>
+    <span>Không tới chân mia</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Khoảng cách ngang <code>D</code> (m); Góc đứng ngắm đỉnh <code>V_Đ</code>; Góc đứng ngắm chân <code>V_C</code>; Chiều cao gương/tiêu ngắm <code>L_1 = L_2 = 0</code>; Chiều cao máy <code>i</code> không cho trước.
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Đổi phút sang độ thập phân & Xác định dấu góc</span>
+      <div class="formula-highlight">V_Đ = Độ + (Phút / 60)°  [Góc ngẩng: V_Đ &gt; 0]<br>V_C = - [Độ + (Phút / 60)]°  [Góc chúc: V_C &lt; 0 mang dấu ÂM]</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Lập luận chứng minh chiều cao máy i tự triệt tiêu</span>
+      <div class="formula-highlight">H_Đ = H_trạm + i + D · tan(V_Đ)<br>H_C = H_trạm + i + D · tan(V_C)<br>⟹ h_CĐ = H_Đ - H_C = D · [tan(V_Đ) - tan(V_C)]</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 3: Bấm máy tính hiệu tang & Tính chiều cao công trình h_CĐ</span>
+      <div class="formula-highlight">Δtan = tan(V_Đ) - tan(V_C) = tan(V_Đ) + |tan(V_C)|<br>h_CĐ = D × Δtan (m)</div>
+      <div class="note-danger">⚠️ Bẫy Casio: Phải tính riêng tan(V_Đ) - tan(V_C). Tuyệt đối KHÔNG bấm gộp tan(V_Đ - V_C) vì sai bản chất lượng giác!</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 4 -->
+<div id="d4" class="card">
+  <div class="card-header">
+    <span>DẠNG 4: ĐO CAO TOÀN ĐẠC ĐIỆN TỬ NGẮM THÁP (Giáo trình tr. 69–70; Bài 3)</span>
+    <span>Cự ly nghiêng S</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Đặt máy tại A (chiều cao <code>i</code>). Ngắm đỉnh 1: cự ly nghiêng <code>S_1</code>, góc đứng <code>V_1</code>, chiều cao gương <code>L_1</code>. Ngắm chân 2: cự ly nghiêng <code>S_2</code>, góc đứng <code>V_2</code>, chiều cao gương <code>L_2</code>.
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Tính chênh cao đo lên đỉnh và xuống chân</span>
+      <div class="formula-highlight">h'_1 = S_1 × sin(V_1) (m)<br>h'_2 = S_2 × sin(V_2) (m)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Tính độ cao đỉnh và chân so với mốc trạm máy A</span>
+      <div class="formula-highlight">ΔH_1 = i + h'_1 - L_1 (m)<br>ΔH_2 = i + h'_2 - L_2 (m)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 3: Tính chiều cao công trình tháp h</span>
+      <div class="formula-highlight">h = ΔH_1 - ΔH_2 = (h'_1 - L_1) - (h'_2 - L_2) (m)  [i tự triệt tiêu]</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 5 -->
+<div id="d5" class="card">
+  <div class="card-header">
+    <span>DẠNG 5: ĐO CỰ LY BẰNG DÂY THỊ CỰ KHI TIA NGẮM NGANG (Giáo trình tr. 60; Bài 4)</span>
+    <span>Tia ngắm V = 0°</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Mia đứng, tia ngắm ngang. Đọc 3 chỉ: chỉ trên <code>c_t</code>, chỉ giữa <code>c_g</code>, chỉ dưới <code>c_d</code> (mm). Hằng số máy <code>K = 100</code>.
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Kiểm tra tính đối xứng của màng chỉ kim</span>
+      <div class="formula-highlight">c_g = (c_t + c_d) / 2  (độ lệch cho phép ≤ 1 ÷ 2 mm)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Tính khoảng chắn mia l (đổi ra mét)</span>
+      <div class="formula-highlight">l = (c_t - c_d) / 1000 (m)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 3: Tính khoảng cách nằm ngang D</span>
+      <div class="formula-highlight">D = K × l = 100 × [(c_t - c_d) / 1000] = (c_t - c_d) / 10 (m)</div>
+      <div class="note-warn">Mẹo nhẩm nhanh: Hiệu chỉ trên trừ chỉ dưới (mm) chia cho 10 ra cự ly mét (Ví dụ: l = 500 mm ⟹ D = 50.0 m).</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 6 -->
+<div id="d6" class="card">
+  <div class="card-header">
+    <span>DẠNG 6: KHÔI PHỤC CHỈ THỊ CỰ BỊ CHE KHUẤT (Giáo trình tr. 60 & 67; Bài 5)</span>
+    <span>Chỉ giữa làm tâm</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Biết chỉ giữa <code>c_g</code> và một chỉ ngoài (chỉ dưới <code>c_d</code> hoặc chỉ trên <code>c_t</code>). Chỉ còn lại bị vật cản che khuất. Hằng số <code>K = 100</code>.
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Khôi phục chỉ bị khuất</span>
+      <div class="formula-highlight">Nếu khuất chỉ trên:  c_t = 2 × c_g - c_d (mm)<br>Nếu khuất chỉ dưới:  c_d = 2 × c_g - c_t (mm)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Tính khoảng cách nằm ngang D</span>
+      <div class="formula-highlight">Cách 1: D = 100 × [(c_t - c_d) / 1000] (m)<br>Cách 2 (nhanh): D = 200 × [|c_g - c_ngoài| / 1000] (m)</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 7 -->
+<div id="d7" class="card">
+  <div class="card-header">
+    <span>DẠNG 7: ĐO THỊ CỰ KHI TIA NGẮM NGHIÊNG GÓC V (Giáo trình tr. 60, CT 3.2-12; Bài 6)</span>
+    <span>Mia đứng, tia nghiêng</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Mia dựng thẳng đứng; Ống kính nghiêng góc đứng <code>V</code> (|V| ≥ 2°); Khoảng chắn mia <code>l = c_t - c_d</code> (m); Hằng số <code>K = 100</code>.
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Đổi góc V ra độ thập phân</span>
+      <div class="formula-highlight">V = Độ + (Phút / 60)°</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Tính khoảng cách nằm ngang D</span>
+      <div class="formula-highlight">D = 100 × l × cos²(V)  hoặc  D = 200 × l' × cos²(V) (m)</div>
+      <div class="note-danger">⚠️ Bẫy công thức: Nhớ bình phương hàm cos! (cos² V, không phải cos V). Khoảng cách nghiêng mới là S = 100 · l · cos V.</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 8 -->
+<div id="d8" class="card">
+  <div class="card-header">
+    <span>DẠNG 8: SAI SỐ CHỈ TIÊU MO & GÓC ĐỨNG ĐÚNG V (Giáo trình tr. 41; Bài 7)</span>
+    <span>Bàn độ đứng</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Số đọc bàn độ đứng ở hai vị trí Thuận kính <code>Tr</code> và Đảo kính <code>Ph</code>. (Loại bàn độ khắc vạch liên tục theo chiều kim đồng hồ, vạch 0° ở thiên đỉnh).
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Tính sai số chỉ tiêu bàn độ đứng MO</span>
+      <div class="formula-highlight">MO = (Tr + Ph - 360°) / 2</div>
+      <div class="note-warn">MO có thể mang dấu âm hoặc dương. Giữ nguyên dấu khi tính bước tiếp theo.</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Tính góc đứng đúng V</span>
+      <div class="formula-highlight">V = 90° - Tr + MO   [hoặc V = Ph - 270° - MO]</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Kiểm tra triệt tiêu MO:</span>
+      <div class="formula-highlight">V = (90° - Tr + Ph - 270°) / 2</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 9 -->
+<div id="d9" class="card">
+  <div class="card-header">
+    <span>DẠNG 9: KIỂM NGHIỆM SAI SỐ GÓC NGẮM 2c CỦA MÁY KINH VĨ (Giáo trình tr. 45; Bài 8)</span>
+    <span>Trục ngắm CC1 ⟂ HH1</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Ngắm mục tiêu xa trên bàn độ ngang ở hai vị trí Thuận kính <code>Tr</code> và Đảo kính <code>Ph</code>; Tiêu chuẩn kỹ thuật cho phép <code>[2c]</code> (thường là ≤ 20").
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Tính sai số ngắm 2c</span>
+      <div class="formula-highlight">2c = Tr - Ph ± 180°<br>• Nếu Tr - Ph &lt; 0  ⟹  cộng 180°<br>• Nếu Tr - Ph &gt; 0  ⟹  trừ 180°</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Đánh giá yêu cầu kỹ thuật</span>
+      <div class="formula-highlight">So sánh: |2c| ≤ [2c] (≤ 20")  ⟹  ĐẠT CHUẨN</div>
+      <div class="note-warn">Nguyên lý triệt tiêu 2c khi đo góc: Lấy trung bình ở 2 vị trí bàn độ: β = (Tr + Ph ± 180°) / 2.</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 10 -->
+<div id="d10" class="card">
+  <div class="card-header">
+    <span>DẠNG 10: BÌNH SAI TUYẾN THỦY CHUẨN THEO CHIỀU DÀI D_i (Slide 198; Giáo trình tr. 111; Bài 9)</span>
+    <span>Tuyến phù hợp A → B</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Cao độ 2 mốc gốc <code>H_A</code>, <code>H_B</code>; Tuyến gồm k đoạn với cự ly <code>D_i</code> (m) và chênh cao đo <code>h_{đo,i}</code> (m).
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Tính tổng chênh cao đo & Sai số khép f_h</span>
+      <div class="formula-highlight">Σh_đo = h_1 + h_2 + ... + h_k (m)<br>ΔH_gốc = H_B - H_A (m)<br>f_h = Σh_đo - ΔH_gốc (m)  ⟹  Đổi sang mm: f_h (mm) = f_h (m) × 1000</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Kiểm tra hạn sai khép f_{hcp}</span>
+      <div class="formula-highlight">Tổng cự ly: ΣD = D_1 + D_2 + ... + D_k (m)  ⟹  L = ΣD / 1000 (km)<br>f_{hcp} = ± 50 × √L (mm)<br>Điều kiện: |f_h| ≤ |f_{hcp}|  ⟹  ĐẠT YÊU CẦU</div>
+      <div class="note-danger">⚠️ Bẫy đơn vị L: L trong căn bắt buộc tính bằng KM (Ví dụ: ΣD = 520 m thì L = 0.520 km).</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 3: Phân bổ số hiệu chỉnh v_i cho từng đoạn</span>
+      <div class="formula-highlight">v_i = - f_h × (D_i / ΣD) (mm)<br>Kiểm tra bắt buộc: Σv_i = - f_h (Bù trừ 1 mm ở đoạn dài nhất nếu lệch do làm tròn)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 4: Tính chênh cao bình sai & Cao độ bình sai</span>
+      <div class="formula-highlight">h_i^BS = h_{đo,i} + (v_i / 1000) (m)   [Kiểm tra: Σh^BS = ΔH_gốc]<br>H_1 = H_A + h_1^BS;   H_2 = H_1 + h_2^BS;   ... ;   H_B = H_{k-1} + h_k^BS</div>
+      <div class="note-warn">Kiểm tra kết quả: Cao độ điểm cuối H_B bắt buộc phải trùng khít 100% với cao độ mốc gốc H_B đề cho.</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 11 -->
+<div id="d11" class="card">
+  <div class="card-header">
+    <span>DẠNG 11: BÌNH SAI THEO SỐ TRẠM MÁY n_i (Slide 199; Giáo trình tr. 109, 113)</span>
+    <span>Vùng dốc &gt; 25 trạm/km</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Tuyến qua vùng dốc, số trạm máy từng đoạn <code>n_i</code>, tổng trạm <code>N = Σn_i</code>. Sai số khép tính được là <code>f_h</code> (mm).
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Tính hạn sai khép theo số trạm</span>
+      <div class="formula-highlight">f_{hcp} = ± 10 × √N (mm)<br>Điều kiện: |f_h| ≤ |f_{hcp}|  ⟹  ĐẠT YÊU CẦU</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Phân bổ số hiệu chỉnh v_i theo tỷ lệ số trạm</span>
+      <div class="formula-highlight">v_i = - f_h × (n_i / N) (mm)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 3: Nguyên tắc làm tròn bảo toàn tổng số hiệu chỉnh</span>
+      <div class="formula-highlight">Điều kiện nghiêm ngặt: Σv_i = - f_h</div>
+      <div class="note-danger">⚠️ Chú ý: Nếu làm tròn toán học thông thường làm lệch 1 mm (ví dụ tổng thành -68 thay vì -67), phải điều chỉnh bớt 1 mm ở đoạn có số trạm lớn nhất để khớp tuyệt đối Σv_i = -f_h!</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 12 -->
+<div id="d12" class="card">
+  <div class="card-header">
+    <span>DẠNG 12: BÌNH SAI MỐC CÔNG TRÌNH CỐT ±0.000 SÀN A (Slide 200–201; Giáo trình tr. 67; Bài 10)</span>
+    <span>Dẫn từ 2 mốc N1, N2</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Đặt máy tại cốt sàn A (chiều cao <code>i</code>), ngắm 2 mốc gốc <code>N_1</code> (H_N1) và <code>N_2</code> (H_N2). Cự ly <code>D_1, D_2</code>; Chênh cao đo <code>h_{AN1}, h_{AN2}</code> (hoặc đọc 3 chỉ mia); Hạn sai <code>f_{hcp}</code>.
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Tính chênh cao đo máy - mia (nếu cho số đọc chỉ giữa c_g)</span>
+      <div class="formula-highlight">h_{AN1} = i - c_{g1} (m);   h_{AN2} = i - c_{g2} (m)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Thiết lập tuyến N1 → A → N2 (BƯỚC SỐNG CÒN: ĐỔI DẤU ĐOẠN ĐẦU)</span>
+      <div class="formula-highlight">Đoạn 1 (N_1 → A):  h_1 = h_{N1A} = - h_{AN1}  (BẮT BUỘC ĐỔI DẤU: trừ của trừ thành cộng!)<br>Đoạn 2 (A → N_2):  h_2 = h_{AN2}   (GIỮ NGUYÊN DẤU)</div>
+      <div class="note-danger">⚠️ Lỗi mất 100% điểm bài này: Quên đổi dấu đoạn đầu (giữ nguyên h_{AN1} âm) sẽ dẫn đến sai toàn bộ f_h, v_i và cao độ mốc A!</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 3: Tính sai số khép f_h & Kiểm tra hạn sai</span>
+      <div class="formula-highlight">Σh_đo = h_1 + h_2 = (-h_{AN1}) + h_{AN2} (m)<br>ΔH_gốc = H_N2 - H_N1 (m)<br>f_h = Σh_đo - ΔH_gốc (m)  ⟹  Đổi ra mm: f_h (mm) = f_h × 1000<br>So sánh: |f_h| ≤ f_{hcp} (đề cho)  ⟹  ĐẠT YÊU CẦU</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 4: Phân bổ số hiệu chỉnh v_1, v_2 & Chênh cao bình sai</span>
+      <div class="formula-highlight">v_1 = - f_h × [D_1 / (D_1 + D_2)] (mm);   v_2 = - f_h × [D_2 / (D_1 + D_2)] (mm)<br>h_1^BS = h_1 + (v_1 / 1000) (m)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 5: Tính cao độ mốc công trình A & Kiểm tra tính khép với N_2</span>
+      <div class="formula-highlight">H_A = H_N1 + h_1^BS (m)<br>Kiểm tra: H_A + [h_2 + (v_2 / 1000)] = H_N2  (Trùng khít 100%)</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 13 -->
+<div id="d13" class="card">
+  <div class="card-header">
+    <span>DẠNG 13: BÀI TOÁN TRẮC ĐỊA THUẬN (Giáo trình tr. 94; Bài 11)</span>
+    <span>Biết A, D, α ⟹ Tìm B</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Điểm <code>A(X_A, Y_A)</code>; Khoảng cách <code>D_AB</code>; Góc định hướng <code>α_AB</code> (độ, phút, giây).
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Đổi góc α_AB ra độ thập phân</span>
+      <div class="formula-highlight">α_AB = Độ + (Phút / 60) + (Giây / 3600)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Tính số gia tọa độ (Trắc địa: X là Bắc đi với cos, Y là Đông đi với sin)</span>
+      <div class="formula-highlight">ΔX_AB = D_AB × cos(α_AB)<br>ΔY_AB = D_AB × sin(α_AB)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 3: Tính tọa độ điểm B</span>
+      <div class="formula-highlight">X_B = X_A + ΔX_AB (m)<br>Y_B = Y_A + ΔY_AB (m)</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 14 -->
+<div id="d14" class="card">
+  <div class="card-header">
+    <span>DẠNG 14: BÀI TOÁN TRẮC ĐỊA NGHỊCH (Giáo trình tr. 94; Bài 12)</span>
+    <span>Biết A, B ⟹ Tìm D, α</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Tọa độ 2 điểm <code>A(X_A, Y_A)</code> và <code>B(X_B, Y_B)</code>.
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Tính số gia tọa độ</span>
+      <div class="formula-highlight">ΔX = X_B - X_A (m)<br>ΔY = Y_B - Y_A (m)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Tính cự ly nằm ngang D_AB</span>
+      <div class="formula-highlight">D_AB = √(ΔX² + ΔY²) (m)</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 3: Tính góc phương vị phụ r</span>
+      <div class="formula-highlight">r = arctan |ΔY / ΔX|</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 4: Bảng xét dấu chuyển từ r sang góc định hướng α_AB</span>
+      <table style="width:100%; border-collapse:collapse; margin:4px 0; font-size:0.83rem;">
+        <tr style="background:#f1f5f9; font-weight:700;">
+          <th style="border:1px solid #cbd5e1; padding:4px;">Góc phần tư</th>
+          <th style="border:1px solid #cbd5e1; padding:4px;">Dấu ΔX</th>
+          <th style="border:1px solid #cbd5e1; padding:4px;">Dấu ΔY</th>
+          <th style="border:1px solid #cbd5e1; padding:4px;">Công thức tính α_AB</th>
+        </tr>
+        <tr>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">Phần tư I</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">+</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">+</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; font-weight:600; color:#0369a1;">α_AB = r</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">Phần tư II</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">-</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">+</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; font-weight:600; color:#0369a1;">α_AB = 180° - r</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">Phần tư III</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">-</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">-</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; font-weight:600; color:#0369a1;">α_AB = 180° + r</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">Phần tư IV</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">+</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; text-align:center;">-</td>
+          <td style="border:1px solid #cbd5e1; padding:4px; font-weight:600; color:#0369a1;">α_AB = 360° - r</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 15 -->
+<div id="d15" class="card">
+  <div class="card-header">
+    <span>DẠNG 15: TRUYỀN GÓC ĐỊNH HƯỚNG TRONG ĐƯỜNG CHUYỀN (Giáo trình tr. 96, 98)</span>
+    <span>Góc ngoặt Trái / Phải</span>
+  </div>
+  <div class="card-body">
+    <div class="given-data">
+      <strong>Dữ liệu đề bài cho:</strong> Góc định hướng cạnh trước <code>α_{trước}</code>; Góc ngoặt đo được <code>β</code> (nằm bên Trái hoặc bên Phải đường chuyền).
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 1: Áp dụng công thức theo hướng ngoặt</span>
+      <div class="formula-highlight">Khi đo góc ngoặt bên TRÁI:   α_{sau} = α_{trước} + β_{trái} - 180°<br>Khi đo góc ngoặt bên PHẢI:   α_{sau} = α_{trước} + 180° - β_{phải}</div>
+    </div>
+    <div class="step">
+      <span class="step-label">Bước 2: Hiệu chỉnh góc khi vượt khung 0° ÷ 360°</span>
+      <div class="formula-highlight">• Nếu α_{sau} ≥ 360°  ⟹  Trừ bớt 360°<br>• Nếu α_{sau} &lt; 0°    ⟹  Cộng thêm 360°</div>
+    </div>
+  </div>
+</div>
+
+<!-- DẠNG 16 -->
+<div id="d16" class="card" style="border-left: 4px solid var(--accent);">
+  <div class="card-header" style="background:#fee2e2; color:#991b1b;">
+    <span>CHECKLIST PHÒNG THI & QUY TẮC BẤM MÁY CASIO 580 / 880</span>
+    <span>Đừng để mất điểm oan</span>
+  </div>
+  <div class="card-body">
+    <div class="checklist-grid">
+      <div class="note-warn">
+        <strong>1. Đổi đơn vị chuẩn:</strong><br>
+        • Số đọc mia: luôn là <code>mm</code> ⟹ chia 1000 ra <code>mét</code>.<br>
+        • Khoảng cách L trong căn <code>50√L</code>: luôn đổi ra <code>KM</code>.<br>
+        • Đổi phút ra độ: lấy <code>phút ÷ 60</code> (Ví dụ: 20' = 20/60 = 0.3333°).
+      </div>
+      <div class="note-warn">
+        <strong>2. Kiểm tra chế độ máy tính Casio:</strong><br>
+        • Màn hình máy tính bắt buộc hiện chữ <strong>D (Deg)</strong>.<br>
+        • Tuyệt đối KHÔNG để chế độ <strong>R (Radian)</strong> khi bấm sin, cos, tan.
+      </div>
+      <div class="note-danger">
+        <strong>3. Quy tắc dấu sống còn:</strong><br>
+        • Thủy chuẩn: <code>Sau - Trước</code> (h = a - b).<br>
+        • Góc chúc xuống (chân công trình): <code>V_C &lt; 0</code>.<br>
+        • Mốc A: Đoạn đầu bắt buộc đổi dấu <code>h_1 = -h_{AN1}</code>.
+      </div>
+      <div class="note-danger">
+        <strong>4. Cân bằng sai số bình sai:</strong><br>
+        • Bắt buộc kiểm tra <code>Σv_i = - f_h</code>.<br>
+        • Cao độ mốc cuối <code>H_{cuối}</code> phải trùng khít tuyệt đối với mốc gốc đề cho.
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>

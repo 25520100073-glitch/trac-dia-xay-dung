@@ -3,8 +3,10 @@
 Tài liệu ôn tập toàn diện phục vụ kiểm tra giữa kỳ môn **Trắc địa xây dựng** (Phạm vi: Chương 3 & 4).
 
 ## 📱 Mở Xem Trực Tiếp Trên Điện Thoại & Máy Tính:
-- **Trang web ôn tập (GitHub Pages):** [https://25520100073-glitch.github.io/trac-dia-xay-dung/](https://25520100073-glitch.github.io/trac-dia-xay-dung/)
-- **Mã nguồn HTML đầy đủ:** [index.html](index.html)
+- **TỜ CÔNG THỨC TRA CỨU PHÒNG THI (MANG VÀO PHÒNG THI):** [https://25520100073-glitch.github.io/trac-dia-xay-dung/cong-thuc-thi.html](https://25520100073-glitch.github.io/trac-dia-xay-dung/cong-thuc-thi.html)
+- **Trang web ôn tập đầy đủ (GitHub Pages):** [https://25520100073-glitch.github.io/trac-dia-xay-dung/](https://25520100073-glitch.github.io/trac-dia-xay-dung/)
+- **Mã nguồn HTML chi tiết:** [index.html](index.html)
+- **Tờ công thức Markdown:** [to-cong-thuc.md](to-cong-thuc.md)
 
 ---
 
